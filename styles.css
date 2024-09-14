@@ -1,0 +1,381 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Tipografía y colores al estilo Apple */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f2f2f5; /* Gris claro para el fondo general */
+    color: #1c1c1e; /* Color de texto principal */
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Barra de Navegación Superior */
+header {
+    background-color: #ffffff; /* Blanco para el encabezado */
+    padding: 10px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    animation: fadeInDown 1s ease-out;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-tabs {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #555555; /* Gris medio para las pestañas */
+    position: relative;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.nav-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #0071e3; /* Azul claro para la línea activa */
+    transition: width 0.3s;
+}
+
+.nav-tab.active {
+    color: #0071e3; /* Azul claro para la pestaña activa */
+}
+
+.nav-tab.active::after {
+    width: 100%;
+}
+
+/* Hover en Pestañas */
+.nav-tab:hover:not(.active) {
+    color: #0071e3; /* Azul claro al pasar el cursor */
+}
+
+.nav-tab:hover:not(.active)::after {
+    width: 100%;
+}
+
+/* Main content */
+main {
+    flex: 1;
+    padding: 40px 20px;
+}
+
+/* Sección */
+.section {
+    background-color: #ffffff; /* Blanco para las secciones */
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: fadeInUp 1s ease-out;
+    display: none; /* Ocultar todas las secciones por defecto */
+}
+
+.section.active {
+    display: block; /* Mostrar la sección activa */
+}
+
+.section-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 30px;
+    color: #333333; /* Gris oscuro para los subtítulos */
+    border-bottom: 2px solid #e5e5ea; /* Línea separadora en gris claro */
+    padding-bottom: 10px;
+}
+
+/* Formulario */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.5s forwards;
+}
+
+.form-group:nth-child(odd) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(even) {
+    animation-delay: 0.4s;
+}
+
+.form-group label {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #555555; /* Gris medio para etiquetas */
+}
+
+.form-group input {
+    padding: 12px 16px;
+    border: 1px solid #d1d1d6; /* Borde gris claro */
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    background-color: #f9f9f9; /* Fondo ligeramente gris para inputs */
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #0071e3; /* Azul claro en enfoque */
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2); /* Sombra azul claro en enfoque */
+    transform: scale(1.02);
+}
+
+/* Input con cálculo */
+.input-with-calculation {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-with-calculation input {
+    flex: 1;
+}
+
+.calculated-value {
+    margin-left: 15px;
+    font-size: 1rem;
+    color: #333333; /* Gris oscuro para valores calculados */
+    min-width: 80px;
+    text-align: right;
+    transition: color 0.3s;
+}
+
+.input-with-calculation:hover .calculated-value {
+    color: #0071e3; /* Cambia a azul claro al pasar el cursor */
+}
+
+/* Descripciones */
+.description {
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: #777777; /* Gris claro para descripciones */
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.form-group:hover .description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Total inicial */
+.total-inicial {
+    margin-top: 30px;
+    font-size: 1.25rem;
+    text-align: right;
+    color: #0071e3; /* Azul claro para resaltar el total */
+    padding-top: 20px;
+    border-top: 1px solid #e5e5ea; /* Línea separadora en gris claro */
+    transition: color 0.3s;
+}
+
+.total-inicial:hover {
+    color: #005bb5; /* Azul más oscuro al pasar el cursor */
+}
+
+/* Cuota Hipotecaria */
+#cuota-hipotecaria-form .form-group label {
+    cursor: default;
+}
+
+#cuota-hipotecaria-form .input-with-calculation span {
+    font-weight: bold;
+    color: #333333;
+}
+
+/* Costo Total de Vivienda */
+.costo-total-content p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.costo-total-content p strong {
+    color: #333333;
+}
+
+/* Simulaciones Guardadas */
+#lista-simulaciones {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.simulacion-item {
+    background-color: #f9f9f9;
+    border-left: 5px solid #0071e3;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.simulacion-item:hover {
+    background-color: #e6f0ff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.simulacion-item h3 {
+    margin-bottom: 10px;
+    color: #0071e3;
+}
+
+.simulacion-details p {
+    margin-bottom: 5px;
+    color: #333333;
+}
+
+/* Botones */
+button, .btn {
+    background-color: #0071e3; /* Azul claro */
+    color: #ffffff; /* Blanco para el texto del botón */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+    align-self: flex-end; /* Alinear el botón a la derecha */
+    margin-top: 20px;
+}
+
+button:hover, .btn:hover {
+    background-color: #005bb5; /* Azul más oscuro al pasar el cursor */
+    transform: translateY(-2px); /* Efecto de elevación al pasar el cursor */
+}
+
+button:active, .btn:active {
+    background-color: #004494; /* Azul aún más oscuro al hacer clic */
+    transform: translateY(0); /* Remover efecto de elevación al hacer clic */
+}
+
+/* Estilos específicos para el botón de Guardar Simulación y Nueva Simulación */
+#guardar-simulacion {
+    background-color: #28a745; /* Verde para indicar acción positiva */
+    color: #ffffff;
+}
+
+#guardar-simulacion:hover {
+    background-color: #218838;
+}
+
+#guardar-simulacion:active {
+    background-color: #1e7e34;
+}
+
+#nueva-simulacion {
+    background-color: #ffc107; /* Amarillo para indicar acción de reinicio */
+    color: #ffffff;
+}
+
+#nueva-simulacion:hover {
+    background-color: #e0a800;
+}
+
+#nueva-simulacion:active {
+    background-color: #d39e00;
+}
+
+/* Animaciones */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .nav-tabs {
+        gap: 15px;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+
+    .header-container, .footer-container {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculated-value {
+        margin-left: 10px;
+        font-size: 0.9rem;
+    }
+
+    .total-inicial {
+        font-size: 1.1rem;
+    }
+
+    .nav-tabs {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar {
+        justify-content: flex-start;
+    }
+}
