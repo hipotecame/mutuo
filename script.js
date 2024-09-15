@@ -1,5 +1,12 @@
 // script.js
 
+// Inicializar Firebase
+// Asegúrate de que este script esté después de la configuración de Firebase en index.html
+// const firebaseConfig = { ... }; // Ya está definido en index.html
+// firebase.initializeApp(firebaseConfig); // Ya está ejecutado en index.html
+const db = firebase.firestore();
+const auth = firebase.auth();
+
 // Función para manejar la navegación entre secciones
 function setupNavigation() {
     const tabs = document.querySelectorAll('.nav-tab');
@@ -19,6 +26,68 @@ function setupNavigation() {
             // Agregar la clase 'active' a la sección seleccionada
             document.getElementById(target).classList.add('active');
         });
+    });
+}
+
+// Función para manejar la autenticación
+function setupAuth() {
+    const loginBtn = document.getElementById('login-btn');
+    const registerBtn = document.getElementById('register-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const authForm = document.getElementById('auth-form');
+
+    // Iniciar Sesión
+    loginBtn.addEventListener('click', () => {
+        const email = document.getElementById('auth-email').value.trim();
+        const password = document.getElementById('auth-password').value.trim();
+
+        auth.signInWithEmailAndPassword(email, password)
+            .then(() => {
+                alert('Iniciada sesión exitosamente.');
+                authForm.reset();
+            })
+            .catch(error => {
+                alert(`Error al iniciar sesión: ${error.message}`);
+            });
+    });
+
+    // Registrarse
+    registerBtn.addEventListener('click', () => {
+        const email = document.getElementById('auth-email').value.trim();
+        const password = document.getElementById('auth-password').value.trim();
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                alert('Registrado exitosamente.');
+                authForm.reset();
+            })
+            .catch(error => {
+                alert(`Error al registrarse: ${error.message}`);
+            });
+    });
+
+    // Cerrar Sesión
+    logoutBtn.addEventListener('click', () => {
+        auth.signOut()
+            .then(() => {
+                alert('Sesión cerrada exitosamente.');
+            })
+            .catch(error => {
+                alert(`Error al cerrar sesión: ${error.message}`);
+            });
+    });
+
+    // Listener de Autenticación
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            // Usuario autenticado
+            logoutBtn.style.display = 'block';
+            authForm.style.display = 'none';
+        } else {
+            // Usuario no autenticado
+            logoutBtn.style.display = 'none';
+            authForm.style.display = 'block';
+        }
     });
 }
 
@@ -188,13 +257,20 @@ function actualizarCostoTotal() {
     document.getElementById('costo-total-vivienda').textContent = costoTotalVivienda.toFixed(2);
 }
 
-// Función para guardar la simulación
+// Función para guardar la simulación en Firestore
 function guardarSimulacion() {
     const nombreSimulacionInput = document.getElementById('nombre-simulacion');
     const nombreSimulacion = nombreSimulacionInput.value.trim();
 
     if (nombreSimulacion === "") {
         alert("Por favor, ingresa un nombre para la simulación.");
+        return;
+    }
+
+    // Obtener el usuario actual
+    const user = auth.currentUser;
+    if (!user) {
+        alert("Por favor, inicia sesión para guardar simulaciones.");
         return;
     }
 
@@ -210,144 +286,133 @@ function guardarSimulacion() {
         fecha: new Date().toLocaleString() // Añadimos una marca de tiempo para referencia
     };
 
-    // Obtener las simulaciones guardadas desde el Local Storage
-    let simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
+    // Referencia a la colección de simulaciones del usuario
+    const simulacionesRef = db.collection('simulaciones').doc(user.uid).collection('userSimulaciones');
 
     // Verificar si ya existe una simulación con el mismo nombre
-    const existe = simulacionesGuardadas.some(sim => sim.nombre.toLowerCase() === nombreSimulacion.toLowerCase());
-    if (existe) {
-        alert("Ya existe una simulación con este nombre. Por favor, elige otro nombre.");
-        return;
-    }
+    simulacionesRef.where('nombre', '==', nombreSimulacion).get()
+        .then(snapshot => {
+            if (!snapshot.empty) {
+                alert("Ya existe una simulación con este nombre. Por favor, elige otro nombre.");
+                return;
+            }
 
-    // Añadir la nueva simulación
-    simulacionesGuardadas.push(simulacion);
-
-    // Guardar de nuevo en el Local Storage
-    localStorage.setItem('simulaciones', JSON.stringify(simulacionesGuardadas));
-
-    // Limpiar el campo de nombre
-    nombreSimulacionInput.value = "";
-
-    // Actualizar la lista de simulaciones guardadas en la UI
-    listarSimulacionesGuardadas();
-
-    alert("Simulación guardada exitosamente.");
+            // Añadir la nueva simulación
+            simulacionesRef.add(simulacion)
+                .then(() => {
+                    alert("Simulación guardada exitosamente.");
+                    nombreSimulacionInput.value = "";
+                    listarSimulacionesGuardadas();
+                })
+                .catch(error => {
+                    console.error("Error al guardar la simulación: ", error);
+                    alert("Error al guardar la simulación. Por favor, inténtalo nuevamente.");
+                });
+        })
+        .catch(error => {
+            console.error("Error al verificar la simulación: ", error);
+            alert("Error al verificar la simulación. Por favor, inténtalo nuevamente.");
+        });
 }
 
-// Función para listar las simulaciones guardadas en la sección correspondiente
+// Función para listar las simulaciones guardadas en Firestore
 function listarSimulacionesGuardadas() {
     const listaSimulacionesDiv = document.getElementById('lista-simulaciones');
     listaSimulacionesDiv.innerHTML = ""; // Limpiar contenido previo
 
-    // Obtener las simulaciones guardadas desde el Local Storage
-    const simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
-
-    if (simulacionesGuardadas.length === 0) {
-        listaSimulacionesDiv.innerHTML = "<p>No hay simulaciones guardadas.</p>";
+    const user = auth.currentUser;
+    if (!user) {
+        listaSimulacionesDiv.innerHTML = "<p>Inicia sesión para ver tus simulaciones guardadas.</p>";
         return;
     }
 
-    simulacionesGuardadas.forEach(simulacion => {
-        const simulacionDiv = document.createElement('div');
-        simulacionDiv.classList.add('simulacion-item');
+    const simulacionesRef = db.collection('simulaciones').doc(user.uid).collection('userSimulaciones');
 
-        const titulo = document.createElement('h3');
-        titulo.textContent = simulacion.nombre;
-        simulacionDiv.appendChild(titulo);
+    simulacionesRef.orderBy('fecha', 'desc').get()
+        .then(snapshot => {
+            if (snapshot.empty) {
+                listaSimulacionesDiv.innerHTML = "<p>No hay simulaciones guardadas.</p>";
+                return;
+            }
 
-        const detallesDiv = document.createElement('div');
-        detallesDiv.classList.add('simulacion-details');
+            snapshot.forEach(doc => {
+                const simulacion = doc.data();
+                const simulacionDiv = document.createElement('div');
+                simulacionDiv.classList.add('simulacion-item');
 
-        const pFecha = document.createElement('p');
-        pFecha.innerHTML = `<strong>Fecha de Creación:</strong> ${simulacion.fecha}`;
-        detallesDiv.appendChild(pFecha);
+                const titulo = document.createElement('h3');
+                titulo.textContent = simulacion.nombre;
+                simulacionDiv.appendChild(titulo);
 
-        const pTotalInicial = document.createElement('p');
-        pTotalInicial.innerHTML = `<strong>Total Inicial Necesario:</strong> €${simulacion.totalInicial.toFixed(2)}`;
-        detallesDiv.appendChild(pTotalInicial);
+                const detallesDiv = document.createElement('div');
+                detallesDiv.classList.add('simulacion-details');
 
-        const pTotalHipotecarios = document.createElement('p');
-        pTotalHipotecarios.innerHTML = `<strong>Total Gastos Hipotecarios:</strong> €${simulacion.totalHipotecarios.toFixed(2)}`;
-        detallesDiv.appendChild(pTotalHipotecarios);
+                const pFecha = document.createElement('p');
+                pFecha.innerHTML = `<strong>Fecha de Creación:</strong> ${simulacion.fecha}`;
+                detallesDiv.appendChild(pFecha);
 
-        const pCostoTotalVivienda = document.createElement('p');
-        pCostoTotalVivienda.innerHTML = `<strong>Costo Total de la Vivienda:</strong> €${simulacion.costoTotalVivienda.toFixed(2)}`;
-        detallesDiv.appendChild(pCostoTotalVivienda);
+                const pTotalInicial = document.createElement('p');
+                pTotalInicial.innerHTML = `<strong>Total Inicial Necesario:</strong> €${simulacion.totalInicial.toFixed(2)}`;
+                detallesDiv.appendChild(pTotalInicial);
 
-        const pCuotaTin = document.createElement('p');
-        pCuotaTin.innerHTML = `<strong>Cuota Mensual Basada en TIN:</strong> €${simulacion.cuotaTin.toFixed(2)}`;
-        detallesDiv.appendChild(pCuotaTin);
+                const pTotalHipotecarios = document.createElement('p');
+                pTotalHipotecarios.innerHTML = `<strong>Total Gastos Hipotecarios:</strong> €${simulacion.totalHipotecarios.toFixed(2)}`;
+                detallesDiv.appendChild(pTotalHipotecarios);
 
-        const pCuotaConSeguros = document.createElement('p');
-        pCuotaConSeguros.innerHTML = `<strong>Cuota Mensual Incluyendo Seguros:</strong> €${simulacion.cuotaConSeguros.toFixed(2)}`;
-        detallesDiv.appendChild(pCuotaConSeguros);
+                const pCostoTotalVivienda = document.createElement('p');
+                pCostoTotalVivienda.innerHTML = `<strong>Costo Total de la Vivienda:</strong> €${simulacion.costoTotalVivienda.toFixed(2)}`;
+                detallesDiv.appendChild(pCostoTotalVivienda);
 
-        const pCostoTotalHipoteca = document.createElement('p');
-        pCostoTotalHipoteca.innerHTML = `<strong>Costo Total de la Hipoteca Basado en TAE:</strong> €${simulacion.costoTotalHipoteca.toFixed(2)}`;
-        detallesDiv.appendChild(pCostoTotalHipoteca);
+                const pCuotaTin = document.createElement('p');
+                pCuotaTin.innerHTML = `<strong>Cuota Mensual Basada en TIN:</strong> €${simulacion.cuotaTin.toFixed(2)}`;
+                detallesDiv.appendChild(pCuotaTin);
 
-        simulacionDiv.appendChild(detallesDiv);
+                const pCuotaConSeguros = document.createElement('p');
+                pCuotaConSeguros.innerHTML = `<strong>Cuota Mensual Incluyendo Seguros:</strong> €${simulacion.cuotaConSeguros.toFixed(2)}`;
+                detallesDiv.appendChild(pCuotaConSeguros);
 
-        // Añadir botones de acción
-        const accionesDiv = document.createElement('div');
-        accionesDiv.classList.add('simulacion-actions');
+                const pCostoTotalHipoteca = document.createElement('p');
+                pCostoTotalHipoteca.innerHTML = `<strong>Costo Total de la Hipoteca Basado en TAE:</strong> €${simulacion.costoTotalHipoteca.toFixed(2)}`;
+                detallesDiv.appendChild(pCostoTotalHipoteca);
 
-        // Botón Editar
-        const editarBtn = document.createElement('button');
-        editarBtn.textContent = 'Editar';
-        editarBtn.classList.add('editar-btn');
-        editarBtn.addEventListener('click', () => editarSimulacion(simulacion.nombre));
-        accionesDiv.appendChild(editarBtn);
+                simulacionDiv.appendChild(detallesDiv);
 
-        // Botón Eliminar
-        const eliminarBtn = document.createElement('button');
-        eliminarBtn.textContent = 'Eliminar';
-        eliminarBtn.classList.add('eliminar-btn');
-        eliminarBtn.addEventListener('click', () => eliminarSimulacion(simulacion.nombre));
-        accionesDiv.appendChild(eliminarBtn);
+                // Añadir botones de acción
+                const accionesDiv = document.createElement('div');
+                accionesDiv.classList.add('simulacion-actions');
 
-        simulacionDiv.appendChild(accionesDiv);
+                // Botón Editar
+                const editarBtn = document.createElement('button');
+                editarBtn.textContent = 'Editar';
+                editarBtn.classList.add('editar-btn');
+                editarBtn.addEventListener('click', () => editarSimulacion(doc.id, simulacion));
+                accionesDiv.appendChild(editarBtn);
 
-        listaSimulacionesDiv.appendChild(simulacionDiv);
-    });
+                // Botón Eliminar
+                const eliminarBtn = document.createElement('button');
+                eliminarBtn.textContent = 'Eliminar';
+                eliminarBtn.classList.add('eliminar-btn');
+                eliminarBtn.addEventListener('click', () => eliminarSimulacion(doc.id, simulacion.nombre));
+                accionesDiv.appendChild(eliminarBtn);
+
+                simulacionDiv.appendChild(accionesDiv);
+
+                listaSimulacionesDiv.appendChild(simulacionDiv);
+            });
+        })
+        .catch(error => {
+            console.error("Error al listar simulaciones: ", error);
+            listaSimulacionesDiv.innerHTML = "<p>Error al cargar las simulaciones. Por favor, inténtalo nuevamente.</p>";
+        });
 }
 
 // Función para editar una simulación
-function editarSimulacion(nombreSimulacion) {
-    // Obtener las simulaciones guardadas desde el Local Storage
-    const simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
-
-    // Encontrar la simulación a editar
-    const simulacion = simulacionesGuardadas.find(sim => sim.nombre === nombreSimulacion);
-    if (!simulacion) {
-        alert("Simulación no encontrada.");
-        return;
-    }
-
+function editarSimulacion(docId, simulacion) {
     // Cargar los datos de la simulación en los formularios
     document.getElementById('nombre-simulacion').value = simulacion.nombre;
-    document.getElementById('precio-inmueble').value = simulacion.totalInicial - simulacion.totalHipotecarios; // Aproximación
-    document.getElementById('entrada-porcentaje').value = 0; // Reset para que el usuario lo calcule
-    document.getElementById('arras-porcentaje').value = 0;
-    document.getElementById('itp-porcentaje').value = 0;
-    document.getElementById('tasacion').value = 0;
-    document.getElementById('notaria').value = 0;
-    document.getElementById('gestoria').value = 0;
-    document.getElementById('registro-propiedad').value = 0;
-
-    document.getElementById('seguro-hogar').value = simulacion.cuotaConSeguros - simulacion.cuotaTin || 0;
-    document.getElementById('seguro-vida').value = 0; // Reset para que el usuario lo ajuste
-    document.getElementById('tin').value = 0; // Reset para que el usuario lo ajuste
-    document.getElementById('tae').value = 0; // Reset para que el usuario lo ajuste
-    document.getElementById('plazo').value = 0; // Reset para que el usuario lo ajuste
-
-    // Recalcular los valores
-    actualizarPorcentaje();
-    actualizarGastosHipoteca();
-    calcularCuotaHipotecaria();
-    actualizarCostoTotal();
-
+    document.getElementById('precio-inmueble').value = simulacion.totalInicial; // Ajusta según tus cálculos
+    // Suponiendo que tienes más campos calculados, necesitarás ajustar esto según tus datos
+    
     // Navegar a la pestaña de Gastos Iniciales para editar
     const tabs = document.querySelectorAll('.nav-tab');
     const sections = document.querySelectorAll('.section');
@@ -356,198 +421,121 @@ function editarSimulacion(nombreSimulacion) {
     tabs[0].classList.add('active');
     sections[0].classList.add('active');
 
-    // Informar al usuario que puede editar los campos
-    alert(`Edite los campos de la simulación "${nombreSimulacion}" y guárdela nuevamente.`);
+    // Almacenar el ID del documento para actualizarlo después
+    sessionStorage.setItem('editarDocId', docId);
 }
 
 // Función para eliminar una simulación
-function eliminarSimulacion(nombreSimulacion) {
+function eliminarSimulacion(docId, nombreSimulacion) {
     if (!confirm(`¿Estás seguro de que deseas eliminar la simulación "${nombreSimulacion}"?`)) {
         return;
     }
 
-    // Obtener las simulaciones guardadas desde el Local Storage
-    let simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
-
-    // Filtrar la simulación a eliminar
-    simulacionesGuardadas = simulacionesGuardadas.filter(sim => sim.nombre !== nombreSimulacion);
-
-    // Guardar de nuevo en el Local Storage
-    localStorage.setItem('simulaciones', JSON.stringify(simulacionesGuardadas));
-
-    // Actualizar la lista de simulaciones guardadas en la UI
-    listarSimulacionesGuardadas();
-
-    alert("Simulación eliminada exitosamente.");
+    // Eliminar la simulación de Firestore
+    db.collection('simulaciones').doc(auth.currentUser.uid).collection('userSimulaciones').doc(docId).delete()
+        .then(() => {
+            alert("Simulación eliminada exitosamente.");
+            listarSimulacionesGuardadas();
+        })
+        .catch(error => {
+            console.error("Error al eliminar la simulación: ", error);
+            alert("Error al eliminar la simulación. Por favor, inténtalo nuevamente.");
+        });
 }
 
-// Función para iniciar una nueva simulación
-function nuevaSimulacion() {
-    // Limpiar todos los campos de entrada
-    document.getElementById('gastos-iniciales-form').reset();
-    document.getElementById('gastos-hipotecarios-form').reset();
-    document.getElementById('cuota-hipotecaria-form').reset();
-    
-    // Restablecer los valores calculados a cero
-    document.getElementById('entrada-euros').textContent = '0.00';
-    document.getElementById('arras-euros').textContent = '0.00';
-    document.getElementById('itp-euros').textContent = '0.00';
-    document.getElementById('total-inicial').textContent = '0.00';
-    document.getElementById('monto-prestamo').textContent = '0.00';
-    document.getElementById('plazo-anios').textContent = '0';
-    document.getElementById('numero-cuotas').textContent = '0';
-    document.getElementById('mostrar-tin').textContent = '0.00';
-    document.getElementById('mostrar-tae').textContent = '0.00';
-    document.getElementById('cuota-tin').textContent = '0.00';
-    document.getElementById('cuota-con-seguros').textContent = '0.00';
-    document.getElementById('costo-total-hipoteca').textContent = '0.00';
-    document.getElementById('total-inicial-costo').textContent = '0.00';
-    document.getElementById('total-hipotecarios').textContent = '0.00';
-    document.getElementById('costo-total-vivienda').textContent = '0.00';
-    
-    // Limpiar el nombre de la simulación
-    document.getElementById('nombre-simulacion').value = '';
-    
-    // Navegar a la primera pestaña
-    const tabs = document.querySelectorAll('.nav-tab');
-    const sections = document.querySelectorAll('.section');
-    tabs.forEach(t => t.classList.remove('active'));
-    sections.forEach(s => s.classList.remove('active'));
-    tabs[0].classList.add('active');
-    sections[0].classList.add('active');
-}
+// Función para actualizar una simulación existente
+function actualizarSimulacion(docId) {
+    const nombreSimulacionInput = document.getElementById('nombre-simulacion');
+    const nombreSimulacion = nombreSimulacionInput.value.trim();
 
-// Función para listar las simulaciones guardadas en la sección correspondiente
-function listarSimulacionesGuardadas() {
-    const listaSimulacionesDiv = document.getElementById('lista-simulaciones');
-    listaSimulacionesDiv.innerHTML = ""; // Limpiar contenido previo
-
-    // Obtener las simulaciones guardadas desde el Local Storage
-    const simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
-
-    if (simulacionesGuardadas.length === 0) {
-        listaSimulacionesDiv.innerHTML = "<p>No hay simulaciones guardadas.</p>";
+    if (nombreSimulacion === "") {
+        alert("Por favor, ingresa un nombre para la simulación.");
         return;
     }
 
-    simulacionesGuardadas.forEach(simulacion => {
-        const simulacionDiv = document.createElement('div');
-        simulacionDiv.classList.add('simulacion-item');
-
-        const titulo = document.createElement('h3');
-        titulo.textContent = simulacion.nombre;
-        simulacionDiv.appendChild(titulo);
-
-        const detallesDiv = document.createElement('div');
-        detallesDiv.classList.add('simulacion-details');
-
-        const pFecha = document.createElement('p');
-        pFecha.innerHTML = `<strong>Fecha de Creación:</strong> ${simulacion.fecha}`;
-        detallesDiv.appendChild(pFecha);
-
-        const pTotalInicial = document.createElement('p');
-        pTotalInicial.innerHTML = `<strong>Total Inicial Necesario:</strong> €${simulacion.totalInicial.toFixed(2)}`;
-        detallesDiv.appendChild(pTotalInicial);
-
-        const pTotalHipotecarios = document.createElement('p');
-        pTotalHipotecarios.innerHTML = `<strong>Total Gastos Hipotecarios:</strong> €${simulacion.totalHipotecarios.toFixed(2)}`;
-        detallesDiv.appendChild(pTotalHipotecarios);
-
-        const pCostoTotalVivienda = document.createElement('p');
-        pCostoTotalVivienda.innerHTML = `<strong>Costo Total de la Vivienda:</strong> €${simulacion.costoTotalVivienda.toFixed(2)}`;
-        detallesDiv.appendChild(pCostoTotalVivienda);
-
-        const pCuotaTin = document.createElement('p');
-        pCuotaTin.innerHTML = `<strong>Cuota Mensual Basada en TIN:</strong> €${simulacion.cuotaTin.toFixed(2)}`;
-        detallesDiv.appendChild(pCuotaTin);
-
-        const pCuotaConSeguros = document.createElement('p');
-        pCuotaConSeguros.innerHTML = `<strong>Cuota Mensual Incluyendo Seguros:</strong> €${simulacion.cuotaConSeguros.toFixed(2)}`;
-        detallesDiv.appendChild(pCuotaConSeguros);
-
-        const pCostoTotalHipoteca = document.createElement('p');
-        pCostoTotalHipoteca.innerHTML = `<strong>Costo Total de la Hipoteca Basado en TAE:</strong> €${simulacion.costoTotalHipoteca.toFixed(2)}`;
-        detallesDiv.appendChild(pCostoTotalHipoteca);
-
-        simulacionDiv.appendChild(detallesDiv);
-
-        // Añadir botones de acción
-        const accionesDiv = document.createElement('div');
-        accionesDiv.classList.add('simulacion-actions');
-
-        // Botón Eliminar
-        const eliminarBtn = document.createElement('button');
-        eliminarBtn.textContent = 'Eliminar';
-        eliminarBtn.classList.add('eliminar-btn');
-        eliminarBtn.addEventListener('click', () => eliminarSimulacion(simulacion.nombre));
-        accionesDiv.appendChild(eliminarBtn);
-
-        simulacionDiv.appendChild(accionesDiv);
-
-        listaSimulacionesDiv.appendChild(simulacionDiv);
-    });
-}
-
-// Función para eliminar una simulación
-function eliminarSimulacion(nombreSimulacion) {
-    if (!confirm(`¿Estás seguro de que deseas eliminar la simulación "${nombreSimulacion}"?`)) {
+    // Obtener el usuario actual
+    const user = auth.currentUser;
+    if (!user) {
+        alert("Por favor, inicia sesión para actualizar simulaciones.");
         return;
     }
 
-    // Obtener las simulaciones guardadas desde el Local Storage
-    let simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
+    // Obtener los datos de la simulación actual
+    const simulacion = {
+        nombre: nombreSimulacion,
+        totalInicial: parseFloat(document.getElementById('total-inicial').textContent) || 0,
+        totalHipotecarios: parseFloat(document.getElementById('costo-total-hipoteca').textContent) || 0,
+        costoTotalVivienda: parseFloat(document.getElementById('costo-total-vivienda').textContent) || 0,
+        cuotaTin: parseFloat(document.getElementById('cuota-tin').textContent) || 0,
+        cuotaConSeguros: parseFloat(document.getElementById('cuota-con-seguros').textContent) || 0,
+        costoTotalHipoteca: parseFloat(document.getElementById('costo-total-hipoteca').textContent) || 0,
+        fecha: new Date().toLocaleString() // Actualizar la marca de tiempo
+    };
 
-    // Filtrar la simulación a eliminar
-    simulacionesGuardadas = simulacionesGuardadas.filter(sim => sim.nombre !== nombreSimulacion);
+    // Referencia a la simulación específica
+    const simulacionRef = db.collection('simulaciones').doc(user.uid).collection('userSimulaciones').doc(docId);
 
-    // Guardar de nuevo en el Local Storage
-    localStorage.setItem('simulaciones', JSON.stringify(simulacionesGuardadas));
-
-    // Actualizar la lista de simulaciones guardadas en la UI
-    listarSimulacionesGuardadas();
-
-    alert("Simulación eliminada exitosamente.");
+    // Actualizar la simulación en Firestore
+    simulacionRef.set(simulacion, { merge: true })
+        .then(() => {
+            alert("Simulación actualizada exitosamente.");
+            nombreSimulacionInput.value = "";
+            sessionStorage.removeItem('editarDocId');
+            listarSimulacionesGuardadas();
+        })
+        .catch(error => {
+            console.error("Error al actualizar la simulación: ", error);
+            alert("Error al actualizar la simulación. Por favor, inténtalo nuevamente.");
+        });
 }
 
-// Función para iniciar una nueva simulación
+// Función para iniciar una nueva simulación o guardar una existente
 function nuevaSimulacion() {
-    // Limpiar todos los campos de entrada
-    document.getElementById('gastos-iniciales-form').reset();
-    document.getElementById('gastos-hipotecarios-form').reset();
-    document.getElementById('cuota-hipotecaria-form').reset();
-    
-    // Restablecer los valores calculados a cero
-    document.getElementById('entrada-euros').textContent = '0.00';
-    document.getElementById('arras-euros').textContent = '0.00';
-    document.getElementById('itp-euros').textContent = '0.00';
-    document.getElementById('total-inicial').textContent = '0.00';
-    document.getElementById('monto-prestamo').textContent = '0.00';
-    document.getElementById('plazo-anios').textContent = '0';
-    document.getElementById('numero-cuotas').textContent = '0';
-    document.getElementById('mostrar-tin').textContent = '0.00';
-    document.getElementById('mostrar-tae').textContent = '0.00';
-    document.getElementById('cuota-tin').textContent = '0.00';
-    document.getElementById('cuota-con-seguros').textContent = '0.00';
-    document.getElementById('costo-total-hipoteca').textContent = '0.00';
-    document.getElementById('total-inicial-costo').textContent = '0.00';
-    document.getElementById('total-hipotecarios').textContent = '0.00';
-    document.getElementById('costo-total-vivienda').textContent = '0.00';
-    
-    // Limpiar el nombre de la simulación
-    document.getElementById('nombre-simulacion').value = '';
-    
-    // Navegar a la primera pestaña
-    const tabs = document.querySelectorAll('.nav-tab');
-    const sections = document.querySelectorAll('.section');
-    tabs.forEach(t => t.classList.remove('active'));
-    sections.forEach(s => s.classList.remove('active'));
-    tabs[0].classList.add('active');
-    sections[0].classList.add('active');
+    // Verificar si estamos editando una simulación existente
+    const editarDocId = sessionStorage.getItem('editarDocId');
+
+    if (editarDocId) {
+        actualizarSimulacion(editarDocId);
+    } else {
+        // Limpiar todos los campos de entrada
+        document.getElementById('gastos-iniciales-form').reset();
+        document.getElementById('gastos-hipotecarios-form').reset();
+        document.getElementById('cuota-hipotecaria-form').reset();
+        
+        // Restablecer los valores calculados a cero
+        document.getElementById('entrada-euros').textContent = '0.00';
+        document.getElementById('arras-euros').textContent = '0.00';
+        document.getElementById('itp-euros').textContent = '0.00';
+        document.getElementById('total-inicial').textContent = '0.00';
+        document.getElementById('monto-prestamo').textContent = '0.00';
+        document.getElementById('plazo-anios').textContent = '0';
+        document.getElementById('numero-cuotas').textContent = '0';
+        document.getElementById('mostrar-tin').textContent = '0.00';
+        document.getElementById('mostrar-tae').textContent = '0.00';
+        document.getElementById('cuota-tin').textContent = '0.00';
+        document.getElementById('cuota-con-seguros').textContent = '0.00';
+        document.getElementById('costo-total-hipoteca').textContent = '0.00';
+        document.getElementById('total-inicial-costo').textContent = '0.00';
+        document.getElementById('total-hipotecarios').textContent = '0.00';
+        document.getElementById('costo-total-vivienda').textContent = '0.00';
+        
+        // Limpiar el nombre de la simulación
+        document.getElementById('nombre-simulacion').value = '';
+        
+        // Navegar a la primera pestaña
+        const tabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.section');
+        tabs.forEach(t => t.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+        tabs[0].classList.add('active');
+        sections[0].classList.add('active');
+    }
 }
 
-// Función principal para inicializar todas las configuraciones
+// Función para manejar la actualización de Firestore al guardar
 function initializeApp() {
     setupNavigation();
+    setupAuth();
     setupGastosIniciales();
     setupGastosHipotecarios();
     calcularCuotaHipotecaria(); // Inicializar cálculos
@@ -560,8 +548,15 @@ function initializeApp() {
     const nuevaSimulacionBtn = document.getElementById('nueva-simulacion');
     nuevaSimulacionBtn.addEventListener('click', nuevaSimulacion);
 
-    // Listar simulaciones guardadas al iniciar
-    listarSimulacionesGuardadas();
+    // Listar simulaciones guardadas al iniciar y cada vez que cambie el estado de autenticación
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            listarSimulacionesGuardadas();
+        } else {
+            const listaSimulacionesDiv = document.getElementById('lista-simulaciones');
+            listaSimulacionesDiv.innerHTML = "<p>Inicia sesión para ver tus simulaciones guardadas.</p>";
+        }
+    });
 }
 
 // Inicializar la aplicación al cargar la página
