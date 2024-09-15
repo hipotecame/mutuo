@@ -288,8 +288,225 @@ function listarSimulacionesGuardadas() {
         detallesDiv.appendChild(pCostoTotalHipoteca);
 
         simulacionDiv.appendChild(detallesDiv);
+
+        // Añadir botones de acción
+        const accionesDiv = document.createElement('div');
+        accionesDiv.classList.add('simulacion-actions');
+
+        // Botón Editar
+        const editarBtn = document.createElement('button');
+        editarBtn.textContent = 'Editar';
+        editarBtn.classList.add('editar-btn');
+        editarBtn.addEventListener('click', () => editarSimulacion(simulacion.nombre));
+        accionesDiv.appendChild(editarBtn);
+
+        // Botón Eliminar
+        const eliminarBtn = document.createElement('button');
+        eliminarBtn.textContent = 'Eliminar';
+        eliminarBtn.classList.add('eliminar-btn');
+        eliminarBtn.addEventListener('click', () => eliminarSimulacion(simulacion.nombre));
+        accionesDiv.appendChild(eliminarBtn);
+
+        simulacionDiv.appendChild(accionesDiv);
+
         listaSimulacionesDiv.appendChild(simulacionDiv);
     });
+}
+
+// Función para editar una simulación
+function editarSimulacion(nombreSimulacion) {
+    // Obtener las simulaciones guardadas desde el Local Storage
+    const simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
+
+    // Encontrar la simulación a editar
+    const simulacion = simulacionesGuardadas.find(sim => sim.nombre === nombreSimulacion);
+    if (!simulacion) {
+        alert("Simulación no encontrada.");
+        return;
+    }
+
+    // Cargar los datos de la simulación en los formularios
+    document.getElementById('nombre-simulacion').value = simulacion.nombre;
+    document.getElementById('precio-inmueble').value = simulacion.totalInicial - simulacion.totalHipotecarios; // Aproximación
+    document.getElementById('entrada-porcentaje').value = 0; // Reset para que el usuario lo calcule
+    document.getElementById('arras-porcentaje').value = 0;
+    document.getElementById('itp-porcentaje').value = 0;
+    document.getElementById('tasacion').value = 0;
+    document.getElementById('notaria').value = 0;
+    document.getElementById('gestoria').value = 0;
+    document.getElementById('registro-propiedad').value = 0;
+
+    document.getElementById('seguro-hogar').value = simulacion.cuotaConSeguros - simulacion.cuotaTin || 0;
+    document.getElementById('seguro-vida').value = 0; // Reset para que el usuario lo ajuste
+    document.getElementById('tin').value = 0; // Reset para que el usuario lo ajuste
+    document.getElementById('tae').value = 0; // Reset para que el usuario lo ajuste
+    document.getElementById('plazo').value = 0; // Reset para que el usuario lo ajuste
+
+    // Recalcular los valores
+    actualizarPorcentaje();
+    actualizarGastosHipoteca();
+    calcularCuotaHipotecaria();
+    actualizarCostoTotal();
+
+    // Navegar a la pestaña de Gastos Iniciales para editar
+    const tabs = document.querySelectorAll('.nav-tab');
+    const sections = document.querySelectorAll('.section');
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    tabs[0].classList.add('active');
+    sections[0].classList.add('active');
+
+    // Informar al usuario que puede editar los campos
+    alert(`Edite los campos de la simulación "${nombreSimulacion}" y guárdela nuevamente.`);
+}
+
+// Función para eliminar una simulación
+function eliminarSimulacion(nombreSimulacion) {
+    if (!confirm(`¿Estás seguro de que deseas eliminar la simulación "${nombreSimulacion}"?`)) {
+        return;
+    }
+
+    // Obtener las simulaciones guardadas desde el Local Storage
+    let simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
+
+    // Filtrar la simulación a eliminar
+    simulacionesGuardadas = simulacionesGuardadas.filter(sim => sim.nombre !== nombreSimulacion);
+
+    // Guardar de nuevo en el Local Storage
+    localStorage.setItem('simulaciones', JSON.stringify(simulacionesGuardadas));
+
+    // Actualizar la lista de simulaciones guardadas en la UI
+    listarSimulacionesGuardadas();
+
+    alert("Simulación eliminada exitosamente.");
+}
+
+// Función para iniciar una nueva simulación
+function nuevaSimulacion() {
+    // Limpiar todos los campos de entrada
+    document.getElementById('gastos-iniciales-form').reset();
+    document.getElementById('gastos-hipotecarios-form').reset();
+    document.getElementById('cuota-hipotecaria-form').reset();
+    
+    // Restablecer los valores calculados a cero
+    document.getElementById('entrada-euros').textContent = '0.00';
+    document.getElementById('arras-euros').textContent = '0.00';
+    document.getElementById('itp-euros').textContent = '0.00';
+    document.getElementById('total-inicial').textContent = '0.00';
+    document.getElementById('monto-prestamo').textContent = '0.00';
+    document.getElementById('plazo-anios').textContent = '0';
+    document.getElementById('numero-cuotas').textContent = '0';
+    document.getElementById('mostrar-tin').textContent = '0.00';
+    document.getElementById('mostrar-tae').textContent = '0.00';
+    document.getElementById('cuota-tin').textContent = '0.00';
+    document.getElementById('cuota-con-seguros').textContent = '0.00';
+    document.getElementById('costo-total-hipoteca').textContent = '0.00';
+    document.getElementById('total-inicial-costo').textContent = '0.00';
+    document.getElementById('total-hipotecarios').textContent = '0.00';
+    document.getElementById('costo-total-vivienda').textContent = '0.00';
+    
+    // Limpiar el nombre de la simulación
+    document.getElementById('nombre-simulacion').value = '';
+    
+    // Navegar a la primera pestaña
+    const tabs = document.querySelectorAll('.nav-tab');
+    const sections = document.querySelectorAll('.section');
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    tabs[0].classList.add('active');
+    sections[0].classList.add('active');
+}
+
+// Función para listar las simulaciones guardadas en la sección correspondiente
+function listarSimulacionesGuardadas() {
+    const listaSimulacionesDiv = document.getElementById('lista-simulaciones');
+    listaSimulacionesDiv.innerHTML = ""; // Limpiar contenido previo
+
+    // Obtener las simulaciones guardadas desde el Local Storage
+    const simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
+
+    if (simulacionesGuardadas.length === 0) {
+        listaSimulacionesDiv.innerHTML = "<p>No hay simulaciones guardadas.</p>";
+        return;
+    }
+
+    simulacionesGuardadas.forEach(simulacion => {
+        const simulacionDiv = document.createElement('div');
+        simulacionDiv.classList.add('simulacion-item');
+
+        const titulo = document.createElement('h3');
+        titulo.textContent = simulacion.nombre;
+        simulacionDiv.appendChild(titulo);
+
+        const detallesDiv = document.createElement('div');
+        detallesDiv.classList.add('simulacion-details');
+
+        const pFecha = document.createElement('p');
+        pFecha.innerHTML = `<strong>Fecha de Creación:</strong> ${simulacion.fecha}`;
+        detallesDiv.appendChild(pFecha);
+
+        const pTotalInicial = document.createElement('p');
+        pTotalInicial.innerHTML = `<strong>Total Inicial Necesario:</strong> €${simulacion.totalInicial.toFixed(2)}`;
+        detallesDiv.appendChild(pTotalInicial);
+
+        const pTotalHipotecarios = document.createElement('p');
+        pTotalHipotecarios.innerHTML = `<strong>Total Gastos Hipotecarios:</strong> €${simulacion.totalHipotecarios.toFixed(2)}`;
+        detallesDiv.appendChild(pTotalHipotecarios);
+
+        const pCostoTotalVivienda = document.createElement('p');
+        pCostoTotalVivienda.innerHTML = `<strong>Costo Total de la Vivienda:</strong> €${simulacion.costoTotalVivienda.toFixed(2)}`;
+        detallesDiv.appendChild(pCostoTotalVivienda);
+
+        const pCuotaTin = document.createElement('p');
+        pCuotaTin.innerHTML = `<strong>Cuota Mensual Basada en TIN:</strong> €${simulacion.cuotaTin.toFixed(2)}`;
+        detallesDiv.appendChild(pCuotaTin);
+
+        const pCuotaConSeguros = document.createElement('p');
+        pCuotaConSeguros.innerHTML = `<strong>Cuota Mensual Incluyendo Seguros:</strong> €${simulacion.cuotaConSeguros.toFixed(2)}`;
+        detallesDiv.appendChild(pCuotaConSeguros);
+
+        const pCostoTotalHipoteca = document.createElement('p');
+        pCostoTotalHipoteca.innerHTML = `<strong>Costo Total de la Hipoteca Basado en TAE:</strong> €${simulacion.costoTotalHipoteca.toFixed(2)}`;
+        detallesDiv.appendChild(pCostoTotalHipoteca);
+
+        simulacionDiv.appendChild(detallesDiv);
+
+        // Añadir botones de acción
+        const accionesDiv = document.createElement('div');
+        accionesDiv.classList.add('simulacion-actions');
+
+        // Botón Eliminar
+        const eliminarBtn = document.createElement('button');
+        eliminarBtn.textContent = 'Eliminar';
+        eliminarBtn.classList.add('eliminar-btn');
+        eliminarBtn.addEventListener('click', () => eliminarSimulacion(simulacion.nombre));
+        accionesDiv.appendChild(eliminarBtn);
+
+        simulacionDiv.appendChild(accionesDiv);
+
+        listaSimulacionesDiv.appendChild(simulacionDiv);
+    });
+}
+
+// Función para eliminar una simulación
+function eliminarSimulacion(nombreSimulacion) {
+    if (!confirm(`¿Estás seguro de que deseas eliminar la simulación "${nombreSimulacion}"?`)) {
+        return;
+    }
+
+    // Obtener las simulaciones guardadas desde el Local Storage
+    let simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
+
+    // Filtrar la simulación a eliminar
+    simulacionesGuardadas = simulacionesGuardadas.filter(sim => sim.nombre !== nombreSimulacion);
+
+    // Guardar de nuevo en el Local Storage
+    localStorage.setItem('simulaciones', JSON.stringify(simulacionesGuardadas));
+
+    // Actualizar la lista de simulaciones guardadas en la UI
+    listarSimulacionesGuardadas();
+
+    alert("Simulación eliminada exitosamente.");
 }
 
 // Función para iniciar una nueva simulación
@@ -349,4 +566,3 @@ function initializeApp() {
 
 // Inicializar la aplicación al cargar la página
 window.addEventListener('DOMContentLoaded', initializeApp);
-
