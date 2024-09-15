@@ -271,56 +271,6 @@ form {
     color: #333333; /* Gris oscuro */
 }
 
-/* Botones Editar y Eliminar */
-.simulacion-actions {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-}
-
-.simulacion-actions button {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-/* Botón Editar */
-.simulacion-actions .editar-btn {
-    background-color: #f0e68c; /* Khaki */
-    color: #001f3f; /* Navy Blue */
-}
-
-.simulacion-actions .editar-btn:hover {
-    background-color: #dcd76d; /* Khaki más oscuro */
-    transform: translateY(-2px);
-}
-
-.simulacion-actions .editar-btn:active {
-    background-color: #c9c356; /* Khaki aún más oscuro */
-    transform: translateY(0);
-}
-
-/* Botón Eliminar */
-.simulacion-actions .eliminar-btn {
-    background-color: #ff4d4d; /* Rojo suave */
-    color: #ffffff; /* Blanco */
-}
-
-.simulacion-actions .eliminar-btn:hover {
-    background-color: #e60000; /* Rojo más oscuro */
-    transform: translateY(-2px);
-}
-
-.simulacion-actions .eliminar-btn:active {
-    background-color: #b30000; /* Rojo aún más oscuro */
-    transform: translateY(0);
-}
-
 /* Botones */
 .button-group {
     display: flex;
@@ -369,6 +319,33 @@ button, .btn {
     transform: translateY(0);
 }
 
+/* Botón Eliminar (Usado en Autenticación y Simulaciones) */
+.btn.eliminar {
+    background-color: #ff4d4d; /* Rojo suave */
+    color: #ffffff; /* Blanco */
+}
+
+.btn.eliminar:hover {
+    background-color: #e60000; /* Rojo más oscuro */
+    transform: translateY(-2px);
+}
+
+.btn.eliminar:active {
+    background-color: #b30000; /* Rojo aún más oscuro */
+    transform: translateY(0);
+}
+
+/* Botones de Autenticación */
+#auth-form .button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#auth-form .button-group button {
+    flex: 1;
+}
+
 /* Animaciones */
 @keyframes fadeInDown {
     from {
@@ -412,11 +389,6 @@ button, .btn {
     .footer-container {
         padding: 0 10px;
     }
-
-    .simulacion-actions {
-        top: auto;
-        bottom: 15px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -446,8 +418,8 @@ button, .btn {
         width: 100%;
     }
 
-    .simulacion-actions button {
-        padding: 4px 8px;
-        font-size: 0.8rem;
+    .simulacion-actions {
+        flex-direction: column;
+        gap: 5px;
     }
 }
