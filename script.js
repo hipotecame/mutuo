@@ -514,13 +514,13 @@ function exportarSimulaciones() {
         return;
     }
 
-    const blob = new Blob([JSON.stringify(simulacionesGuardadas, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
+    const json = JSON.stringify(simulacionesGuardadas, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+    
     const a = document.createElement('a');
-    a.href = url;
+    a.href = dataUri;
     a.download = 'simulaciones_mutuo.json';
     a.click();
-    URL.revokeObjectURL(url);
 }
 
 // Función para importar simulaciones desde un archivo JSON
