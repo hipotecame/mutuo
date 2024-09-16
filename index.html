@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mutuo - Calculadora de Hipoteca</title>
+    <title>Mutuo</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,7 +11,6 @@
     <header class="top-bar">
         <div class="top-bar-content">
             <h1 class="app-name">Mutuo</h1>
-            <p class="app-slogan">Ahorrar no es solo guardar, sino saber gastar</p>
         </div>
     </header>
     
@@ -21,7 +20,7 @@
             <li class="nav-tab active" data-tab="gastos-iniciales">Gastos Iniciales</li>
             <li class="nav-tab" data-tab="gastos-hipoteca">Gastos Hipotecarios</li>
             <li class="nav-tab" data-tab="cuota-hipotecaria">Cuota Hipotecaria</li>
-            <li class="nav-tab" data-tab="costo-total">Costo Total de Vivienda</li>
+            <li class="nav-tab" data-tab="costo-total">Resumen</li>
             <li class="nav-tab" data-tab="simulaciones">Simulaciones Guardadas</li>
         </ul>
     </nav>
@@ -34,14 +33,14 @@
                 <form id="gastos-iniciales-form">
                     <!-- Nombre de la Simulación -->
                     <div class="form-group">
-                        <label for="nombre-simulacion">Nombre de la Simulación</label>
+                        <label for="nombre-simulacion">Nombre de la simulación</label>
                         <input type="text" id="nombre-simulacion" placeholder="Ingrese un nombre para la simulación" required>
                         <small class="description">Asigna un nombre único para identificar esta simulación.</small>
                     </div>
                     
                     <!-- Precio del Inmueble -->
                     <div class="form-group">
-                        <label for="precio-inmueble">Precio del Inmueble (€)</label>
+                        <label for="precio-inmueble">Precio del inmueble (€)</label>
                         <input type="number" id="precio-inmueble" placeholder="Ingrese el precio del inmueble" min="0" step="0.01" required>
                         <small class="description">El valor total de la propiedad que deseas adquirir.</small>
                     </div>
@@ -68,7 +67,7 @@
                     
                     <!-- Tasación de Vivienda -->
                     <div class="form-group">
-                        <label for="tasacion">Tasación de Vivienda (€)</label>
+                        <label for="tasacion">Tasación de vivienda (€)</label>
                         <input type="number" id="tasacion" placeholder="Ingrese el costo de tasación" min="0" step="0.01" required>
                         <small class="description">Costo del servicio profesional que determina el valor de la propiedad.</small>
                     </div>
@@ -89,7 +88,7 @@
                     
                     <!-- Registro de la Propiedad -->
                     <div class="form-group">
-                        <label for="registro-propiedad">Registro de la Propiedad (€)</label>
+                        <label for="registro-propiedad">Registro de la propiedad (€)</label>
                         <input type="number" id="registro-propiedad" placeholder="Ingrese el costo del registro" min="0" step="0.01" required>
                         <small class="description">Gastos para inscribir la propiedad a tu nombre.</small>
                     </div>
@@ -106,7 +105,7 @@
                     
                     <!-- Total Inicial -->
                     <div class="total-inicial">
-                        <strong>Total Inicial Necesario (€):</strong> €<span id="total-inicial">0.00</span>
+                        <strong>Total inicial necesario (€):</strong> €<span id="total-inicial">0.00</span>
                     </div>
                 </form>
             </div>
@@ -115,18 +114,18 @@
         <!-- Sección 2: Gastos Relacionados con la Hipoteca -->
         <section class="section" id="gastos-hipoteca">
             <div class="section-container">
-                <h2>Gastos Relacionados con la Hipoteca</h2>
+                <h2>Gastos relacionados con la hipoteca</h2>
                 <form id="gastos-hipotecarios-form">
                     <!-- Seguro de hogar -->
                     <div class="form-group">
-                        <label for="seguro-hogar">Seguro de Hogar (€)</label>
+                        <label for="seguro-hogar">Seguro de hogar (€)</label>
                         <input type="number" id="seguro-hogar" placeholder="Ingrese el costo del seguro de hogar" min="0" step="0.01" required>
                         <small class="description">Costo mensual del seguro que protege tu vivienda.</small>
                     </div>
                     
                     <!-- Seguro de vida -->
                     <div class="form-group">
-                        <label for="seguro-vida">Seguro de Vida (€)</label>
+                        <label for="seguro-vida">Seguro de vida (€)</label>
                         <input type="number" id="seguro-vida" placeholder="Ingrese el costo del seguro de vida" min="0" step="0.01" required>
                         <small class="description">Costo mensual del seguro que garantiza el pago de la hipoteca en caso de fallecimiento.</small>
                     </div>
@@ -147,7 +146,7 @@
                     
                     <!-- Plazo del Préstamo -->
                     <div class="form-group">
-                        <label for="plazo">Plazo del Préstamo (años)</label>
+                        <label for="plazo">Plazo del préstamo (años)</label>
                         <input type="number" id="plazo" placeholder="Ingrese el plazo en años" min="1" step="1" required>
                         <small class="description">Duración del préstamo hipotecario en años.</small>
                     </div>
@@ -158,11 +157,11 @@
         <!-- Sección 3: Cuota Hipotecaria -->
         <section class="section" id="cuota-hipotecaria">
             <div class="section-container">
-                <h2>Cuota Hipotecaria</h2>
+                <h2>Cuota hipotecaria</h2>
                 <form id="cuota-hipotecaria-form">
                     <!-- Monto del Préstamo -->
                     <div class="form-group">
-                        <label>Monto del Préstamo (€)</label>
+                        <label>Monto del préstamo (€)</label>
                         <div class="input-with-calculation">
                             <span id="monto-prestamo">0.00</span>
                         </div>
@@ -171,7 +170,7 @@
                     
                     <!-- Plazo del Préstamo -->
                     <div class="form-group">
-                        <label>Plazo del Préstamo (años)</label>
+                        <label>Plazo del préstamo (años)</label>
                         <div class="input-with-calculation">
                             <span id="plazo-anios">0</span>
                         </div>
@@ -180,7 +179,7 @@
                     
                     <!-- Número de Cuotas -->
                     <div class="form-group">
-                        <label>Número de Cuotas</label>
+                        <label>Número de cuotas</label>
                         <div class="input-with-calculation">
                             <span id="numero-cuotas">0</span>
                         </div>
@@ -207,7 +206,7 @@
                     
                     <!-- Cuota Mensual Basada en TIN -->
                     <div class="form-group">
-                        <label>Cuota Mensual Basada en TIN (€)</label>
+                        <label>Cuota mensual basada en la TIN (€)</label>
                         <div class="input-with-calculation">
                             <span id="cuota-tin">0.00</span>
                         </div>
@@ -216,7 +215,7 @@
                     
                     <!-- Cuota Mensual Incluyendo Seguros -->
                     <div class="form-group">
-                        <label>Cuota Mensual Incluyendo Seguros (€)</label>
+                        <label>Cuota mensual basada en la TIN e incluyendo seguros (€)</label>
                         <div class="input-with-calculation">
                             <span id="cuota-con-seguros">0.00</span>
                         </div>
@@ -225,7 +224,7 @@
                     
                     <!-- Costo Total de la Hipoteca Basado en TAE -->
                     <div class="form-group">
-                        <label>Costo Total de la Hipoteca Basado en TAE (€)</label>
+                        <label>Costo Total de la hipoteca basado en la TAE (€)</label>
                         <div class="input-with-calculation">
                             <span id="costo-total-hipoteca">0.00</span>
                         </div>
@@ -244,11 +243,11 @@
         <!-- Sección 4: Costo Total de Vivienda -->
         <section class="section" id="costo-total">
             <div class="section-container">
-                <h2>Costo Total de Vivienda</h2>
+                <h2>Resumen</h2>
                 <div class="costo-total-content">
-                    <p><strong>Total Inicial Necesario (€):</strong> €<span id="total-inicial-costo">0.00</span></p>
-                    <p><strong>Total Gastos Hipotecarios (€):</strong> €<span id="total-hipotecarios">0.00</span></p>
-                    <p><strong>Costo Total de la Vivienda (€):</strong> €<span id="costo-total-vivienda">0.00</span></p>
+                    <p><strong>Total inicial necesario (€):</strong> €<span id="total-inicial-costo">0.00</span></p>
+                    <p><strong>Total gastos hipotecarios (€):</strong> €<span id="total-hipotecarios">0.00</span></p>
+                    <p><strong>Costo total de la vivienda basada en la TAE (€):</strong> €<span id="costo-total-vivienda">0.00</span></p>
                 </div>
             </div>
         </section>
@@ -260,6 +259,14 @@
                 <div id="lista-simulaciones">
                     <!-- Las simulaciones guardadas se listarán aquí -->
                 </div>
+
+                <!-- Botones de Exportar e Importar Simulaciones -->
+                <div class="button-group">
+                    <button id="exportar-simulaciones" class="btn nueva">Exportar Simulaciones</button>
+                    <input type="file" id="importar-simulaciones" accept=".json" style="display:none;">
+                    <button id="importar-simulaciones-btn" class="btn nueva">Importar Simulaciones</button>
+                </div>
+
             </div>
         </section>
     </main>
@@ -273,3 +280,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
