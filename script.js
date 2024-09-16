@@ -260,45 +260,34 @@ function listarSimulacionesGuardadas() {
         detallesDiv.classList.add('simulacion-details');
 
         const pFecha = document.createElement('p');
-        pFecha.innerHTML = `<strong>Fecha de Creación:</strong> ${simulacion.fecha}`;
+        pFecha.innerHTML = `<strong>Fecha de creación:</strong> ${simulacion.fecha}`;
         detallesDiv.appendChild(pFecha);
 
         const pTotalInicial = document.createElement('p');
-        pTotalInicial.innerHTML = `<strong>Total Inicial Necesario:</strong> €${simulacion.totalInicial.toFixed(2)}`;
+        pTotalInicial.innerHTML = `<strong>Total inicial necesario (€):</strong> €${simulacion.totalInicial.toFixed(2)}`;
         detallesDiv.appendChild(pTotalInicial);
 
         const pTotalHipotecarios = document.createElement('p');
-        pTotalHipotecarios.innerHTML = `<strong>Total Gastos Hipotecarios:</strong> €${simulacion.totalHipotecarios.toFixed(2)}`;
+        pTotalHipotecarios.innerHTML = `<strong>Total gastos hipotecarios (€):</strong> €${simulacion.totalHipotecarios.toFixed(2)}`;
         detallesDiv.appendChild(pTotalHipotecarios);
 
         const pCostoTotalVivienda = document.createElement('p');
-        pCostoTotalVivienda.innerHTML = `<strong>Costo Total de la Vivienda:</strong> €${simulacion.costoTotalVivienda.toFixed(2)}`;
+        pCostoTotalVivienda.innerHTML = `<strong>Costo total de la vivienda basado en la TAE (€):</strong> €${simulacion.costoTotalVivienda.toFixed(2)}`;
         detallesDiv.appendChild(pCostoTotalVivienda);
 
         const pCuotaTin = document.createElement('p');
-        pCuotaTin.innerHTML = `<strong>Cuota Mensual Basada en TIN:</strong> €${simulacion.cuotaTin.toFixed(2)}`;
+        pCuotaTin.innerHTML = `<strong>Cuota mensual basada en la TIN (€):</strong> €${simulacion.cuotaTin.toFixed(2)}`;
         detallesDiv.appendChild(pCuotaTin);
 
         const pCuotaConSeguros = document.createElement('p');
-        pCuotaConSeguros.innerHTML = `<strong>Cuota Mensual Incluyendo Seguros:</strong> €${simulacion.cuotaConSeguros.toFixed(2)}`;
+        pCuotaConSeguros.innerHTML = `<strong>Cuota mensual basada en la TIN e incluyendo seguros (€):</strong> €${simulacion.cuotaConSeguros.toFixed(2)}`;
         detallesDiv.appendChild(pCuotaConSeguros);
-
-        const pCostoTotalHipoteca = document.createElement('p');
-        pCostoTotalHipoteca.innerHTML = `<strong>Costo Total de la Hipoteca Basado en TAE:</strong> €${simulacion.costoTotalHipoteca.toFixed(2)}`;
-        detallesDiv.appendChild(pCostoTotalHipoteca);
 
         simulacionDiv.appendChild(detallesDiv);
 
         // Añadir botones de acción
         const accionesDiv = document.createElement('div');
         accionesDiv.classList.add('simulacion-actions');
-
-        // Botón Editar
-        const editarBtn = document.createElement('button');
-        editarBtn.textContent = 'Editar';
-        editarBtn.classList.add('editar-btn');
-        editarBtn.addEventListener('click', () => editarSimulacion(simulacion.nombre));
-        accionesDiv.appendChild(editarBtn);
 
         // Botón Eliminar
         const eliminarBtn = document.createElement('button');
@@ -311,53 +300,6 @@ function listarSimulacionesGuardadas() {
 
         listaSimulacionesDiv.appendChild(simulacionDiv);
     });
-}
-
-// Función para editar una simulación
-function editarSimulacion(nombreSimulacion) {
-    // Obtener las simulaciones guardadas desde el Local Storage
-    const simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
-
-    // Encontrar la simulación a editar
-    const simulacion = simulacionesGuardadas.find(sim => sim.nombre === nombreSimulacion);
-    if (!simulacion) {
-        alert("Simulación no encontrada.");
-        return;
-    }
-
-    // Cargar los datos de la simulación en los formularios
-    document.getElementById('nombre-simulacion').value = simulacion.nombre;
-    document.getElementById('precio-inmueble').value = simulacion.totalInicial - simulacion.totalHipotecarios; // Aproximación
-    document.getElementById('entrada-porcentaje').value = 0; // Reset para que el usuario lo calcule
-    document.getElementById('arras-porcentaje').value = 0;
-    document.getElementById('itp-porcentaje').value = 0;
-    document.getElementById('tasacion').value = 0;
-    document.getElementById('notaria').value = 0;
-    document.getElementById('gestoria').value = 0;
-    document.getElementById('registro-propiedad').value = 0;
-
-    document.getElementById('seguro-hogar').value = simulacion.cuotaConSeguros - simulacion.cuotaTin || 0;
-    document.getElementById('seguro-vida').value = 0; // Reset para que el usuario lo ajuste
-    document.getElementById('tin').value = 0; // Reset para que el usuario lo ajuste
-    document.getElementById('tae').value = 0; // Reset para que el usuario lo ajuste
-    document.getElementById('plazo').value = 0; // Reset para que el usuario lo ajuste
-
-    // Recalcular los valores
-    actualizarPorcentaje();
-    actualizarGastosHipoteca();
-    calcularCuotaHipotecaria();
-    actualizarCostoTotal();
-
-    // Navegar a la pestaña de Gastos Iniciales para editar
-    const tabs = document.querySelectorAll('.nav-tab');
-    const sections = document.querySelectorAll('.section');
-    tabs.forEach(t => t.classList.remove('active'));
-    sections.forEach(s => s.classList.remove('active'));
-    tabs[0].classList.add('active');
-    sections[0].classList.add('active');
-
-    // Informar al usuario que puede editar los campos
-    alert(`Edite los campos de la simulación "${nombreSimulacion}" y guárdela nuevamente.`);
 }
 
 // Función para eliminar una simulación
@@ -563,6 +505,47 @@ function initializeApp() {
     // Listar simulaciones guardadas al iniciar
     listarSimulacionesGuardadas();
 }
+
+// Función para exportar simulaciones guardadas a un archivo JSON
+function exportarSimulaciones() {
+    const simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
+    if (simulacionesGuardadas.length === 0) {
+        alert("No hay simulaciones para exportar.");
+        return;
+    }
+
+    const blob = new Blob([JSON.stringify(simulacionesGuardadas, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'simulaciones_mutuo.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// Función para importar simulaciones desde un archivo JSON
+function importarSimulaciones(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const simulacionesImportadas = JSON.parse(e.target.result);
+            localStorage.setItem('simulaciones', JSON.stringify(simulacionesImportadas));
+            listarSimulacionesGuardadas();
+            alert("Simulaciones importadas correctamente.");
+        } catch (error) {
+            alert("Error al importar las simulaciones. Asegúrate de que el archivo tenga el formato correcto.");
+        }
+    };
+    reader.readAsText(file);
+}
+
+// Event listeners para exportar e importar
+document.getElementById('exportar-simulaciones').addEventListener('click', exportarSimulaciones);
+document.getElementById('importar-simulaciones-btn').addEventListener('click', () => document.getElementById('importar-simulaciones').click());
+document.getElementById('importar-simulaciones').addEventListener('change', importarSimulaciones);
 
 // Inicializar la aplicación al cargar la página
 window.addEventListener('DOMContentLoaded', initializeApp);
