@@ -8,8 +8,8 @@
 /* Tipografía y colores */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5dc; /* Beige suave para el fondo general */
-    color: #333333; /* Gris oscuro para el texto principal */
+    background-color: #121212; /* Fondo oscuro */
+    color: #E0E0E0; /* Texto claro para buen contraste */
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
@@ -18,8 +18,8 @@ body {
 
 /* Barra Superior */
 .top-bar {
-    background-color: #001f3f; /* Navy Blue */
-    color: #ffffff; /* Blanco para el texto */
+    background-color: #1F1F1F; /* Un poco más claro que el fondo */
+    color: #E0E0E0; /* Texto claro */
     padding: 20px;
     text-align: center;
 }
@@ -32,56 +32,46 @@ body {
 .top-bar .app-slogan {
     font-size: 1rem;
     font-style: italic;
-    color: #f5f5dc; /* Beige para el lema */
+    color: #A0A0A0; /* Gris claro para el lema */
 }
 
 /* Barra de Navegación */
 .navbar {
-    background-color: #001f3f; /* Navy Blue */
-    padding: 10px 0;
+    background-color: transparent; /* Fondo transparente para resaltar el estilo píldora */
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-tabs {
     list-style: none;
     display: flex;
-    justify-content: center;
-    gap: 30px;
+    gap: 5px;
+    background-color: #1F1F1F; /* Fondo oscuro para la barra */
+    padding: 5px;
+    border-radius: 30px; /* Borde redondeado estilo píldora */
 }
 
 .nav-tab {
-    padding: 10px 15px;
+    padding: 10px 20px;
     cursor: pointer;
     font-size: 1rem;
-    color: #f5f5dc; /* Beige para las pestañas */
-    position: relative;
-    transition: color 0.3s, border-bottom 0.3s;
+    color: #E0E0E0; /* Texto claro */
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 25px; /* Borde redondeado para cada pestaña */
 }
 
-.nav-tab::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background-color: #ffffff; /* Blanco para la línea activa */
-    transition: width 0.3s;
+.nav-tab:hover {
+    background-color: #333333; /* Fondo ligeramente más claro al pasar el cursor */
 }
 
 .nav-tab.active {
-    color: #ffffff; /* Blanco para la pestaña activa */
+    background-color: #2C2C2C; /* Fondo más claro para la pestaña activa */
+    color: #FFFFFF; /* Texto blanco para la pestaña activa */
 }
 
-.nav-tab.active::after {
-    width: 100%;
-}
-
-.nav-tab:hover:not(.active) {
-    color: #f0e68c; /* Khaki suave al pasar el cursor */
-}
-
-.nav-tab:hover:not(.active)::after {
-    width: 100%;
+.nav-tab:not(.active):hover {
+    color: #FFFFFF; /* Texto blanco al pasar el cursor sobre pestañas inactivas */
 }
 
 /* Main content */
@@ -92,12 +82,12 @@ main {
 
 /* Sección */
 .section {
-    background-color: #ffffff; /* Blanco para las secciones */
+    background-color: #1F1F1F; /* Fondo oscuro para las secciones */
     border-radius: 12px;
     padding: 30px;
     max-width: 800px;
     margin: 0 auto 40px auto;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
     animation: fadeInUp 1s ease-out;
     display: none; /* Ocultar todas las secciones por defecto */
 }
@@ -114,9 +104,19 @@ main {
 .section h2 {
     font-size: 1.75rem;
     margin-bottom: 30px;
-    color: #001f3f; /* Navy Blue para los subtítulos */
-    border-bottom: 2px solid #f0e68c; /* Línea separadora en Khaki */
+    color: #E0E0E0; /* Subtítulos en color claro */
+    border-bottom: 2px solid #333333; /* Línea separadora oscura */
     padding-bottom: 10px;
+}
+
+/* Subtítulos h3 */
+.section h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #E0E0E0; /* Color claro */
+    border-bottom: 1px solid #333333;
+    padding-bottom: 8px;
 }
 
 /* Formulario */
@@ -145,23 +145,35 @@ form {
 .form-group label {
     font-size: 1rem;
     margin-bottom: 8px;
-    color: #001f3f; /* Navy Blue para etiquetas */
+    color: #E0E0E0; /* Etiquetas en color claro */
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     padding: 12px 16px;
-    border: 1px solid #d3d3d3; /* Gris claro */
+    border: 1px solid #333333; /* Borde oscuro */
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
-    background-color: #f5f5dc; /* Beige para los inputs */
+    background-color: #2C2C2C; /* Fondo oscuro para inputs */
+    color: #E0E0E0; /* Texto claro */
+    appearance: none; /* Eliminar estilos por defecto de select */
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
-    border-color: #001f3f; /* Navy Blue en enfoque */
-    box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.2); /* Sombra Navy Blue en enfoque */
+    border-color: #E0E0E0; /* Borde claro en enfoque */
+    box-shadow: 0 0 0 3px rgba(224, 224, 224, 0.2); /* Sombra clara en enfoque */
     transform: scale(1.02);
+}
+
+.form-group select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path fill="%23E0E0E0" d="M4 6l4 4 4-4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 40px;
 }
 
 /* Input con cálculo */
@@ -178,21 +190,21 @@ form {
 .calculated-value {
     margin-left: 15px;
     font-size: 1rem;
-    color: #001f3f; /* Navy Blue para valores calculados */
+    color: #E0E0E0; /* Valores calculados en color claro */
     min-width: 80px;
     text-align: right;
     transition: color 0.3s;
 }
 
 .input-with-calculation:hover .calculated-value {
-    color: #f0e68c; /* Khaki al pasar el cursor */
+    color: #FFFFFF; /* Blanco al pasar el cursor */
 }
 
 /* Descripciones */
 .description {
     margin-top: 5px;
     font-size: 0.85rem;
-    color: #666666; /* Gris medio para descripciones */
+    color: #A0A0A0; /* Gris medio para descripciones */
     opacity: 0;
     transform: translateY(-5px);
     transition: opacity 0.3s, transform 0.3s;
@@ -208,34 +220,78 @@ form {
     margin-top: 30px;
     font-size: 1.25rem;
     text-align: right;
-    color: #001f3f; /* Navy Blue para resaltar el total */
+    color: #E0E0E0; /* Resaltar el total en color claro */
     padding-top: 20px;
-    border-top: 1px solid #f0e68c; /* Línea separadora en Khaki */
+    border-top: 1px solid #333333; /* Línea separadora oscura */
     transition: color 0.3s;
 }
 
 .total-inicial:hover {
-    color: #f0e68c; /* Khaki al pasar el cursor */
+    color: #FFFFFF; /* Blanco al pasar el cursor */
 }
 
-/* Cuota Hipotecaria */
-#cuota-hipotecaria-form .form-group label {
+/* Cuota Mensual */
+#cuota-mensual-form .form-group label {
     cursor: default;
 }
 
-#cuota-hipotecaria-form .input-with-calculation span {
+#cuota-mensual-form .input-with-calculation span {
     font-weight: bold;
-    color: #001f3f; /* Navy Blue */
+    color: #E0E0E0; /* Color claro */
 }
 
-/* Costo Total de Vivienda */
-.costo-total-content p {
+/* Resumen Financiero */
+.resumen-content p {
     font-size: 1rem;
     margin-bottom: 15px;
+    color: #E0E0E0; /* Texto en color claro */
 }
 
-.costo-total-content p strong {
-    color: #001f3f; /* Navy Blue */
+.resumen-content p strong {
+    color: #FFFFFF; /* Texto en negrita en blanco */
+}
+
+/* Tabla de Amortización */
+.tabla-amortizacion {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-amortizacion th,
+.tabla-amortizacion td {
+    border: 1px solid #333333;
+    padding: 10px;
+    text-align: center;
+    color: #E0E0E0;
+}
+
+.tabla-amortizacion th {
+    background-color: #2C2C2C;
+}
+
+.tabla-amortizacion tr:nth-child(even) {
+    background-color: #1F1F1F;
+}
+
+.tabla-amortizacion tr:nth-child(odd) {
+    background-color: #2A2A2A;
+}
+
+/* Preguntas Frecuentes */
+.faq-item {
+    margin-bottom: 20px;
+}
+
+.faq-item h3 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    color: #E0E0E0;
+}
+
+.faq-item p {
+    font-size: 1rem;
+    color: #A0A0A0;
 }
 
 /* Simulaciones Guardadas */
@@ -247,28 +303,28 @@ form {
 }
 
 .simulacion-item {
-    background-color: #f5f5dc; /* Beige */
-    border-left: 5px solid #001f3f; /* Navy Blue */
+    background-color: #1F1F1F; /* Fondo oscuro */
+    border-left: 5px solid #333333; /* Borde lateral oscuro */
     padding: 15px 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     transition: background-color 0.3s, box-shadow 0.3s;
     position: relative;
 }
 
 .simulacion-item:hover {
-    background-color: #e6e6c3; /* Beige más oscuro al pasar el cursor */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background-color: #2C2C2C; /* Fondo ligeramente más claro al pasar el cursor */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
 }
 
 .simulacion-item h3 {
     margin-bottom: 10px;
-    color: #001f3f; /* Navy Blue */
+    color: #E0E0E0; /* Título en color claro */
 }
 
 .simulacion-details p {
     margin-bottom: 5px;
-    color: #333333; /* Gris oscuro */
+    color: #A0A0A0; /* Texto en gris medio */
 }
 
 /* Botones Editar y Eliminar */
@@ -287,37 +343,36 @@ form {
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s, transform 0.2s;
+    color: #E0E0E0; /* Texto de los botones en color claro */
 }
 
 /* Botón Editar */
 .simulacion-actions .editar-btn {
-    background-color: #f0e68c; /* Khaki */
-    color: #001f3f; /* Navy Blue */
+    background-color: #333333; /* Fondo oscuro para el botón */
 }
 
 .simulacion-actions .editar-btn:hover {
-    background-color: #dcd76d; /* Khaki más oscuro */
+    background-color: #444444; /* Fondo ligeramente más claro al pasar el cursor */
     transform: translateY(-2px);
 }
 
 .simulacion-actions .editar-btn:active {
-    background-color: #c9c356; /* Khaki aún más oscuro */
+    background-color: #222222; /* Fondo más oscuro al hacer clic */
     transform: translateY(0);
 }
 
 /* Botón Eliminar */
 .simulacion-actions .eliminar-btn {
-    background-color: #ff4d4d; /* Rojo suave */
-    color: #ffffff; /* Blanco */
+    background-color: #B00020; /* Rojo oscuro */
 }
 
 .simulacion-actions .eliminar-btn:hover {
-    background-color: #e60000; /* Rojo más oscuro */
+    background-color: #CF6679; /* Rojo más claro al pasar el cursor */
     transform: translateY(-2px);
 }
 
 .simulacion-actions .eliminar-btn:active {
-    background-color: #b30000; /* Rojo aún más oscuro */
+    background-color: #7F0010; /* Rojo más oscuro al hacer clic */
     transform: translateY(0);
 }
 
@@ -335,37 +390,51 @@ button, .btn {
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s, transform 0.2s;
+    color: #E0E0E0; /* Texto de los botones en color claro */
+}
+
+/* Botón Calcular Cuota */
+.btn.calcular {
+    background-color: #00695C; /* Verde oscuro */
+}
+
+.btn.calcular:hover {
+    background-color: #00796B; /* Verde más claro al pasar el cursor */
+    transform: translateY(-2px);
+}
+
+.btn.calcular:active {
+    background-color: #004D40; /* Verde más oscuro al hacer clic */
+    transform: translateY(0);
 }
 
 /* Botón Guardar Simulación */
 .btn.guardar {
-    background-color: #001f3f; /* Navy Blue */
-    color: #ffffff; /* Blanco */
+    background-color: #333333; /* Fondo oscuro para el botón */
 }
 
 .btn.guardar:hover {
-    background-color: #0a174e; /* Navy Blue más oscuro */
+    background-color: #444444; /* Fondo ligeramente más claro al pasar el cursor */
     transform: translateY(-2px);
 }
 
 .btn.guardar:active {
-    background-color: #001934; /* Navy Blue aún más oscuro */
+    background-color: #222222; /* Fondo más oscuro al hacer clic */
     transform: translateY(0);
 }
 
 /* Botón Nueva Simulación */
 .btn.nueva {
-    background-color: #f0e68c; /* Khaki */
-    color: #001f3f; /* Navy Blue */
+    background-color: #444444; /* Gris medio */
 }
 
 .btn.nueva:hover {
-    background-color: #dcd76d; /* Khaki más oscuro */
+    background-color: #555555; /* Fondo ligeramente más claro al pasar el cursor */
     transform: translateY(-2px);
 }
 
 .btn.nueva:active {
-    background-color: #c9c356; /* Khaki aún más oscuro */
+    background-color: #333333; /* Fondo más oscuro al hacer clic */
     transform: translateY(0);
 }
 
