@@ -17,57 +17,62 @@
     <!-- Barra de Navegación Superior -->
     <nav class="navbar">
         <ul class="nav-tabs">
-            <li class="nav-tab active" data-tab="gastos-iniciales">Gastos Iniciales</li>
-            <li class="nav-tab" data-tab="gastos-hipoteca">Gastos Hipotecarios</li>
-            <li class="nav-tab" data-tab="cuota-hipotecaria">Cuota Hipotecaria</li>
-            <li class="nav-tab" data-tab="costo-total">Resumen</li>
-            <li class="nav-tab" data-tab="simulaciones">Simulaciones Guardadas</li>
+            <li class="nav-tab active" data-tab="datos-simulacion">Datos de la Simulación</li>
+            <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la Hipoteca</li>
+            <li class="nav-tab" data-tab="cuota-mensual">Cuota Mensual</li>
+            <li class="nav-tab" data-tab="resumen-financiero">Resumen Financiero</li>
+            <li class="nav-tab" data-tab="simulaciones">Simulaciones</li>
+            <li class="nav-tab" data-tab="calendario-pagos">Calendario de Pagos</li>
+            <li class="nav-tab" data-tab="faq">Preguntas Frecuentes</li>
         </ul>
     </nav>
     
     <main>
-        <!-- Sección 1: Gastos Iniciales -->
-        <section class="section active" id="gastos-iniciales">
+        <!-- Sección 1: Datos de la Simulación -->
+        <section class="section active" id="datos-simulacion">
             <div class="section-container">
-                <h2>Gastos Iniciales</h2>
-                <form id="gastos-iniciales-form">
+                <h2>Datos de la Simulación</h2>
+                <form id="datos-simulacion-form">
                     <!-- Nombre de la Simulación -->
                     <div class="form-group">
-                        <label for="nombre-simulacion">Nombre de la simulación</label>
-                        <input type="text" id="nombre-simulacion" placeholder="Ingrese un nombre para la simulación" required>
+                        <label for="nombre-simulacion">Nombre de la Simulación</label>
+                        <input type="text" id="nombre-simulacion" placeholder="Ejemplo: Mi Primera Casa" required>
                         <small class="description">Asigna un nombre único para identificar esta simulación.</small>
                     </div>
                     
-                    <!-- Precio del Inmueble -->
+                    <!-- Precio de la Propiedad -->
                     <div class="form-group">
-                        <label for="precio-inmueble">Precio del inmueble (€)</label>
-                        <input type="number" id="precio-inmueble" placeholder="Ingrese el precio del inmueble" min="0" step="0.01" required>
-                        <small class="description">El valor total de la propiedad que deseas adquirir.</small>
+                        <label for="precio-propiedad">Precio de la Propiedad (€)</label>
+                        <input type="number" id="precio-propiedad" placeholder="Ingrese el precio de la propiedad" min="0" step="0.01" required>
+                        <small class="description">El valor total de la vivienda que deseas adquirir.</small>
                     </div>
                     
                     <!-- Entrada -->
                     <div class="form-group">
                         <label for="entrada-porcentaje">Entrada (%)</label>
                         <div class="input-with-calculation">
-                            <input type="number" id="entrada-porcentaje" placeholder="Ingrese el porcentaje de entrada" min="0" max="100" step="0.01" required>
+                            <input type="number" id="entrada-porcentaje" placeholder="Ejemplo: 20" min="0" max="100" step="0.01" required>
                             <span class="calculated-value">€<span id="entrada-euros">0.00</span></span>
                         </div>
-                        <small class="description">Porcentaje del precio del inmueble que pagarás como adelanto.</small>
+                        <small class="description">Porcentaje del precio que pagarás como adelanto.</small>
                     </div>
                     
                     <!-- Arras -->
                     <div class="form-group">
                         <label for="arras-porcentaje">Arras (%)</label>
                         <div class="input-with-calculation">
-                            <input type="number" id="arras-porcentaje" placeholder="Ingrese el porcentaje de arras" min="0" max="100" step="0.01" required>
+                            <input type="number" id="arras-porcentaje" placeholder="Ejemplo: 10" min="0" max="100" step="0.01" required>
                             <span class="calculated-value">€<span id="arras-euros">0.00</span></span>
                         </div>
-                        <small class="description">Cantidad que se entrega como garantía al firmar el contrato.</small>
+                        <small class="description">Porcentaje del precio entregado como garantía.</small>
                     </div>
+                    
+                    <!-- Gastos Adicionales -->
+                    <h3>Gastos Adicionales</h3>
                     
                     <!-- Tasación de Vivienda -->
                     <div class="form-group">
-                        <label for="tasacion">Tasación de vivienda (€)</label>
+                        <label for="tasacion">Tasación de Vivienda (€)</label>
                         <input type="number" id="tasacion" placeholder="Ingrese el costo de tasación" min="0" step="0.01" required>
                         <small class="description">Costo del servicio profesional que determina el valor de la propiedad.</small>
                     </div>
@@ -88,185 +93,172 @@
                     
                     <!-- Registro de la Propiedad -->
                     <div class="form-group">
-                        <label for="registro-propiedad">Registro de la propiedad (€)</label>
+                        <label for="registro-propiedad">Registro de la Propiedad (€)</label>
                         <input type="number" id="registro-propiedad" placeholder="Ingrese el costo del registro" min="0" step="0.01" required>
                         <small class="description">Gastos para inscribir la propiedad a tu nombre.</small>
                     </div>
                     
-                    <!-- ITP -->
+                    <!-- IVA o ITP -->
                     <div class="form-group">
-                        <label for="itp-porcentaje">ITP (%)</label>
+                        <label for="impuesto">IVA o ITP (%)</label>
                         <div class="input-with-calculation">
-                            <input type="number" id="itp-porcentaje" placeholder="Ingrese el porcentaje de ITP" min="0" max="100" step="0.01" required>
-                            <span class="calculated-value">€<span id="itp-euros">0.00</span></span>
+                            <input type="number" id="impuesto" placeholder="Ejemplo: 10" min="0" max="100" step="0.01" required>
+                            <span class="calculated-value">€<span id="impuesto-euros">0.00</span></span>
                         </div>
-                        <small class="description">Impuesto que grava la transmisión patrimonial de inmuebles.</small>
+                        <small class="description">Impuesto sobre el valor añadido o impuesto de transmisiones patrimoniales.</small>
                     </div>
                     
                     <!-- Total Inicial -->
                     <div class="total-inicial">
-                        <strong>Total inicial necesario (€):</strong> €<span id="total-inicial">0.00</span>
+                        <strong>Total Inicial Necesario (€):</strong> €<span id="total-inicial">0.00</span>
                     </div>
                 </form>
             </div>
         </section>
         
-        <!-- Sección 2: Gastos Relacionados con la Hipoteca -->
-        <section class="section" id="gastos-hipoteca">
+        <!-- Sección 2: Condiciones de la Hipoteca -->
+        <section class="section" id="condiciones-hipoteca">
             <div class="section-container">
-                <h2>Gastos relacionados con la hipoteca</h2>
-                <form id="gastos-hipotecarios-form">
-                    <!-- Seguro de hogar -->
-                    <div class="form-group">
-                        <label for="seguro-hogar">Seguro de hogar (€)</label>
-                        <input type="number" id="seguro-hogar" placeholder="Ingrese el costo del seguro de hogar" min="0" step="0.01" required>
-                        <small class="description">Costo mensual del seguro que protege tu vivienda.</small>
-                    </div>
-                    
-                    <!-- Seguro de vida -->
-                    <div class="form-group">
-                        <label for="seguro-vida">Seguro de vida (€)</label>
-                        <input type="number" id="seguro-vida" placeholder="Ingrese el costo del seguro de vida" min="0" step="0.01" required>
-                        <small class="description">Costo mensual del seguro que garantiza el pago de la hipoteca en caso de fallecimiento.</small>
-                    </div>
-                    
+                <h2>Condiciones de la Hipoteca</h2>
+                <form id="condiciones-hipoteca-form">
                     <!-- TIN -->
                     <div class="form-group">
-                        <label for="tin">TIN (%)</label>
-                        <input type="number" id="tin" placeholder="Ingrese el TIN" min="0" step="0.01" required>
-                        <small class="description">Tipo de Interés Nominal aplicado al préstamo.</small>
+                        <label for="tin">Tipo de Interés Nominal (TIN) (%)</label>
+                        <input type="number" id="tin" placeholder="Ejemplo: 1.5" min="0" step="0.01" required>
+                        <small class="description">El interés anual que aplicará el banco.</small>
                     </div>
                     
                     <!-- TAE -->
                     <div class="form-group">
-                        <label for="tae">TAE (%)</label>
-                        <input type="number" id="tae" placeholder="Ingrese el TAE" min="0" step="0.01" required>
-                        <small class="description">Tasa Anual Equivalente que incluye el interés y otros gastos.</small>
+                        <label for="tae">Tasa Anual Equivalente (TAE) (%)</label>
+                        <input type="number" id="tae" placeholder="Ejemplo: 1.75" min="0" step="0.01" required>
+                        <small class="description">Incluye intereses y otros gastos asociados.</small>
                     </div>
                     
                     <!-- Plazo del Préstamo -->
                     <div class="form-group">
-                        <label for="plazo">Plazo del préstamo (años)</label>
-                        <input type="number" id="plazo" placeholder="Ingrese el plazo en años" min="1" step="1" required>
-                        <small class="description">Duración del préstamo hipotecario en años.</small>
+                        <label for="plazo">Plazo del Préstamo (años)</label>
+                        <input type="number" id="plazo" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
+                        <small class="description">Número de años para pagar el préstamo.</small>
+                    </div>
+
+                    <!-- Seguros y Productos Vinculados -->
+                    <div class="form-group">
+                        <label for="seguros-productos">Seguros y Productos Vinculados (€)</label>
+                        <input type="number" id="seguros-productos" placeholder="Costo mensual" min="0" step="0.01">
+                        <small class="description">Coste mensual de seguros y otros productos obligatorios.</small>
                     </div>
                 </form>
             </div>
         </section>
         
-        <!-- Sección 3: Cuota Hipotecaria -->
-        <section class="section" id="cuota-hipotecaria">
+        <!-- Sección 3: Cuota Mensual -->
+        <section class="section" id="cuota-mensual">
             <div class="section-container">
-                <h2>Cuota hipotecaria</h2>
-                <form id="cuota-hipotecaria-form">
+                <h2>Cuota Mensual</h2>
+                <form id="cuota-mensual-form">
                     <!-- Monto del Préstamo -->
                     <div class="form-group">
-                        <label>Monto del préstamo (€)</label>
+                        <label>Monto del Préstamo (€)</label>
                         <div class="input-with-calculation">
                             <span id="monto-prestamo">0.00</span>
                         </div>
-                        <small class="description">Monto total del préstamo calculado como precio del inmueble menos entrada y arras.</small>
+                        <small class="description">Cantidad que solicitarás al banco.</small>
                     </div>
                     
-                    <!-- Plazo del Préstamo -->
+                    <!-- Cuota Mensual Estimada -->
                     <div class="form-group">
-                        <label>Plazo del préstamo (años)</label>
+                        <label>Cuota Mensual Estimada (€)</label>
                         <div class="input-with-calculation">
-                            <span id="plazo-anios">0</span>
+                            <span id="cuota-estimada">0.00</span>
                         </div>
-                        <small class="description">Duración del préstamo hipotecario en años.</small>
+                        <small class="description">Pago mensual sin incluir seguros ni otros productos.</small>
                     </div>
                     
-                    <!-- Número de Cuotas -->
+                    <!-- Cuota Mensual Total -->
                     <div class="form-group">
-                        <label>Número de cuotas</label>
+                        <label>Cuota Mensual Total (€)</label>
                         <div class="input-with-calculation">
-                            <span id="numero-cuotas">0</span>
+                            <span id="cuota-total">0.00</span>
                         </div>
-                        <small class="description">Total de pagos mensuales a realizar.</small>
-                    </div>
-                    
-                    <!-- TIN -->
-                    <div class="form-group">
-                        <label>TIN (%)</label>
-                        <div class="input-with-calculation">
-                            <span id="mostrar-tin">0.00</span>
-                        </div>
-                        <small class="description">Tipo de Interés Nominal aplicado al préstamo.</small>
-                    </div>
-                    
-                    <!-- TAE -->
-                    <div class="form-group">
-                        <label>TAE (%)</label>
-                        <div class="input-with-calculation">
-                            <span id="mostrar-tae">0.00</span>
-                        </div>
-                        <small class="description">Tasa Anual Equivalente que incluye el interés y otros gastos.</small>
-                    </div>
-                    
-                    <!-- Cuota Mensual Basada en TIN -->
-                    <div class="form-group">
-                        <label>Cuota mensual basada en la TIN (€)</label>
-                        <div class="input-with-calculation">
-                            <span id="cuota-tin">0.00</span>
-                        </div>
-                        <small class="description">Pago mensual calculado únicamente con el TIN.</small>
-                    </div>
-                    
-                    <!-- Cuota Mensual Incluyendo Seguros -->
-                    <div class="form-group">
-                        <label>Cuota mensual basada en la TIN e incluyendo seguros (€)</label>
-                        <div class="input-with-calculation">
-                            <span id="cuota-con-seguros">0.00</span>
-                        </div>
-                        <small class="description">Pago mensual que incluye los seguros de hogar y vida.</small>
-                    </div>
-                    
-                    <!-- Costo Total de la Hipoteca Basado en TAE -->
-                    <div class="form-group">
-                        <label>Costo Total de la hipoteca basado en la TAE (€)</label>
-                        <div class="input-with-calculation">
-                            <span id="costo-total-hipoteca">0.00</span>
-                        </div>
-                        <small class="description">Costo total del préstamo considerando el TAE.</small>
+                        <small class="description">Pago mensual incluyendo seguros y productos vinculados.</small>
                     </div>
                     
                     <!-- Botones de Acción -->
                     <div class="button-group">
+                        <button type="button" id="calcular-cuota" class="btn calcular">Calcular Cuota</button>
                         <button type="button" id="guardar-simulacion" class="btn guardar">Guardar Simulación</button>
-                        <button type="button" id="nueva-simulacion" class="btn nueva">Nueva Simulación</button>
                     </div>
                 </form>
             </div>
         </section>
         
-        <!-- Sección 4: Costo Total de Vivienda -->
-        <section class="section" id="costo-total">
+        <!-- Sección 4: Resumen Financiero -->
+        <section class="section" id="resumen-financiero">
             <div class="section-container">
-                <h2>Resumen</h2>
-                <div class="costo-total-content">
-                    <p><strong>Total inicial necesario (€):</strong> €<span id="total-inicial-costo">0.00</span></p>
-                    <p><strong>Total gastos hipotecarios (€):</strong> €<span id="total-hipotecarios">0.00</span></p>
-                    <p><strong>Costo total de la vivienda basada en la TAE (€):</strong> €<span id="costo-total-vivienda">0.00</span></p>
+                <h2>Resumen Financiero</h2>
+                <div class="resumen-content">
+                    <p><strong>Ahorro Necesario (€):</strong> €<span id="ahorro-necesario">0.00</span></p>
+                    <p><strong>Financiación Solicitada (€):</strong> €<span id="financiacion-solicitada">0.00</span></p>
+                    <p><strong>Coste Total de la Hipoteca (€):</strong> €<span id="coste-total-hipoteca">0.00</span></p>
                 </div>
             </div>
         </section>
         
-        <!-- Sección 5: Simulaciones Guardadas -->
+        <!-- Sección 5: Simulaciones -->
         <section class="section" id="simulaciones">
             <div class="section-container">
-                <h2>Simulaciones Guardadas</h2>
+                <h2>Simulaciones</h2>
                 <div id="lista-simulaciones">
                     <!-- Las simulaciones guardadas se listarán aquí -->
                 </div>
-
+    
                 <!-- Botones de Exportar e Importar Simulaciones -->
                 <div class="button-group">
                     <button id="exportar-simulaciones" class="btn nueva">Exportar Simulaciones</button>
                     <input type="file" id="importar-simulaciones" accept=".json" style="display:none;">
                     <button id="importar-simulaciones-btn" class="btn nueva">Importar Simulaciones</button>
                 </div>
-
+    
+            </div>
+        </section>
+    
+        <!-- Sección 6: Calendario de Pagos -->
+        <section class="section" id="calendario-pagos">
+            <div class="section-container">
+                <h2>Calendario de Pagos</h2>
+                <!-- Tabla de Amortización -->
+                <table class="tabla-amortizacion">
+                    <thead>
+                        <tr>
+                            <th>Mes</th>
+                            <th>Cuota (€)</th>
+                            <th>Interés (€)</th>
+                            <th>Capital (€)</th>
+                            <th>Capital Pendiente (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-amortizacion-body">
+                        <!-- Las filas de la tabla se generarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <!-- Sección 7: Preguntas Frecuentes -->
+        <section class="section" id="faq">
+            <div class="section-container">
+                <h2>Preguntas Frecuentes</h2>
+                <!-- Contenido de Preguntas Frecuentes -->
+                <div class="faq-item">
+                    <h3>¿Qué es el TIN?</h3>
+                    <p>El TIN es el Tipo de Interés Nominal que indica el porcentaje que se aplica al capital prestado.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>¿Qué es el TAE?</h3>
+                    <p>El TAE es la Tasa Anual Equivalente que incluye el TIN y otros gastos asociados al préstamo, ofreciendo una visión más completa del coste.</p>
+                </div>
+                <!-- Añade más preguntas y respuestas según sea necesario -->
             </div>
         </section>
     </main>
@@ -280,5 +272,4 @@
     <script src="script.js"></script>
 </body>
 </html>
-
 
