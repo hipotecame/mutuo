@@ -1,23 +1,74 @@
 // script.js
 
-// Función para manejar la navegación entre secciones
-function setupNavigation() {
-    const tabs = document.querySelectorAll('.nav-tab');
-    const sections = document.querySelectorAll('.section');
+// Función para manejar la navegación principal
+function setupMainNavigation() {
+    const mainTabs = document.querySelectorAll('#main-nav .nav-tab');
+    const mainSections = document.querySelectorAll('.section');
 
-    tabs.forEach(tab => {
+    mainTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            // Remover la clase 'active' de todas las pestañas
-            tabs.forEach(t => t.classList.remove('active'));
+            // Remover la clase 'active' de todas las pestañas principales
+            mainTabs.forEach(t => t.classList.remove('active'));
             // Agregar la clase 'active' a la pestaña seleccionada
             tab.classList.add('active');
 
             const target = tab.getAttribute('data-tab');
 
-            // Remover la clase 'active' de todas las secciones
-            sections.forEach(section => section.classList.remove('active'));
+            // Remover la clase 'active' de todas las secciones principales
+            mainSections.forEach(section => section.classList.remove('active'));
             // Agregar la clase 'active' a la sección seleccionada
-            document.getElementById(target).classList.add('active');
+            const targetSection = document.getElementById(target);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Mostrar u ocultar la barra de navegación secundaria
+            const secondaryNav = document.getElementById('secondary-nav');
+            if (target === 'iniciar-simulacion') {
+                secondaryNav.style.display = 'flex';
+                // Activar la primera subsección por defecto
+                const firstSubTab = document.querySelector('#simulation-nav .nav-tab');
+                if (firstSubTab) {
+                    firstSubTab.click();
+                }
+            } else {
+                secondaryNav.style.display = 'none';
+            }
+
+            // Si seleccionamos "Mis Simulaciones", actualizar la lista
+            if (target === 'mis-simulaciones') {
+                listarSimulacionesGuardadas();
+            }
+
+            // Si seleccionamos "Comparador", configurar el comparador
+            if (target === 'comparador') {
+                setupComparador();
+            }
+        });
+    });
+}
+
+// Función para manejar la navegación secundaria
+function setupSecondaryNavigation() {
+    const subTabs = document.querySelectorAll('#simulation-nav .nav-tab');
+    const subSections = document.querySelectorAll('.subsection');
+
+    subTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remover la clase 'active' de todas las pestañas secundarias
+            subTabs.forEach(t => t.classList.remove('active'));
+            // Agregar la clase 'active' a la pestaña seleccionada
+            tab.classList.add('active');
+
+            const target = tab.getAttribute('data-tab');
+
+            // Remover la clase 'active' de todas las subsecciones
+            subSections.forEach(subsection => subsection.classList.remove('active'));
+            // Agregar la clase 'active' a la subsección seleccionada
+            const targetSubsection = document.getElementById(target);
+            if (targetSubsection) {
+                targetSubsection.classList.add('active');
+            }
         });
     });
 }
@@ -367,38 +418,113 @@ function eliminarSimulacion(nombreSimulacion) {
     alert("Simulación eliminada exitosamente.");
 }
 
-// Función para iniciar una nueva simulación
-function nuevaSimulacion() {
-    // Limpiar todos los campos de entrada
-    document.getElementById('datos-simulacion-form').reset();
-    document.getElementById('condiciones-hipoteca-form').reset();
-    document.getElementById('cuota-mensual-form').reset();
+// Función para configurar el comparador
+function setupComparador() {
+    const comparadorContenido = document.getElementById('comparador-contenido');
+    comparadorContenido.innerHTML = ''; // Limpiar contenido previo
 
-    // Restablecer los valores calculados a cero
-    document.getElementById('entrada-euros').textContent = '0.00';
-    document.getElementById('arras-euros').textContent = '0.00';
-    document.getElementById('impuesto-euros').textContent = '0.00';
-    document.getElementById('total-inicial').textContent = '0.00';
-    document.getElementById('monto-prestamo').textContent = '0.00';
-    document.getElementById('cuota-estimada').textContent = '0.00';
-    document.getElementById('cuota-total').textContent = '0.00';
-    document.getElementById('ahorro-necesario').textContent = '0.00';
-    document.getElementById('financiacion-solicitada').textContent = '0.00';
-    document.getElementById('coste-total-hipoteca').textContent = '0.00';
+    // Obtener las simulaciones guardadas desde el Local Storage
+    const simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
 
-    // Limpiar el calendario de pagos
-    limpiarCalendarioPagos();
+    if (simulacionesGuardadas.length === 0) {
+        comparadorContenido.innerHTML = "<p>No hay simulaciones guardadas para comparar.</p>";
+        return;
+    }
 
-    // Limpiar el nombre de la simulación
-    document.getElementById('nombre-simulacion').value = '';
+    // Crear una lista de checkboxes para seleccionar simulaciones
+    const formComparador = document.createElement('form');
+    formComparador.id = 'form-comparador';
 
-    // Navegar a la primera pestaña
-    const tabs = document.querySelectorAll('.nav-tab');
-    const sections = document.querySelectorAll('.section');
-    tabs.forEach(t => t.classList.remove('active'));
-    sections.forEach(s => s.classList.remove('active'));
-    tabs[0].classList.add('active');
-    sections[0].classList.add('active');
+    simulacionesGuardadas.forEach((simulacion, index) => {
+        const label = document.createElement('label');
+        label.style.display = 'block';
+        label.style.marginBottom = '10px';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'simulacion';
+        checkbox.value = index;
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(` ${simulacion.nombre}`));
+        formComparador.appendChild(label);
+    });
+
+    // Botón para comparar
+    const compararBtn = document.createElement('button');
+    compararBtn.type = 'button';
+    compararBtn.textContent = 'Comparar Simulaciones';
+    compararBtn.classList.add('btn', 'btn-comparar'); // Añadir clase 'btn-comparar'
+    compararBtn.style.marginTop = '20px';
+    compararBtn.addEventListener('click', () => {
+        const seleccionadas = Array.from(formComparador.elements['simulacion'])
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => simulacionesGuardadas[checkbox.value]);
+
+        if (seleccionadas.length < 2) {
+            alert('Por favor, selecciona al menos dos simulaciones para comparar.');
+            return;
+        }
+
+        mostrarComparacion(seleccionadas);
+    });
+
+    formComparador.appendChild(compararBtn);
+    comparadorContenido.appendChild(formComparador);
+}
+
+// Función para mostrar la comparación de simulaciones
+function mostrarComparacion(simulaciones) {
+    const comparadorContenido = document.getElementById('comparador-contenido');
+    comparadorContenido.innerHTML = ''; // Limpiar contenido previo
+
+    const tabla = document.createElement('table');
+    tabla.classList.add('tabla-comparacion');
+
+    // Crear encabezados de la tabla
+    const thead = document.createElement('thead');
+    const encabezadoFila = document.createElement('tr');
+
+    const encabezadoVacio = document.createElement('th');
+    encabezadoFila.appendChild(encabezadoVacio);
+
+    simulaciones.forEach(simulacion => {
+        const th = document.createElement('th');
+        th.textContent = simulacion.nombre;
+        encabezadoFila.appendChild(th);
+    });
+    thead.appendChild(encabezadoFila);
+    tabla.appendChild(thead);
+
+    // Crear cuerpo de la tabla
+    const tbody = document.createElement('tbody');
+
+    // Lista de propiedades a comparar
+    const propiedades = [
+        { clave: 'totalInicial', etiqueta: 'Total Inicial (€)' },
+        { clave: 'financiacionSolicitada', etiqueta: 'Financiación Solicitada (€)' },
+        { clave: 'costeTotalHipoteca', etiqueta: 'Coste Total Hipoteca (€)' },
+        { clave: 'cuotaEstimada', etiqueta: 'Cuota Mensual Estimada (€)' },
+        { clave: 'cuotaTotal', etiqueta: 'Cuota Mensual Total (€)' },
+    ];
+
+    propiedades.forEach(prop => {
+        const fila = document.createElement('tr');
+        const celdaEtiqueta = document.createElement('td');
+        celdaEtiqueta.textContent = prop.etiqueta;
+        fila.appendChild(celdaEtiqueta);
+
+        simulaciones.forEach(simulacion => {
+            const celdaValor = document.createElement('td');
+            celdaValor.textContent = `€${simulacion[prop.clave].toFixed(2)}`;
+            fila.appendChild(celdaValor);
+        });
+
+        tbody.appendChild(fila);
+    });
+
+    tabla.appendChild(tbody);
+    comparadorContenido.appendChild(tabla);
 }
 
 // Función para exportar simulaciones guardadas a un archivo JSON
@@ -434,9 +560,16 @@ function importarSimulaciones(event) {
                 throw new Error("El archivo no contiene un array válido de simulaciones.");
             }
 
-            // Combinar simulaciones existentes con las importadas
+            // Obtener simulaciones existentes
             let simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
-            simulacionesGuardadas = simulacionesGuardadas.concat(simulacionesImportadas);
+
+            // Filtrar simulaciones duplicadas basadas en el nombre
+            simulacionesImportadas.forEach(sim => {
+                const existe = simulacionesGuardadas.some(existingSim => existingSim.nombre.toLowerCase() === sim.nombre.toLowerCase());
+                if (!existe) {
+                    simulacionesGuardadas.push(sim);
+                }
+            });
 
             localStorage.setItem('simulaciones', JSON.stringify(simulacionesGuardadas));
             listarSimulacionesGuardadas();
@@ -451,31 +584,41 @@ function importarSimulaciones(event) {
 
 // Función principal para inicializar todas las configuraciones
 function initializeApp() {
-    setupNavigation();
+    setupMainNavigation();
+    setupSecondaryNavigation();
     setupDatosSimulacion();
     setupCondicionesHipoteca();
 
     // Añadir event listener al botón de calcular cuota
     const calcularCuotaBtn = document.getElementById('calcular-cuota');
-    calcularCuotaBtn.addEventListener('click', () => {
-        actualizarCuotaMensual();
-        actualizarResumenFinanciero();
-    });
+    if (calcularCuotaBtn) {
+        calcularCuotaBtn.addEventListener('click', () => {
+            actualizarCuotaMensual();
+            actualizarResumenFinanciero();
+        });
+    }
 
     // Añadir event listener al botón de guardar simulación
     const guardarSimulacionBtn = document.getElementById('guardar-simulacion');
-    guardarSimulacionBtn.addEventListener('click', guardarSimulacion);
-
-    // Añadir event listener al botón de nueva simulación si existe
-    const nuevaSimulacionBtn = document.getElementById('nueva-simulacion');
-    if (nuevaSimulacionBtn) {
-        nuevaSimulacionBtn.addEventListener('click', nuevaSimulacion);
+    if (guardarSimulacionBtn) {
+        guardarSimulacionBtn.addEventListener('click', guardarSimulacion);
     }
 
     // Event listeners para exportar e importar
-    document.getElementById('exportar-simulaciones').addEventListener('click', exportarSimulaciones);
-    document.getElementById('importar-simulaciones-btn').addEventListener('click', () => document.getElementById('importar-simulaciones').click());
-    document.getElementById('importar-simulaciones').addEventListener('change', importarSimulaciones);
+    const exportarBtn = document.getElementById('exportar-simulaciones');
+    if (exportarBtn) {
+        exportarBtn.addEventListener('click', exportarSimulaciones);
+    }
+
+    const importarBtn = document.getElementById('importar-simulaciones-btn');
+    if (importarBtn) {
+        importarBtn.addEventListener('click', () => document.getElementById('importar-simulaciones').click());
+    }
+
+    const importarInput = document.getElementById('importar-simulaciones');
+    if (importarInput) {
+        importarInput.addEventListener('change', importarSimulaciones);
+    }
 
     // Listar simulaciones guardadas al iniciar
     listarSimulacionesGuardadas();
