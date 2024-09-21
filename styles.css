@@ -25,20 +25,26 @@ body {
 }
 
 .top-bar .app-name {
-    font-size: 2rem;
-    margin-bottom: 5px;
+    font-size: 2.5em; /* Ajusta el tamaño según necesites */
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    background: linear-gradient(
+        90deg,
+        #0400ff 0%,    /* Azul intenso */
+        #6A0DAD 50%,   /* Púrpura fuerte */
+        #ff004c 100%   /* Rosa brillante */
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
-.top-bar .app-slogan {
-    font-size: 1rem;
-    font-style: italic;
-    color: #A0A0A0; /* Gris claro para el lema */
-}
-
-/* Barra de Navegación */
+/* Barras de Navegación */
 .navbar {
     background-color: transparent; /* Fondo transparente para resaltar el estilo píldora */
-    padding: 20px 0;
+    padding: 15px 0;
     display: flex;
     justify-content: center;
 }
@@ -80,15 +86,8 @@ main {
     padding: 40px 20px;
 }
 
-/* Sección */
+/* Secciones principales */
 .section {
-    background-color: #1F1F1F; /* Fondo oscuro para las secciones */
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 800px;
-    margin: 0 auto 40px auto;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-    animation: fadeInUp 1s ease-out;
     display: none; /* Ocultar todas las secciones por defecto */
 }
 
@@ -96,12 +95,27 @@ main {
     display: block; /* Mostrar la sección activa */
 }
 
-.section-container {
-    display: flex;
-    flex-direction: column;
+/* Subsecciones */
+.subsection {
+    display: none; /* Ocultar todas las subsecciones por defecto */
 }
 
-.section h2 {
+.subsection.active {
+    display: block; /* Mostrar la subsección activa */
+}
+
+/* Contenedor de la sección */
+.section-container {
+    background-color: #1F1F1F; /* Fondo oscuro para las secciones */
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s ease-out;
+}
+
+.section-container h2 {
     font-size: 1.75rem;
     margin-bottom: 30px;
     color: #E0E0E0; /* Subtítulos en color claro */
@@ -110,7 +124,7 @@ main {
 }
 
 /* Subtítulos h3 */
-.section h3 {
+.section-container h3 {
     font-size: 1.5rem;
     margin-top: 20px;
     margin-bottom: 15px;
@@ -123,6 +137,7 @@ main {
 form {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .form-group {
@@ -327,7 +342,7 @@ form {
     color: #A0A0A0; /* Texto en gris medio */
 }
 
-/* Botones Editar y Eliminar */
+/* Botones en Simulaciones */
 .simulacion-actions {
     position: absolute;
     top: 15px;
@@ -339,31 +354,28 @@ form {
 .simulacion-actions button {
     padding: 6px 12px;
     border: none;
-    border-radius: 6px;
+    border-radius: 30px; /* Forma de cápsula */
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s, transform 0.2s;
     color: #E0E0E0; /* Texto de los botones en color claro */
+    background-color: #1F1F1F; /* Fondo oscuro */
 }
 
-/* Botón Editar */
-.simulacion-actions .editar-btn {
-    background-color: #333333; /* Fondo oscuro para el botón */
-}
-
-.simulacion-actions .editar-btn:hover {
-    background-color: #444444; /* Fondo ligeramente más claro al pasar el cursor */
+.simulacion-actions button:hover {
+    background-color: #333333; /* Fondo más claro al pasar el cursor */
     transform: translateY(-2px);
 }
 
-.simulacion-actions .editar-btn:active {
-    background-color: #222222; /* Fondo más oscuro al hacer clic */
+.simulacion-actions button:active {
+    background-color: #2C2C2C; /* Fondo más claro al hacer clic */
     transform: translateY(0);
 }
 
 /* Botón Eliminar */
 .simulacion-actions .eliminar-btn {
     background-color: #B00020; /* Rojo oscuro */
+    border-radius: 8px; /* Mantener borde ligeramente redondeado */
 }
 
 .simulacion-actions .eliminar-btn:hover {
@@ -383,59 +395,140 @@ form {
     margin-top: 20px;
 }
 
+/* Estilo general para los botones */
 button, .btn {
     padding: 12px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px; /* Forma de cápsula */
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s, transform 0.2s;
-    color: #E0E0E0; /* Texto de los botones en color claro */
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    color: #E0E0E0; /* Texto en color claro */
+    background-color: #1F1F1F; /* Fondo oscuro similar a la barra de navegación */
 }
 
-/* Botón Calcular Cuota */
-.btn.calcular {
-    background-color: #00695C; /* Verde oscuro */
-}
-
-.btn.calcular:hover {
-    background-color: #00796B; /* Verde más claro al pasar el cursor */
+/* Efecto al pasar el cursor sobre los botones */
+button:hover, .btn:hover {
+    background-color: #333333; /* Fondo ligeramente más claro */
+    color: #FFFFFF; /* Texto blanco al pasar el cursor */
     transform: translateY(-2px);
 }
 
-.btn.calcular:active {
-    background-color: #004D40; /* Verde más oscuro al hacer clic */
+/* Efecto al hacer clic en los botones */
+button:active, .btn:active {
+    background-color: #2C2C2C; /* Fondo más claro al hacer clic */
     transform: translateY(0);
 }
 
-/* Botón Guardar Simulación */
-.btn.guardar {
-    background-color: #333333; /* Fondo oscuro para el botón */
+/* Estilos específicos para cada botón */
+
+/* Botón "Calcular cuota" */
+.btn-calcular {
+    background: linear-gradient(45deg, #003366, #0066cc); /* Degradado de azul oscuro a azul claro */
+    color: #FFFFFF; /* Texto blanco */
 }
 
-.btn.guardar:hover {
-    background-color: #444444; /* Fondo ligeramente más claro al pasar el cursor */
+.btn-calcular:hover {
+    background: linear-gradient(45deg, #002244, #0055aa); /* Cambia el degradado al pasar el cursor */
+}
+
+.btn-calcular:active {
+    background: linear-gradient(45deg, #001122, #004488); /* Cambia el degradado al hacer clic */
+}
+
+/* Botón "Exportar simulaciones" */
+.btn-exportar {
+    background: linear-gradient(45deg, #003366, #0066cc); /* Mismo degradado que "Calcular cuota" */
+    color: #FFFFFF;
+}
+
+.btn-exportar:hover {
+    background: linear-gradient(45deg, #002244, #0055aa);
+}
+
+.btn-exportar:active {
+    background: linear-gradient(45deg, #001122, #004488);
+}
+
+/* Botón "Guardar simulación" */
+.btn-guardar {
+    background-color: #1F1F1F; /* Mantiene el fondo oscuro */
+    border: 2px solid #555555; /* Borde gris para destacar */
+}
+
+.btn-guardar:hover {
+    background-color: #333333;
+    border-color: #777777; /* Cambia el color del borde al hacer hover */
+    color: #FFFFFF;
     transform: translateY(-2px);
 }
 
-.btn.guardar:active {
-    background-color: #222222; /* Fondo más oscuro al hacer clic */
-    transform: translateY(0);
+.btn-guardar:active {
+    background-color: #2C2C2C; /* Fondo más claro al hacer clic */
+    border-color: #555555;
 }
 
-/* Botón Nueva Simulación */
-.btn.nueva {
-    background-color: #444444; /* Gris medio */
+/* Botón "Importar simulaciones" */
+.btn-importar {
+    background-color: #1F1F1F;
+    border: 2px solid #555555; /* Mismo estilo que "Guardar simulación" */
 }
 
-.btn.nueva:hover {
-    background-color: #555555; /* Fondo ligeramente más claro al pasar el cursor */
+.btn-importar:hover {
+    background-color: #333333;
+    border-color: #777777;
+    color: #FFFFFF;
     transform: translateY(-2px);
 }
 
-.btn.nueva:active {
-    background-color: #333333; /* Fondo más oscuro al hacer clic */
+.btn-importar:active {
+    background-color: #2C2C2C;
+    border-color: #555555;
+}
+
+/* Botón "Comparar simulaciones" */
+.btn-comparar {
+    background: linear-gradient(45deg, #003366, #0066cc); /* Degradado de azul oscuro a azul claro */
+    color: #FFFFFF; /* Texto blanco */
+    border: none; /* Sin bordes adicionales */
+    /* Hereda padding, border-radius, font-size de .btn */
+}
+
+.btn-comparar:hover {
+    background: linear-gradient(45deg, #002244, #0055aa); /* Cambia el degradado al pasar el cursor */
+    transform: translateY(-2px);
+}
+
+.btn-comparar:active {
+    background: linear-gradient(45deg, #001122, #004488); /* Cambia el degradado al hacer clic */
     transform: translateY(0);
+}
+
+/* Tabla de Comparación */
+.tabla-comparacion {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-comparacion th,
+.tabla-comparacion td {
+    border: 1px solid #333333;
+    padding: 10px;
+    text-align: center;
+    color: #E0E0E0;
+}
+
+.tabla-comparacion th {
+    background-color: #2C2C2C;
+}
+
+.tabla-comparacion tr:nth-child(even) {
+    background-color: #1F1F1F;
+}
+
+.tabla-comparacion tr:nth-child(odd) {
+    background-color: #2A2A2A;
 }
 
 /* Animaciones */
@@ -469,54 +562,132 @@ button, .btn {
 }
 
 /* Responsividad */
-@media (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Navegación */
     .nav-tabs {
-        gap: 15px;
-    }
-    
-    .section {
-        padding: 20px;
+        gap: 8px;
+        padding: 10px;
     }
 
-    .footer-container {
-        padding: 0 10px;
+    .nav-tab {
+        padding: 8px 16px;
+        font-size: 0.95rem;
     }
 
+    /* Contenedores */
+    .section-container {
+        padding: 25px;
+    }
+
+    /* Botones */
+    .button-group {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    /* Botones en Simulaciones */
     .simulacion-actions {
-        top: auto;
+        flex-direction: row;
         bottom: 15px;
+    }
+
+    .simulacion-actions button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer p {
+        font-size: 0.85rem;
     }
 }
 
 @media (max-width: 480px) {
-    .calculated-value {
-        margin-left: 10px;
-        font-size: 0.9rem;
-    }
-
-    .total-inicial {
-        font-size: 1.1rem;
-    }
-
+    /* Navegación */
     .nav-tabs {
         flex-direction: column;
         gap: 10px;
+        align-items: center;
+        width: 100%;
+        border-radius: 0;
     }
 
-    .navbar {
-        justify-content: flex-start;
+    .nav-tab {
+        width: 100%;
+        text-align: center;
+        padding: 12px 0;
+        font-size: 1rem;
+        border-radius: 0;
     }
 
+    /* Contenedores */
+    .section-container {
+        padding: 20px 15px;
+    }
+
+    /* Botones */
     .button-group {
         flex-direction: column;
+        gap: 10px;
     }
 
     .button-group button, .button-group .btn {
         width: 100%;
     }
 
-    .simulacion-actions button {
-        padding: 4px 8px;
-        font-size: 0.8rem;
+    /* Botones en Simulaciones */
+    .simulacion-actions {
+        flex-direction: column;
+        bottom: 15px;
+        right: 10px;
     }
+
+    .simulacion-actions button {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        width: 100%;
+    }
+
+    /* Formularios */
+    form {
+        padding: 0 10px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px 14px;
+        font-size: 0.95rem;
+    }
+
+    .input-with-calculation .calculated-value {
+        margin-left: 10px;
+        font-size: 0.9rem;
+        min-width: 60px;
+    }
+
+    /* Tablas */
+    .tabla-amortizacion th,
+    .tabla-amortizacion td,
+    .tabla-comparacion th,
+    .tabla-comparacion td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Footer */
+footer {
+    background-color: #1F1F1F;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    color: #A0A0A0;
+    font-size: 0.9rem;
 }
