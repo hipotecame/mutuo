@@ -1,5 +1,8 @@
 // script.js
 
+// Variable global para almacenar la cuota donde Capital supera a Interés
+let cuotaCapitalSuperaInteres = null;
+
 // Función para manejar la navegación principal
 function setupMainNavigation() {
     const mainTabs = document.querySelectorAll('#main-nav .nav-tab');
@@ -73,18 +76,41 @@ function setupSecondaryNavigation() {
     });
 }
 
+// Función para obtener el valor en euros basado en el tipo
+function obtenerValorEnEuros(valor, tipo, precioPropiedad) {
+    if (tipo === '%') {
+        return (valor / 100) * precioPropiedad;
+    } else {
+        return valor;
+    }
+}
+
+// Función para obtener el porcentaje basado en euros
+function obtenerPorcentaje(valorEuros, precioPropiedad) {
+    if (precioPropiedad === 0) return 0;
+    return (valorEuros / precioPropiedad) * 100;
+}
+
 // Función para actualizar los cálculos en la sección de Datos de la Simulación
 function setupDatosSimulacion() {
     // Obtener elementos del DOM
     const precioPropiedadInput = document.getElementById('precio-propiedad');
-    const entradaPorcentajeInput = document.getElementById('entrada-porcentaje');
-    const arrasPorcentajeInput = document.getElementById('arras-porcentaje');
-    const impuestoPorcentajeInput = document.getElementById('impuesto');
 
-    const entradaEurosSpan = document.getElementById('entrada-euros');
-    const arrasEurosSpan = document.getElementById('arras-euros');
-    const impuestoEurosSpan = document.getElementById('impuesto-euros');
+    // Entrada
+    const entradaInput = document.getElementById('entrada');
+    const tipoEntradaSelect = document.getElementById('tipo-entrada');
+    const entradaCalculadoSpan = document.getElementById('entrada-calculado');
 
+    // Arras
+    const arrasInput = document.getElementById('arras');
+    const tipoArrasSelect = document.getElementById('tipo-arras');
+    const arrasCalculadoSpan = document.getElementById('arras-calculado');
+
+    // Impuesto
+    const impuestoInput = document.getElementById('impuesto');
+    const impuestoCalculadoSpan = document.getElementById('impuesto-calculado');
+
+    // Otros campos
     const tasacionInput = document.getElementById('tasacion');
     const notariaInput = document.getElementById('notaria');
     const gestorInput = document.getElementById('gestoria');
@@ -92,31 +118,60 @@ function setupDatosSimulacion() {
 
     const totalInicialSpan = document.getElementById('total-inicial');
 
-    // Función para actualizar los valores en euros basados en porcentajes
-    function actualizarPorcentajes() {
+    // Variables para almacenar valores en euros
+    let entradaEuros = 0;
+    let arrasEuros = 0;
+    let impuestoEuros = 0;
+
+    // Función para actualizar los valores en euros basados en tipos
+    function actualizarValores() {
         const precioPropiedad = parseFloat(precioPropiedadInput.value) || 0;
 
-        const entradaPorcentaje = parseFloat(entradaPorcentajeInput.value) || 0;
-        const entradaEuros = (entradaPorcentaje / 100) * precioPropiedad;
-        entradaEurosSpan.textContent = entradaEuros.toFixed(2);
+        // Entrada
+        const entradaValor = parseFloat(entradaInput.value) || 0;
+        const tipoEntrada = tipoEntradaSelect.value;
+        if (tipoEntrada === '%') {
+            entradaEuros = obtenerValorEnEuros(entradaValor, tipoEntrada, precioPropiedad);
+            entradaCalculadoSpan.textContent = `€${entradaEuros.toFixed(2)}`;
+        } else if (tipoEntrada === '€') {
+            entradaEuros = entradaValor;
+            const entradaPorcentaje = obtenerPorcentaje(entradaEuros, precioPropiedad);
+            entradaCalculadoSpan.textContent = `${entradaPorcentaje.toFixed(2)}%`;
+        }
 
-        const arrasPorcentaje = parseFloat(arrasPorcentajeInput.value) || 0;
-        const arrasEuros = (arrasPorcentaje / 100) * precioPropiedad;
-        arrasEurosSpan.textContent = arrasEuros.toFixed(2);
+        // Arras
+        const arrasValor = parseFloat(arrasInput.value) || 0;
+        const tipoArras = tipoArrasSelect.value;
+        if (tipoArras === '%') {
+            arrasEuros = obtenerValorEnEuros(arrasValor, tipoArras, precioPropiedad);
+            arrasCalculadoSpan.textContent = `€${arrasEuros.toFixed(2)}`;
+        } else if (tipoArras === '€') {
+            arrasEuros = arrasValor;
+            const arrasPorcentaje = obtenerPorcentaje(arrasEuros, precioPropiedad);
+            arrasCalculadoSpan.textContent = `${arrasPorcentaje.toFixed(2)}%`;
+        }
 
-        const impuestoPorcentaje = parseFloat(impuestoPorcentajeInput.value) || 0;
-        const impuestoEuros = (impuestoPorcentaje / 100) * precioPropiedad;
-        impuestoEurosSpan.textContent = impuestoEuros.toFixed(2);
+        // Impuesto (Siempre en %)
+        const impuestoValor = parseFloat(impuestoInput.value) || 0;
+        impuestoEuros = (impuestoValor / 100) * precioPropiedad;
+        impuestoCalculadoSpan.textContent = `€${impuestoEuros.toFixed(2)}`;
+
+        // Validación: Entrada + Arras no exceden Precio de la Propiedad
+        if ((entradaEuros + arrasEuros) > precioPropiedad) {
+            alert("La suma de Entrada y Arras no puede exceder el Precio de la Propiedad.");
+            // Opcional: Puedes limpiar los campos o revertir los últimos cambios
+            // Por ejemplo:
+            // entradaInput.value = "";
+            // arrasInput.value = "";
+            // actualizarValores();
+            return;
+        }
 
         calcularTotalInicial();
     }
 
     // Función para calcular el total inicial necesario
     function calcularTotalInicial() {
-        const entradaEuros = parseFloat(entradaEurosSpan.textContent) || 0;
-        const arrasEuros = parseFloat(arrasEurosSpan.textContent) || 0;
-        const impuestoEuros = parseFloat(impuestoEurosSpan.textContent) || 0;
-
         const tasacion = parseFloat(tasacionInput.value) || 0;
         const notaria = parseFloat(notariaInput.value) || 0;
         const gestor = parseFloat(gestorInput.value) || 0;
@@ -127,10 +182,15 @@ function setupDatosSimulacion() {
     }
 
     // Event Listeners para actualizar los cálculos en tiempo real
-    precioPropiedadInput.addEventListener('input', actualizarPorcentajes);
-    entradaPorcentajeInput.addEventListener('input', actualizarPorcentajes);
-    arrasPorcentajeInput.addEventListener('input', actualizarPorcentajes);
-    impuestoPorcentajeInput.addEventListener('input', actualizarPorcentajes);
+    precioPropiedadInput.addEventListener('input', actualizarValores);
+
+    entradaInput.addEventListener('input', actualizarValores);
+    tipoEntradaSelect.addEventListener('change', actualizarValores);
+
+    arrasInput.addEventListener('input', actualizarValores);
+    tipoArrasSelect.addEventListener('change', actualizarValores);
+
+    impuestoInput.addEventListener('input', actualizarValores);
 
     tasacionInput.addEventListener('input', calcularTotalInicial);
     notariaInput.addEventListener('input', calcularTotalInicial);
@@ -138,7 +198,7 @@ function setupDatosSimulacion() {
     registroInput.addEventListener('input', calcularTotalInicial);
 
     // Inicializar valores al cargar la página
-    actualizarPorcentajes();
+    actualizarValores();
 }
 
 // Función para configurar los cálculos en la sección de Condiciones de la Hipoteca
@@ -165,8 +225,8 @@ function actualizarCuotaMensual() {
     const cuotaTotalSpan = document.getElementById('cuota-total');
 
     const precioPropiedad = parseFloat(document.getElementById('precio-propiedad').value) || 0;
-    const entradaEuros = parseFloat(document.getElementById('entrada-euros').textContent) || 0;
-    const arrasEuros = parseFloat(document.getElementById('arras-euros').textContent) || 0;
+    const entradaEuros = parseFloat(document.getElementById('entrada-calculado').textContent.replace('€', '').replace('%', '')) || 0;
+    const arrasEuros = parseFloat(document.getElementById('arras-calculado').textContent.replace('€', '').replace('%', '')) || 0;
 
     const montoPrestamo = precioPropiedad - entradaEuros - arrasEuros;
     montoPrestamoSpan.textContent = montoPrestamo.toFixed(2);
@@ -202,6 +262,8 @@ function actualizarCuotaMensual() {
 function limpiarCalendarioPagos() {
     const tablaBody = document.getElementById('tabla-amortizacion-body');
     tablaBody.innerHTML = ''; // Limpiar contenido
+    cuotaCapitalSuperaInteres = null;
+    actualizarCuotaComparador();
 }
 
 // Función para generar el calendario de pagos
@@ -222,6 +284,9 @@ function generarCalendarioPagos() {
     const interesMensual = (tin / 100) / 12;
     const cuotaMensual = (montoPrestamo * interesMensual) / (1 - Math.pow(1 + interesMensual, -numeroCuotas));
     let saldoPendiente = montoPrestamo;
+
+    // Reiniciar la variable antes de generar el calendario
+    cuotaCapitalSuperaInteres = null;
 
     for (let i = 1; i <= numeroCuotas; i++) {
         const interes = saldoPendiente * interesMensual;
@@ -259,8 +324,29 @@ function generarCalendarioPagos() {
         columnaSaldo.textContent = '€' + saldoPendiente.toFixed(2);
         fila.appendChild(columnaSaldo);
 
+        // Verificar si Capital > Interés y si aún no se ha encontrado la cuota
+        if (capital > interes && cuotaCapitalSuperaInteres === null) {
+            fila.classList.add('capital-supera-interes');
+            cuotaCapitalSuperaInteres = i;
+        }
+
         // Agregar la fila al cuerpo de la tabla
         tablaBody.appendChild(fila);
+    }
+
+    // Actualizar el Comparador con la cuota encontrada
+    actualizarCuotaComparador();
+}
+
+// Función para actualizar la cuota en el Comparador
+function actualizarCuotaComparador() {
+    const cuotaIndicador = document.getElementById('cuota-capital-supera-interes');
+    if (cuotaIndicador) {
+        if (cuotaCapitalSuperaInteres) {
+            cuotaIndicador.innerText = cuotaCapitalSuperaInteres;
+        } else {
+            cuotaIndicador.innerText = 'N/A';
+        }
     }
 }
 
@@ -302,6 +388,7 @@ function guardarSimulacion() {
         costeTotalHipoteca: parseFloat(document.getElementById('coste-total-hipoteca').textContent) || 0,
         cuotaEstimada: parseFloat(document.getElementById('cuota-estimada').textContent) || 0,
         cuotaTotal: parseFloat(document.getElementById('cuota-total').textContent) || 0,
+        cuotaCapitalSuperaInteres: cuotaCapitalSuperaInteres, // Nuevo campo
         fecha: new Date().toLocaleString()
     };
 
@@ -377,6 +464,12 @@ function listarSimulacionesGuardadas() {
         const pCuotaTotal = document.createElement('p');
         pCuotaTotal.innerHTML = `<strong>Cuota Mensual Total (€):</strong> €${simulacion.cuotaTotal.toFixed(2)}`;
         detallesDiv.appendChild(pCuotaTotal);
+
+        // Mostrar la cuota donde Capital supera a Interés
+        const pCuotaCapital = document.createElement('p');
+        const cuotaText = simulacion.cuotaCapitalSuperaInteres ? simulacion.cuotaCapitalSuperaInteres : 'N/A';
+        pCuotaCapital.innerHTML = `<strong>Cuota Capital > Interés:</strong> ${cuotaText}`;
+        detallesDiv.appendChild(pCuotaCapital);
 
         simulacionDiv.appendChild(detallesDiv);
 
@@ -478,6 +571,7 @@ function mostrarComparacion(simulaciones) {
     const comparadorContenido = document.getElementById('comparador-contenido');
     comparadorContenido.innerHTML = ''; // Limpiar contenido previo
 
+    // Crear una tabla comparativa de parámetros financieros y cuotaCapitalSuperaInteres
     const tabla = document.createElement('table');
     tabla.classList.add('tabla-comparacion');
 
@@ -486,6 +580,7 @@ function mostrarComparacion(simulaciones) {
     const encabezadoFila = document.createElement('tr');
 
     const encabezadoVacio = document.createElement('th');
+    encabezadoVacio.textContent = 'Parámetro';
     encabezadoFila.appendChild(encabezadoVacio);
 
     simulaciones.forEach(simulacion => {
@@ -499,13 +594,14 @@ function mostrarComparacion(simulaciones) {
     // Crear cuerpo de la tabla
     const tbody = document.createElement('tbody');
 
-    // Lista de propiedades a comparar
+    // Lista de propiedades a comparar incluyendo cuotaCapitalSuperaInteres
     const propiedades = [
         { clave: 'totalInicial', etiqueta: 'Total Inicial (€)' },
         { clave: 'financiacionSolicitada', etiqueta: 'Financiación Solicitada (€)' },
         { clave: 'costeTotalHipoteca', etiqueta: 'Coste Total Hipoteca (€)' },
         { clave: 'cuotaEstimada', etiqueta: 'Cuota Mensual Estimada (€)' },
         { clave: 'cuotaTotal', etiqueta: 'Cuota Mensual Total (€)' },
+        { clave: 'cuotaCapitalSuperaInteres', etiqueta: 'Cuota donde Capital > Interés' } // Nueva propiedad
     ];
 
     propiedades.forEach(prop => {
@@ -516,7 +612,15 @@ function mostrarComparacion(simulaciones) {
 
         simulaciones.forEach(simulacion => {
             const celdaValor = document.createElement('td');
-            celdaValor.textContent = `€${simulacion[prop.clave].toFixed(2)}`;
+            const valor = simulacion[prop.clave];
+
+            // Formatear el valor según la propiedad
+            if (prop.clave === 'cuotaCapitalSuperaInteres') {
+                celdaValor.textContent = valor ? valor : 'N/A';
+            } else {
+                celdaValor.textContent = `€${valor.toFixed(2)}`;
+            }
+
             fila.appendChild(celdaValor);
         });
 
@@ -589,15 +693,6 @@ function initializeApp() {
     setupDatosSimulacion();
     setupCondicionesHipoteca();
 
-    // Añadir event listener al botón de calcular cuota
-    const calcularCuotaBtn = document.getElementById('calcular-cuota');
-    if (calcularCuotaBtn) {
-        calcularCuotaBtn.addEventListener('click', () => {
-            actualizarCuotaMensual();
-            actualizarResumenFinanciero();
-        });
-    }
-
     // Añadir event listener al botón de guardar simulación
     const guardarSimulacionBtn = document.getElementById('guardar-simulacion');
     if (guardarSimulacionBtn) {
@@ -618,6 +713,12 @@ function initializeApp() {
     const importarInput = document.getElementById('importar-simulaciones');
     if (importarInput) {
         importarInput.addEventListener('change', importarSimulaciones);
+    }
+
+    // Añadir event listener al botón "Calcular cuota"
+    const calcularCuotaBtn = document.getElementById('calcular-cuota');
+    if (calcularCuotaBtn) {
+        calcularCuotaBtn.addEventListener('click', actualizarCuotaMensual);
     }
 
     // Listar simulaciones guardadas al iniciar
