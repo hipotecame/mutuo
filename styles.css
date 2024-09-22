@@ -191,6 +191,112 @@ form {
     padding-right: 40px;
 }
 
+/* ===========================
+   Estilos para Entrada, Arras e IVA/ITP
+   =========================== */
+
+/* Input Group para Entrada y Arras */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre elementos */
+    margin-bottom: 10px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #333333; /* Borde oscuro */
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #2C2C2C; /* Fondo oscuro para inputs */
+    color: #E0E0E0; /* Texto claro */
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #E0E0E0; /* Borde claro en enfoque */
+    box-shadow: 0 0 0 3px rgba(224, 224, 224, 0.2); /* Sombra clara en enfoque */
+    transform: scale(1.02);
+}
+
+/* Select para Entrada y Arras */
+.input-group select {
+    width: 60px; /* Ajusta según sea necesario */
+    padding: 12px 16px;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    background-color: #2C2C2C;
+    color: #E0E0E0;
+    appearance: none; /* Eliminar estilos por defecto de select */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path fill="%23E0E0E0" d="M4 6l4 4 4-4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.input-group select:focus {
+    outline: none;
+    border-color: #E0E0E0;
+    box-shadow: 0 0 0 3px rgba(224, 224, 224, 0.2);
+    transform: scale(1.02);
+}
+
+/* Span de conversión para Entrada, Arras e IVA/ITP */
+.calculated-value {
+    font-size: 1rem;
+    color: #A0A0A0; /* Gris medio para los valores calculados */
+    min-width: 80px;
+    text-align: right;
+    transition: color 0.3s;
+}
+
+.input-group:hover .calculated-value {
+    color: #FFFFFF; /* Blanco al pasar el cursor */
+}
+
+/* Responsividad para Pantallas Medianas (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Asegurar que los grupos de entrada se mantengan en fila */
+    .input-group {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    /* Mantener el ancho de los selects y spans */
+    .input-group select {
+        width: 60px;
+    }
+
+    .calculated-value {
+        min-width: 80px;
+    }
+}
+
+/* Responsividad para Pantallas Pequeñas (<480px) */
+@media (max-width: 480px) {
+    /* Cambiar disposición a columna para pantallas pequeñas */
+    .input-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Ajustar ancho de los elementos */
+    .input-group input,
+    .input-group select {
+        width: 100%;
+    }
+
+    .calculated-value {
+        min-width: 60px;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+}
+
 /* Input con cálculo */
 .input-with-calculation {
     display: flex;
@@ -198,21 +304,14 @@ form {
     position: relative;
 }
 
-.input-with-calculation input {
-    flex: 1;
+/* Cuota Mensual específico */
+#cuota-mensual-form .form-group label {
+    cursor: default;
 }
 
-.calculated-value {
-    margin-left: 15px;
-    font-size: 1rem;
-    color: #E0E0E0; /* Valores calculados en color claro */
-    min-width: 80px;
-    text-align: right;
-    transition: color 0.3s;
-}
-
-.input-with-calculation:hover .calculated-value {
-    color: #FFFFFF; /* Blanco al pasar el cursor */
+#cuota-mensual-form .input-with-calculation span {
+    font-weight: bold;
+    color: #E0E0E0; /* Color claro */
 }
 
 /* Descripciones */
@@ -243,16 +342,6 @@ form {
 
 .total-inicial:hover {
     color: #FFFFFF; /* Blanco al pasar el cursor */
-}
-
-/* Cuota Mensual */
-#cuota-mensual-form .form-group label {
-    cursor: default;
-}
-
-#cuota-mensual-form .input-with-calculation span {
-    font-weight: bold;
-    color: #E0E0E0; /* Color claro */
 }
 
 /* Resumen Financiero */
@@ -531,6 +620,65 @@ button:active, .btn:active {
     background-color: #2A2A2A;
 }
 
+/* ===========================
+   Estilos para indicar cuando Capital supera a Interés en la Tabla de Amortización
+   =========================== */
+
+/* Resaltar la fila donde Capital supera a Interés */
+.capital-supera-interes {
+    background-color: #004d00; /* Verde oscuro */
+    color: #FFFFFF; /* Texto blanco */
+    position: relative; /* Para posicionar el tooltip */
+    /* Puedes añadir una animación suave para el resaltado si lo deseas */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Tooltip que indica que Capital supera a Interés */
+/* Opcional: Hacer que el tooltip sea siempre visible */
+/* Si prefieres mantenerlo oculto hasta el hover, deja la propiedad opacity como está */
+.capital-supera-interes::after {
+    content: "Punto de inflexión";
+    position: absolute;
+    top: 8px;
+    right: -100px;
+    background-color: #FFD700; /* Amarillo dorado */
+    color: #000000; /* Texto negro */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 1; /* Cambiar a 1 para mostrar siempre el tooltip */
+    transition: opacity 0.3s;
+    pointer-events: none; /* Evita que el tooltip interfiera con la interacción */
+}
+
+/* Si decides mantener el tooltip solo en hover, usa la siguiente regla */
+.capital-supera-interes:hover::after {
+    opacity: 1;
+}
+
+/* ===========================
+   Estilos para el Indicador en el Comparador
+   =========================== */
+
+.comparador-indicador {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #2C2C2C; /* Fondo oscuro */
+    border-radius: 8px;
+    color: #E0E0E0;
+    font-size: 1rem;
+}
+
+.comparador-indicador p {
+    margin: 0;
+}
+
+.comparador-indicador span {
+    color: #FFD700; /* Amarillo dorado para destacar */
+    font-weight: bold;
+}
+
 /* Animaciones */
 @keyframes fadeInDown {
     from {
@@ -600,6 +748,16 @@ button:active, .btn:active {
     footer p {
         font-size: 0.85rem;
     }
+
+    /* Input Groups para Entrada, Arras e IVA/ITP */
+    .input-group {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .calculated-value {
+        min-width: 80px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -659,24 +817,15 @@ button:active, .btn:active {
         font-size: 0.95rem;
     }
 
-    .input-with-calculation .calculated-value {
-        margin-left: 10px;
-        font-size: 0.9rem;
+    .input-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .calculated-value {
         min-width: 60px;
-    }
-
-    /* Tablas */
-    .tabla-amortizacion th,
-    .tabla-amortizacion td,
-    .tabla-comparacion th,
-    .tabla-comparacion td {
-        padding: 8px;
         font-size: 0.9rem;
-    }
-
-    /* Footer */
-    footer p {
-        font-size: 0.85rem;
+        margin-top: 5px;
     }
 }
 
