@@ -25,7 +25,7 @@
     </nav>
     
     <!-- Barra de Navegación Secundaria (se muestra solo en "Iniciar Simulación") -->
-    <nav class="navbar" id="secondary-nav" style="display: none;">
+    <nav class="navbar" id="secondary-nav">
         <ul class="nav-tabs" id="simulation-nav">
             <li class="nav-tab active" data-tab="datos-simulacion">Datos de la simulación</li>
             <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la hipoteca</li>
@@ -60,22 +60,30 @@
                         
                         <!-- Entrada -->
                         <div class="form-group">
-                            <label for="entrada-porcentaje">Entrada (%)</label>
-                            <div class="input-with-calculation">
-                                <input type="number" id="entrada-porcentaje" placeholder="Ejemplo: 20" min="0" max="100" step="0.01" required>
-                                <span class="calculated-value">€<span id="entrada-euros">0.00</span></span>
+                            <label for="entrada">Entrada</label>
+                            <div class="input-group">
+                                <input type="number" id="entrada" name="entrada" placeholder="Ejemplo: 20" min="0" step="0.01" required>
+                                <select id="tipo-entrada" name="tipo-entrada">
+                                    <option value="%">%</option>
+                                    <option value="€">€</option>
+                                </select>
+                                <span class="calculated-value" id="entrada-calculado"></span>
                             </div>
-                            <small class="description">Porcentaje del precio que pagarás como adelanto.</small>
+                            <div class="description">Ingrese la Entrada como porcentaje (%) o en euros (€).</div>
                         </div>
                         
                         <!-- Arras -->
                         <div class="form-group">
-                            <label for="arras-porcentaje">Arras (%)</label>
-                            <div class="input-with-calculation">
-                                <input type="number" id="arras-porcentaje" placeholder="Ejemplo: 10" min="0" max="100" step="0.01" required>
-                                <span class="calculated-value">€<span id="arras-euros">0.00</span></span>
+                            <label for="arras">Arras</label>
+                            <div class="input-group">
+                                <input type="number" id="arras" name="arras" placeholder="Ejemplo: 2" min="0" step="0.01" required>
+                                <select id="tipo-arras" name="tipo-arras">
+                                    <option value="%">%</option>
+                                    <option value="€">€</option>
+                                </select>
+                                <span class="calculated-value" id="arras-calculado"></span>
                             </div>
-                            <small class="description">Porcentaje del precio entregado como garantía.</small>
+                            <div class="description">Ingrese las Arras como porcentaje (%) o en euros (€).</div>
                         </div>
                         
                         <!-- Gastos hipoteca -->
@@ -83,12 +91,12 @@
                         
                         <!-- Tasación de Vivienda -->
                         <div class="form-group">
-                            <label for="tasacion">Tasación (€)</label>
+                            <label for="tasacion">Tasación de Vivienda (€)</label>
                             <input type="number" id="tasacion" placeholder="Ingrese el costo de tasación" min="0" step="0.01" required>
                             <small class="description">Costo del servicio profesional que determina el valor de la propiedad.</small>
                         </div>
 
-                        <!-- Gastos hipoteca -->
+                        <!-- Gastos compraventa -->
                         <h3>Gastos compraventa</h3>
                         
                         <!-- Notaría -->
@@ -115,11 +123,11 @@
                         <!-- IVA o ITP -->
                         <div class="form-group">
                             <label for="impuesto">IVA/ITP (%)</label>
-                            <div class="input-with-calculation">
-                                <input type="number" id="impuesto" placeholder="Ejemplo: 10" min="0" max="100" step="0.01" required>
-                                <span class="calculated-value">€<span id="impuesto-euros">0.00</span></span>
+                            <div class="input-group">
+                                <input type="number" id="impuesto" name="impuesto" placeholder="Ejemplo: 10" min="0" max="100" step="0.01" required>
+                                <span class="calculated-value" id="impuesto-calculado"></span>
                             </div>
-                            <small class="description">Impuesto sobre el valor añadido o impuesto de transmisiones patrimoniales.</small>
+                            <div class="description">Impuesto sobre el valor añadido o impuesto de transmisiones patrimoniales.</div>
                         </div>
                         
                         <!-- Total Inicial -->
@@ -155,12 +163,12 @@
                             <input type="number" id="plazo" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
                             <small class="description">Número de años para pagar el préstamo.</small>
                         </div>
-        
+    
                         <!-- Seguros y Productos Vinculados -->
                         <div class="form-group">
                             <label for="seguros-productos">Seguros y productos vinculados (€)</label>
                             <input type="number" id="seguros-productos" placeholder="Costo mensual" min="0" step="0.01">
-                            <small class="description">Coste mensual de seguros y otros productos obligatorios.</small>
+                            <small class="description">Costo mensual de seguros y otros productos obligatorios.</small>
                         </div>
                     </form>
                 </div>
@@ -266,6 +274,7 @@
                 <!-- Contenido para comparar simulaciones -->
                 <div id="comparador-contenido">
                     <!-- Aquí se mostrarán las simulaciones comparadas -->
+                    <!-- Se elimina la sección separada para la cuota, ya que se incluirá en la tabla -->
                 </div>
             </div>
         </div>
