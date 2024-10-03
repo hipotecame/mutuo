@@ -191,11 +191,7 @@ form {
     padding-right: 40px;
 }
 
-/* ===========================
-   Estilos para Entrada, Arras e IVA/ITP
-   =========================== */
-
-/* Input Group para Entrada y Arras */
+/* Estilos para Entrada, Arras e IVA/ITP */
 .input-group {
     display: flex;
     align-items: center;
@@ -221,7 +217,6 @@ form {
     transform: scale(1.02);
 }
 
-/* Select para Entrada y Arras */
 .input-group select {
     width: 60px; /* Ajusta según sea necesario */
     padding: 12px 16px;
@@ -245,7 +240,6 @@ form {
     transform: scale(1.02);
 }
 
-/* Span de conversión para Entrada, Arras e IVA/ITP */
 .calculated-value {
     font-size: 1rem;
     color: #A0A0A0; /* Gris medio para los valores calculados */
@@ -278,22 +272,106 @@ form {
 
 /* Responsividad para Pantallas Pequeñas (<480px) */
 @media (max-width: 480px) {
-    /* Cambiar disposición a columna para pantallas pequeñas */
+    /* Navegación */
+    .nav-tabs {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+        border-radius: 0;
+        padding: 10px 0;
+    }
+
+    .nav-tab {
+        width: 100%;
+        text-align: center;
+        padding: 12px 0;
+        font-size: 1rem;
+        border-radius: 0;
+    }
+
+    /* Contenedor */
+    .section-container {
+        padding: 20px 15px;
+    }
+
+    /* Botones */
+    .button-group,
+    .navigation-buttons {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .button-group button, .navigation-buttons button {
+        width: 100%;
+    }
+
+    /* Formularios */
+    form {
+        padding: 0 10px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px 14px;
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    /* Input Groups */
     .input-group {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    /* Ajustar ancho de los elementos */
     .input-group input,
-    .input-group select {
+    .input-group select,
+    .calculated-value {
         width: 100%;
     }
 
     .calculated-value {
-        min-width: 60px;
         font-size: 0.9rem;
         margin-top: 5px;
+        text-align: left;
+    }
+
+    /* Ajustes para botones y textos */
+    button, .btn {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    /* Ajustar tamaño de fuentes */
+    body {
+        font-size: 16px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    /* Ajustes adicionales para mantener el formato cápsula */
+    .section-container {
+        margin: 20px 10px; /* Reducir márgenes laterales */
+    }
+
+    /* Footer */
+    footer {
+        padding: 15px;
+    }
+
+    footer p {
+        font-size: 0.85rem;
     }
 }
 
@@ -355,31 +433,106 @@ form {
     color: #FFFFFF; /* Texto en negrita en blanco */
 }
 
-/* Tabla de Amortización */
+/* Estilos para la tabla de amortización y comparación */
 .tabla-amortizacion {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #1F1F1F; /* Fondo oscuro para la tabla */
 }
 
 .tabla-amortizacion th,
 .tabla-amortizacion td {
-    border: 1px solid #333333;
-    padding: 10px;
+    border: 1px solid #333333; /* Borde oscuro */
+    padding: 8px;
     text-align: center;
-    color: #E0E0E0;
+    color: #E0E0E0; /* Texto claro */
 }
 
 .tabla-amortizacion th {
-    background-color: #2C2C2C;
+    background-color: #2C2C2C; /* Fondo ligeramente más claro para el encabezado */
+    font-weight: bold;
 }
 
+/* Colores alternados para las filas */
 .tabla-amortizacion tr:nth-child(even) {
-    background-color: #1F1F1F;
+    background-color: #1B1B1B; /* Gris muy oscuro */
 }
 
 .tabla-amortizacion tr:nth-child(odd) {
-    background-color: #2A2A2A;
+    background-color: #1F1F1F; /* Fondo oscuro consistente con la tabla */
+}
+
+/* Resaltar la fila donde el capital supera al interés */
+.tabla-amortizacion tr.capital-supera-interes {
+    background-color: #0066cc; /* Naranja brillante para resaltar */
+    font-weight: bold;
+}
+
+/* Estilos para la leyenda de la tabla */
+.tabla-leyenda {
+    margin-bottom: 15px; /* Espacio entre la leyenda y la tabla */
+    display: flex;
+    align-items: center;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+}
+
+.leyenda-color {
+    width: 20px;
+    height: 20px;
+    background-color: #0066cc; /* Mismo color que el resaltado en la tabla */
+    border: 1px solid #333333; /* Borde para mayor visibilidad */
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.leyenda-texto {
+    color: #E0E0E0; /* Color de texto claro */
+    font-size: 1rem;
+}
+
+/* Botones de navegación en las subsecciones */
+.navigation-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-anterior {
+    background-color: #1F1F1F;
+    border: 2px solid #555555;
+}
+
+.btn-anterior:hover {
+    background-color: #333333;
+    border-color: #777777;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+.btn-anterior:active {
+    background-color: #2C2C2C;
+    border-color: #555555;
+}
+
+.btn-siguiente {
+    background: linear-gradient(45deg, #003366, #0066cc);
+    color: #FFFFFF;
+    border: none;
+}
+
+.btn-siguiente:hover {
+    background: linear-gradient(45deg, #002244, #0055aa);
+    transform: translateY(-2px);
+}
+
+.btn-siguiente:active {
+    background: linear-gradient(45deg, #001122, #004488);
 }
 
 /* Preguntas Frecuentes */
@@ -509,8 +662,6 @@ button:active, .btn:active {
     transform: translateY(0);
 }
 
-/* Estilos específicos para cada botón */
-
 /* Botón "Calcular cuota" */
 .btn-calcular {
     background: linear-gradient(45deg, #003366, #0066cc); /* Degradado de azul oscuro a azul claro */
@@ -580,103 +731,70 @@ button:active, .btn:active {
     background: linear-gradient(45deg, #003366, #0066cc); /* Degradado de azul oscuro a azul claro */
     color: #FFFFFF; /* Texto blanco */
     border: none; /* Sin bordes adicionales */
-    /* Hereda padding, border-radius, font-size de .btn */
 }
 
-.btn-comparar:hover {
-    background: linear-gradient(45deg, #002244, #0055aa); /* Cambia el degradado al pasar el cursor */
+/* Estilos para el botón de inicio de sesión */
+.btn-login {
+    background-color: #1F1F1F;
+    border: 2px solid #555555;
+}
+
+.btn-login:hover {
+    background-color: #333333;
+    border-color: #777777;
+    color: #FFFFFF;
     transform: translateY(-2px);
 }
 
-.btn-comparar:active {
-    background: linear-gradient(45deg, #001122, #004488); /* Cambia el degradado al hacer clic */
-    transform: translateY(0);
-}
-
-/* Tabla de Comparación */
-.tabla-comparacion {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.tabla-comparacion th,
-.tabla-comparacion td {
-    border: 1px solid #333333;
-    padding: 10px;
-    text-align: center;
-    color: #E0E0E0;
-}
-
-.tabla-comparacion th {
+.btn-login:active {
     background-color: #2C2C2C;
+    border-color: #555555;
 }
 
-.tabla-comparacion tr:nth-child(even) {
+/* Estilos para el formulario de inicio de sesión y registro */
+.auth-form-container {
     background-color: #1F1F1F;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    margin: 40px auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    animation: fadeInDown 1s ease-out;
 }
 
-.tabla-comparacion tr:nth-child(odd) {
-    background-color: #2A2A2A;
-}
-
-/* ===========================
-   Estilos para indicar cuando Capital supera a Interés en la Tabla de Amortización
-   =========================== */
-
-/* Resaltar la fila donde Capital supera a Interés */
-.capital-supera-interes {
-    background-color: #004d00; /* Verde oscuro */
-    color: #FFFFFF; /* Texto blanco */
-    position: relative; /* Para posicionar el tooltip */
-    /* Puedes añadir una animación suave para el resaltado si lo deseas */
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* Tooltip que indica que Capital supera a Interés */
-/* Opcional: Hacer que el tooltip sea siempre visible */
-/* Si prefieres mantenerlo oculto hasta el hover, deja la propiedad opacity como está */
-.capital-supera-interes::after {
-    content: "Punto de inflexión";
-    position: absolute;
-    top: 8px;
-    right: -100px;
-    background-color: #FFD700; /* Amarillo dorado */
-    color: #000000; /* Texto negro */
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    opacity: 1; /* Cambiar a 1 para mostrar siempre el tooltip */
-    transition: opacity 0.3s;
-    pointer-events: none; /* Evita que el tooltip interfiera con la interacción */
-}
-
-/* Si decides mantener el tooltip solo en hover, usa la siguiente regla */
-.capital-supera-interes:hover::after {
-    opacity: 1;
-}
-
-/* ===========================
-   Estilos para el Indicador en el Comparador
-   =========================== */
-
-.comparador-indicador {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #2C2C2C; /* Fondo oscuro */
-    border-radius: 8px;
+.auth-form-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: 30px;
     color: #E0E0E0;
-    font-size: 1rem;
+    text-align: center;
 }
 
-.comparador-indicador p {
-    margin: 0;
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.comparador-indicador span {
-    color: #FFD700; /* Amarillo dorado para destacar */
-    font-weight: bold;
+.auth-form .form-group {
+    margin-bottom: 15px;
+    opacity: 1;
+    transform: translateX(0);
+    animation: none;
+}
+
+.auth-form .form-group label {
+    margin-bottom: 5px;
+}
+
+.auth-form .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.auth-form .button-group button {
+    width: 100%;
 }
 
 /* Animaciones */
@@ -706,126 +824,6 @@ button:active, .btn:active {
     to {
         opacity: 1;
         transform: translateX(0);
-    }
-}
-
-/* Responsividad */
-@media (min-width: 481px) and (max-width: 768px) {
-    /* Navegación */
-    .nav-tabs {
-        gap: 8px;
-        padding: 10px;
-    }
-
-    .nav-tab {
-        padding: 8px 16px;
-        font-size: 0.95rem;
-    }
-
-    /* Contenedores */
-    .section-container {
-        padding: 25px;
-    }
-
-    /* Botones */
-    .button-group {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    /* Botones en Simulaciones */
-    .simulacion-actions {
-        flex-direction: row;
-        bottom: 15px;
-    }
-
-    .simulacion-actions button {
-        padding: 10px 20px;
-        font-size: 0.95rem;
-    }
-
-    /* Footer */
-    footer p {
-        font-size: 0.85rem;
-    }
-
-    /* Input Groups para Entrada, Arras e IVA/ITP */
-    .input-group {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .calculated-value {
-        min-width: 80px;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Navegación */
-    .nav-tabs {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-        width: 100%;
-        border-radius: 0;
-    }
-
-    .nav-tab {
-        width: 100%;
-        text-align: center;
-        padding: 12px 0;
-        font-size: 1rem;
-        border-radius: 0;
-    }
-
-    /* Contenedores */
-    .section-container {
-        padding: 20px 15px;
-    }
-
-    /* Botones */
-    .button-group {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .button-group button, .button-group .btn {
-        width: 100%;
-    }
-
-    /* Botones en Simulaciones */
-    .simulacion-actions {
-        flex-direction: column;
-        bottom: 15px;
-        right: 10px;
-    }
-
-    .simulacion-actions button {
-        padding: 8px 16px;
-        font-size: 0.85rem;
-        width: 100%;
-    }
-
-    /* Formularios */
-    form {
-        padding: 0 10px;
-    }
-
-    .form-group input,
-    .form-group select {
-        padding: 10px 14px;
-        font-size: 0.95rem;
-    }
-
-    .input-group {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .calculated-value {
-        min-width: 60px;
-        font-size: 0.9rem;
-        margin-top: 5px;
     }
 }
 
