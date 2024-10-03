@@ -2,43 +2,91 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mutuo</title>
+    <title>Mutuo - Simulador Hipotecario</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+
+    <!-- Cloud Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-    <!-- Barra Superior -->
     <header class="top-bar">
         <div class="top-bar-content">
             <h1 class="app-name">Mutuo</h1>
+            <!-- Botón de menú para dispositivos móviles -->
+            <button id="menu-toggle" class="menu-toggle" aria-label="Menú principal">
+                ☰
+            </button>
         </div>
     </header>
-    
+
     <!-- Barra de Navegación Principal -->
-    <nav class="navbar">
-        <ul class="nav-tabs" id="main-nav">
-            <li class="nav-tab active" data-tab="iniciar-simulacion">Iniciar simulación</li>
-            <li class="nav-tab" data-tab="mis-simulaciones">Mis simulaciones</li>
+    <nav class="navbar" id="main-nav">
+        <ul class="nav-tabs">
+            <li class="nav-tab active" data-tab="iniciar-simulacion">Iniciar Simulación</li>
+            <li class="nav-tab" data-tab="mis-simulaciones">Mis Simulaciones</li>
             <li class="nav-tab" data-tab="comparador">Comparador</li>
             <li class="nav-tab" data-tab="preguntas-frecuentes">Preguntas Frecuentes</li>
         </ul>
     </nav>
-    
-    <!-- Barra de Navegación Secundaria (se muestra solo en "Iniciar Simulación") -->
+
+    <!-- Barra de Navegación Secundaria -->
     <nav class="navbar" id="secondary-nav">
         <ul class="nav-tabs" id="simulation-nav">
-            <li class="nav-tab active" data-tab="datos-simulacion">Datos de la simulación</li>
-            <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la hipoteca</li>
-            <li class="nav-tab" data-tab="cuota-mensual">Cuota mensual</li>
-            <li class="nav-tab" data-tab="calendario-pagos">Calendario de pagos</li>
-            <li class="nav-tab" data-tab="resumen-financiero">Resumen</li>
+            <li class="nav-tab active" data-tab="datos-simulacion">Datos de la Simulación</li>
+            <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la Hipoteca</li>
+            <li class="nav-tab" data-tab="cuota-mensual">Cuota Mensual</li>
+            <li class="nav-tab" data-tab="tabla-amortizacion">Tabla de Amortización</li>
+            <li class="nav-tab" data-tab="resumen">Resumen</li>
         </ul>
     </nav>
-    
+
     <main>
+        <!-- Sección: Autenticación -->
+        <div class="section active" id="autenticacion">
+            <div class="auth-form-container">
+                <form id="form-iniciar-sesion" class="auth-form">
+                    <h2>Iniciar Sesión</h2>
+                    <div class="form-group">
+                        <label for="email-iniciar-sesion">Correo Electrónico</label>
+                        <input type="email" id="email-iniciar-sesion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password-iniciar-sesion">Contraseña</label>
+                        <input type="password" id="password-iniciar-sesion" required>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-login">Iniciar Sesión</button>
+                        <button type="button" id="mostrar-form-registro" class="btn btn-guardar">Crear Cuenta</button>
+                    </div>
+                </form>
+
+                <form id="form-registrar" class="auth-form" style="display: none;">
+                    <h2>Crear Cuenta</h2>
+                    <div class="form-group">
+                        <label for="email-registro">Correo Electrónico</label>
+                        <input type="email" id="email-registro" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password-registro">Contraseña</label>
+                        <input type="password" id="password-registro" required>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-login">Registrarse</button>
+                        <button type="button" id="mostrar-form-iniciar-sesion" class="btn btn-guardar">Ya tengo una cuenta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- Sección: Iniciar Simulación -->
         <div class="section active" id="iniciar-simulacion">
             <!-- Subsecciones dentro de Iniciar Simulación -->
+
             <!-- Sección 1: Datos de la Simulación -->
             <section class="subsection active" id="datos-simulacion">
                 <div class="section-container">
@@ -50,14 +98,14 @@
                             <input type="text" id="nombre-simulacion" placeholder="Ejemplo: Mi Primera Casa" required>
                             <small class="description">Asigna un nombre único para identificar esta simulación.</small>
                         </div>
-                        
+
                         <!-- Precio de la Propiedad -->
                         <div class="form-group">
                             <label for="precio-propiedad">Coste de la vivienda sin impuestos (€)</label>
                             <input type="number" id="precio-propiedad" placeholder="Ingrese el precio de la propiedad" min="0" step="0.01" required>
                             <small class="description">El valor total de la vivienda que deseas adquirir.</small>
                         </div>
-                        
+
                         <!-- Entrada -->
                         <div class="form-group">
                             <label for="entrada">Entrada</label>
@@ -71,7 +119,7 @@
                             </div>
                             <div class="description">Ingrese la Entrada como porcentaje (%) o en euros (€).</div>
                         </div>
-                        
+
                         <!-- Arras -->
                         <div class="form-group">
                             <label for="arras">Arras</label>
@@ -85,10 +133,10 @@
                             </div>
                             <div class="description">Ingrese las Arras como porcentaje (%) o en euros (€).</div>
                         </div>
-                        
+
                         <!-- Gastos hipoteca -->
                         <h3>Gastos hipoteca</h3>
-                        
+
                         <!-- Tasación de Vivienda -->
                         <div class="form-group">
                             <label for="tasacion">Tasación de Vivienda (€)</label>
@@ -98,28 +146,28 @@
 
                         <!-- Gastos compraventa -->
                         <h3>Gastos compraventa</h3>
-                        
+
                         <!-- Notaría -->
                         <div class="form-group">
                             <label for="notaria">Notaría (€)</label>
                             <input type="number" id="notaria" placeholder="Ingrese el costo de notaría" min="0" step="0.01" required>
                             <small class="description">Honorarios del notario para la formalización de la escritura.</small>
                         </div>
-                        
+
                         <!-- Gestoría -->
                         <div class="form-group">
                             <label for="gestoria">Gestoría (€)</label>
                             <input type="number" id="gestoria" placeholder="Ingrese el costo de gestoría" min="0" step="0.01" required>
                             <small class="description">Costos asociados a los trámites administrativos.</small>
                         </div>
-                        
+
                         <!-- Registro de la Propiedad -->
                         <div class="form-group">
                             <label for="registro-propiedad">Registro de la propiedad (€)</label>
                             <input type="number" id="registro-propiedad" placeholder="Ingrese el costo del registro" min="0" step="0.01" required>
                             <small class="description">Gastos para inscribir la propiedad a tu nombre.</small>
                         </div>
-                        
+
                         <!-- IVA o ITP -->
                         <div class="form-group">
                             <label for="impuesto">IVA/ITP (%)</label>
@@ -129,15 +177,21 @@
                             </div>
                             <div class="description">Impuesto sobre el valor añadido o impuesto de transmisiones patrimoniales.</div>
                         </div>
-                        
+
                         <!-- Total Inicial -->
                         <div class="total-inicial">
                             <strong>Ahorro inicial necesario (€):</strong> €<span id="total-inicial">0.00</span>
                         </div>
+
+                        <!-- Botones de Navegación -->
+                        <div class="navigation-buttons">
+                            <button type="button" class="btn btn-siguiente" id="btn-siguiente-datos-simulacion">Siguiente</button>
+                        </div>
+
                     </form>
                 </div>
             </section>
-            
+
             <!-- Sección 2: Condiciones de la Hipoteca -->
             <section class="subsection" id="condiciones-hipoteca">
                 <div class="section-container">
@@ -149,31 +203,38 @@
                             <input type="number" id="tin" placeholder="Ejemplo: 1.5" min="0" step="0.01" required>
                             <small class="description">El interés anual que aplicará el banco.</small>
                         </div>
-                        
+
                         <!-- TAE -->
                         <div class="form-group">
                             <label for="tae">Tasa Anual Equivalente (TAE) (%)</label>
                             <input type="number" id="tae" placeholder="Ejemplo: 1.75" min="0" step="0.01" required>
                             <small class="description">Incluye intereses y otros gastos asociados.</small>
                         </div>
-                        
+
                         <!-- Plazo del Préstamo -->
                         <div class="form-group">
                             <label for="plazo">Plazo del préstamo (años)</label>
                             <input type="number" id="plazo" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
                             <small class="description">Número de años para pagar el préstamo.</small>
                         </div>
-    
+
                         <!-- Seguros y Productos Vinculados -->
                         <div class="form-group">
                             <label for="seguros-productos">Seguros y productos vinculados (€)</label>
                             <input type="number" id="seguros-productos" placeholder="Costo mensual" min="0" step="0.01">
                             <small class="description">Costo mensual de seguros y otros productos obligatorios.</small>
                         </div>
+
+                        <!-- Botones de Navegación -->
+                        <div class="navigation-buttons">
+                            <button type="button" class="btn btn-anterior" id="btn-anterior-condiciones-hipoteca">Anterior</button>
+                            <button type="button" class="btn btn-siguiente" id="btn-siguiente-condiciones-hipoteca">Siguiente</button>
+                        </div>
+
                     </form>
                 </div>
             </section>
-            
+
             <!-- Sección 3: Cuota Mensual -->
             <section class="subsection" id="cuota-mensual">
                 <div class="section-container">
@@ -187,7 +248,7 @@
                             </div>
                             <small class="description">Cantidad que solicitarás al banco.</small>
                         </div>
-                        
+
                         <!-- Cuota Mensual Estimada -->
                         <div class="form-group">
                             <label>Cuota mensual sin seguros ni productos vinculados (€)</label>
@@ -196,7 +257,7 @@
                             </div>
                             <small class="description">Pago mensual sin incluir seguros ni otros productos.</small>
                         </div>
-                        
+
                         <!-- Cuota Mensual Total -->
                         <div class="form-group">
                             <label>Cuota mensual con seguros y productos vinculados (€)</label>
@@ -205,20 +266,36 @@
                             </div>
                             <small class="description">Pago mensual incluyendo seguros y productos vinculados.</small>
                         </div>
-                        
+
                         <!-- Botones de Acción -->
                         <div class="button-group">
                             <button id="calcular-cuota" class="btn btn-calcular" type="button">Calcular cuota</button>
                             <button id="guardar-simulacion" class="btn btn-guardar" type="button">Guardar simulación</button>
                         </div>
+
+                        <!-- Botones de Navegación -->
+                        <div class="navigation-buttons">
+                            <button type="button" class="btn btn-anterior" id="btn-anterior-cuota-mensual">Anterior</button>
+                            <button type="button" class="btn btn-siguiente" id="btn-siguiente-cuota-mensual">Siguiente</button>
+                        </div>
+
                     </form>
                 </div>
             </section>
-            
-            <!-- Sección 4: Calendario de Pagos -->
-            <section class="subsection" id="calendario-pagos">
+
+            <!-- Sección 4: Tabla de Amortización -->
+            <section class="subsection" id="tabla-amortizacion">
                 <div class="section-container">
-                    <h2>Calendario de pagos</h2>
+                    <h2>Tabla de Amortización</h2>
+
+                    <!-- Leyenda de la tabla de amortización -->
+                    <div class="tabla-leyenda">
+                        <div class="leyenda-item">
+                            <span class="leyenda-color"></span>
+                            <span class="leyenda-texto">Mes en el que el capital supera al interés</span>
+                        </div>
+                    </div>
+
                     <!-- Tabla de Amortización -->
                     <table class="tabla-amortizacion">
                         <thead>
@@ -234,11 +311,18 @@
                             <!-- Las filas de la tabla se generarán dinámicamente -->
                         </tbody>
                     </table>
+
+                    <!-- Botones de Navegación -->
+                    <div class="navigation-buttons">
+                        <button type="button" class="btn btn-anterior" id="btn-anterior-tabla-amortizacion">Anterior</button>
+                        <button type="button" class="btn btn-siguiente" id="btn-siguiente-tabla-amortizacion">Siguiente</button>
+                    </div>
+
                 </div>
             </section>
-            
+
             <!-- Sección 5: Resumen Financiero -->
-            <section class="subsection" id="resumen-financiero">
+            <section class="subsection" id="resumen">
                 <div class="section-container">
                     <h2>Resumen</h2>
                     <div class="resumen-content">
@@ -246,10 +330,16 @@
                         <p><strong>Financiación solicitada (€):</strong> €<span id="financiacion-solicitada">0.00</span></p>
                         <p><strong>Coste total de la hipoteca (€):</strong> €<span id="coste-total-hipoteca">0.00</span></p>
                     </div>
+
+                    <!-- Botones de Navegación -->
+                    <div class="navigation-buttons">
+                        <button type="button" class="btn btn-anterior" id="btn-anterior-resumen">Anterior</button>
+                    </div>
+
                 </div>
             </section>
         </div>
-        
+
         <!-- Sección: Mis Simulaciones -->
         <div class="section" id="mis-simulaciones">
             <div class="section-container">
@@ -257,16 +347,16 @@
                 <div id="lista-simulaciones">
                     <!-- Las simulaciones guardadas se listarán aquí -->
                 </div>
-        
+
                 <!-- Botones de Exportar e Importar Simulaciones -->
                 <div class="button-group">
                     <button id="exportar-simulaciones" class="btn btn-exportar">Exportar simulaciones</button>
-                    <input type="file" id="importar-simulaciones" accept=".json" style="display:none;">
+                    <input type="file" id="importar-simulaciones-input" accept=".json" style="display:none;">
                     <button id="importar-simulaciones-btn" class="btn btn-importar">Importar simulaciones</button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Sección: Comparador -->
         <div class="section" id="comparador">
             <div class="section-container">
@@ -274,11 +364,10 @@
                 <!-- Contenido para comparar simulaciones -->
                 <div id="comparador-contenido">
                     <!-- Aquí se mostrarán las simulaciones comparadas -->
-                    <!-- Se elimina la sección separada para la cuota, ya que se incluirá en la tabla -->
                 </div>
             </div>
         </div>
-        
+
         <!-- Sección: Preguntas Frecuentes -->
         <div class="section" id="preguntas-frecuentes">
             <div class="section-container">
@@ -296,14 +385,26 @@
             </div>
         </div>
     </main>
-    
+
     <footer>
         <div class="footer-container">
             <p>&copy; 2024 Mutuo. Todos los derechos reservados.</p>
         </div>
     </footer>
-    
+
+    <!-- Tu script -->
     <script src="script.js"></script>
+
+    <!-- Script para el menú toggle en dispositivos móviles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
-
