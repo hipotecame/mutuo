@@ -36,11 +36,11 @@ auth.onAuthStateChanged(user => {
 
 // Función principal para inicializar todas las configuraciones
 function initializeApp() {
-  setupMenuToggle();
   setupMainNavigation();
   setupSecondaryNavigation();
   setupDatosSimulacion();
   setupCondicionesHipoteca();
+  setupCalculadoraEndeudamiento();
   setupNavigationButtons();
 
   // Añadir event listener al botón de guardar simulación
@@ -90,18 +90,6 @@ function initializeApp() {
 
   // Inicializar la visibilidad de las secciones
   mostrarFormularioAutenticacion();
-}
-
-// Función para configurar el menú toggle en dispositivos móviles
-function setupMenuToggle() {
-  const menuToggle = document.getElementById('menu-toggle');
-  const mainNav = document.getElementById('main-nav');
-
-  if (menuToggle && mainNav) {
-    menuToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('active');
-    });
-  }
 }
 
 // Función para manejar la navegación principal
@@ -159,6 +147,11 @@ function setupMainNavigation() {
       // Si seleccionamos "Comparador", configurar el comparador
       if (target === 'comparador') {
         setupComparador();
+      }
+
+      // Si seleccionamos "Calculadora de Capacidad de Endeudamiento", no hacer nada especial
+      if (target === 'calculadora-endeudamiento') {
+        setupCalculadoraEndeudamiento();
       }
 
       // En móviles, cerrar el menú al seleccionar una opción
@@ -591,7 +584,43 @@ function guardarSimulacion() {
     alert("Debes iniciar sesión para guardar simulaciones.");
   }
 }
-  
+
+// Función para configurar la Calculadora de Capacidad de Endeudamiento
+function setupCalculadoraEndeudamiento() {
+  const calcularBtn = document.getElementById('calcular-endeudamiento');
+  if (calcularBtn) {
+    calcularBtn.addEventListener('click', calcularEndeudamiento);
+  }
+}
+
+// Función para calcular la capacidad de endeudamiento
+function calcularEndeudamiento() {
+  const ingresosNetos = parseFloat(document.getElementById('ingresos-netos').value) || 0;
+  const tasaEndeudamiento = parseFloat(document.getElementById('tasa-endeudamiento').value) || 0;
+  const tin = parseFloat(document.getElementById('tin-endeudamiento').value) || 0;
+  const plazo = parseInt(document.getElementById('plazo-endeudamiento').value) || 0;
+
+  if (ingresosNetos === 0 || tasaEndeudamiento === 0 || tin === 0 || plazo === 0) {
+    alert("Por favor, completa todos los campos para realizar el cálculo.");
+    return;
+  }
+
+  // Calcular la cuota mensual máxima
+  const cuotaMensualMaxima = (ingresosNetos * tasaEndeudamiento) / 100;
+
+  // Calcular el importe máximo financiable
+  const numeroCuotas = plazo * 12;
+  const interesMensual = (tin / 100) / 12;
+  const importeMaximoFinanciable = cuotaMensualMaxima * (1 - Math.pow(1 + interesMensual, -numeroCuotas)) / interesMensual;
+
+  // Mostrar los resultados
+  document.getElementById('cuota-mensual-maxima').textContent = cuotaMensualMaxima.toFixed(2);
+  document.getElementById('importe-maximo-financiable').textContent = importeMaximoFinanciable.toFixed(2);
+
+  // Mostrar la sección de resultados
+  document.getElementById('resultados-endeudamiento').classList.add('active');
+}
+
 // Función para listar las simulaciones guardadas desde Firestore
 function listarSimulacionesGuardadas() {
   const listaSimulacionesDiv = document.getElementById('lista-simulaciones');
