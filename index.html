@@ -17,30 +17,27 @@
     <header class="top-bar">
         <div class="top-bar-content">
             <h1 class="app-name">Mutuo</h1>
-            <!-- Botón de menú para dispositivos móviles -->
-            <button id="menu-toggle" class="menu-toggle" aria-label="Menú principal">
-                ☰
-            </button>
         </div>
     </header>
 
     <!-- Barra de Navegación Principal -->
     <nav class="navbar" id="main-nav">
         <ul class="nav-tabs">
-            <li class="nav-tab active" data-tab="iniciar-simulacion">Iniciar Simulación</li>
+            <li class="nav-tab active" data-tab="iniciar-simulacion">Simulador</li>
             <li class="nav-tab" data-tab="mis-simulaciones">Mis Simulaciones</li>
             <li class="nav-tab" data-tab="comparador">Comparador</li>
-            <li class="nav-tab" data-tab="preguntas-frecuentes">Preguntas Frecuentes</li>
+            <li class="nav-tab" data-tab="preguntas-frecuentes">Recursos</li>
+            <li class="nav-tab" data-tab="calculadora-endeudamiento">Mi capacidad de endeudamiento</li>
         </ul>
     </nav>
 
     <!-- Barra de Navegación Secundaria -->
     <nav class="navbar" id="secondary-nav">
         <ul class="nav-tabs" id="simulation-nav">
-            <li class="nav-tab active" data-tab="datos-simulacion">Datos de la Simulación</li>
-            <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la Hipoteca</li>
-            <li class="nav-tab" data-tab="cuota-mensual">Cuota Mensual</li>
-            <li class="nav-tab" data-tab="tabla-amortizacion">Tabla de Amortización</li>
+            <li class="nav-tab active" data-tab="datos-simulacion">Datos de la simulación</li>
+            <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la hipoteca</li>
+            <li class="nav-tab" data-tab="cuota-mensual">Cuota mensual</li>
+            <li class="nav-tab" data-tab="tabla-amortizacion">Cuadro de amortización</li>
             <li class="nav-tab" data-tab="resumen">Resumen</li>
         </ul>
     </nav>
@@ -52,7 +49,7 @@
                 <form id="form-iniciar-sesion" class="auth-form">
                     <h2>Iniciar Sesión</h2>
                     <div class="form-group">
-                        <label for="email-iniciar-sesion">Correo Electrónico</label>
+                        <label for="email-iniciar-sesion">Correo electrónico</label>
                         <input type="email" id="email-iniciar-sesion" required>
                     </div>
                     <div class="form-group">
@@ -60,15 +57,15 @@
                         <input type="password" id="password-iniciar-sesion" required>
                     </div>
                     <div class="button-group">
-                        <button type="submit" class="btn btn-login">Iniciar Sesión</button>
-                        <button type="button" id="mostrar-form-registro" class="btn btn-guardar">Crear Cuenta</button>
+                        <button type="submit" class="btn btn-login">Iniciar sesión</button>
+                        <button type="button" id="mostrar-form-registro" class="btn btn-guardar">Crear cuenta</button>
                     </div>
                 </form>
 
                 <form id="form-registrar" class="auth-form" style="display: none;">
                     <h2>Crear Cuenta</h2>
                     <div class="form-group">
-                        <label for="email-registro">Correo Electrónico</label>
+                        <label for="email-registro">Correo electrónico</label>
                         <input type="email" id="email-registro" required>
                     </div>
                     <div class="form-group">
@@ -117,7 +114,7 @@
                                 </select>
                                 <span class="calculated-value" id="entrada-calculado"></span>
                             </div>
-                            <div class="description">Ingrese la Entrada como porcentaje (%) o en euros (€).</div>
+                            <div class="description">Ingrese la entrada como porcentaje (%) o en euros (€).</div>
                         </div>
 
                         <!-- Arras -->
@@ -131,7 +128,7 @@
                                 </select>
                                 <span class="calculated-value" id="arras-calculado"></span>
                             </div>
-                            <div class="description">Ingrese las Arras como porcentaje (%) o en euros (€).</div>
+                            <div class="description">Ingrese las arras como porcentaje (%) o en euros (€).</div>
                         </div>
 
                         <!-- Gastos hipoteca -->
@@ -139,7 +136,7 @@
 
                         <!-- Tasación de Vivienda -->
                         <div class="form-group">
-                            <label for="tasacion">Tasación de Vivienda (€)</label>
+                            <label for="tasacion">Tasación de vivienda (€)</label>
                             <input type="number" id="tasacion" placeholder="Ingrese el costo de tasación" min="0" step="0.01" required>
                             <small class="description">Costo del servicio profesional que determina el valor de la propiedad.</small>
                         </div>
@@ -347,13 +344,6 @@
                 <div id="lista-simulaciones">
                     <!-- Las simulaciones guardadas se listarán aquí -->
                 </div>
-
-                <!-- Botones de Exportar e Importar Simulaciones -->
-                <div class="button-group">
-                    <button id="exportar-simulaciones" class="btn btn-exportar">Exportar simulaciones</button>
-                    <input type="file" id="importar-simulaciones-input" accept=".json" style="display:none;">
-                    <button id="importar-simulaciones-btn" class="btn btn-importar">Importar simulaciones</button>
-                </div>
             </div>
         </div>
 
@@ -371,7 +361,7 @@
         <!-- Sección: Preguntas Frecuentes -->
         <div class="section" id="preguntas-frecuentes">
             <div class="section-container">
-                <h2>Preguntas Frecuentes</h2>
+                <h2>Recursos</h2>
                 <!-- Contenido de Preguntas Frecuentes -->
                 <div class="faq-item">
                     <h3>¿Qué es el TIN?</h3>
@@ -384,6 +374,59 @@
                 <!-- Añade más preguntas y respuestas según sea necesario -->
             </div>
         </div>
+
+        <!-- Sección: Calculadora de Capacidad de Endeudamiento -->
+        <div class="section" id="calculadora-endeudamiento">
+            <div class="section-container">
+                <h2>Mi capacidad de endeudamiento</h2>
+                <form id="datos-financieros-form">
+                    <!-- Ingresos Netos Mensuales -->
+                    <div class="form-group">
+                        <label for="ingresos-netos">Ingresos netos mensuales (€)</label>
+                        <input type="number" id="ingresos-netos" placeholder="Ejemplo: 2500" min="0" step="0.01" required>
+                        <small class="description">Ingresos totales después de impuestos.</small>
+                    </div>
+
+                    <!-- Tasa de Endeudamiento -->
+                    <div class="form-group">
+                        <label for="tasa-endeudamiento">Tasa de endeudamiento (%)</label>
+                        <input type="number" id="tasa-endeudamiento" placeholder="Ejemplo: 35" min="0" max="100" step="0.01" required>
+                        <small class="description">Porcentaje máximo de tus ingresos destinado al pago de deudas.</small>
+                    </div>
+
+                    <!-- TIN -->
+                    <div class="form-group">
+                        <label for="tin-endeudamiento">Tipo de Interés Nominal (TIN) (%)</label>
+                        <input type="number" id="tin-endeudamiento" placeholder="Ejemplo: 1.5" min="0" step="0.01" required>
+                        <small class="description">El interés anual que aplicará el banco.</small>
+                    </div>
+
+                    <!-- Plazo del Préstamo -->
+                    <div class="form-group">
+                        <label for="plazo-endeudamiento">Plazo del préstamo (años)</label>
+                        <input type="number" id="plazo-endeudamiento" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
+                        <small class="description">Duración del préstamo en años.</small>
+                    </div>
+
+                    <!-- Botón para Calcular -->
+                    <div class="button-group">
+                        <button id="calcular-endeudamiento" class="btn btn-calcular" type="button">Calcular</button>
+                    </div>
+                </form>
+
+                <!-- Sección: Resultados -->
+                <section class="subsection" id="resultados-endeudamiento">
+                    <div class="section-container">
+                        <h2>Resultados</h2>
+                        <div class="resultados-content">
+                            <p><strong>Cuota mensual máxima (€):</strong> €<span id="cuota-mensual-maxima">0.00</span></p>
+                            <p><strong>Importe máximo financiable (€):</strong> €<span id="importe-maximo-financiable">0.00</span></p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
     </main>
 
     <footer>
@@ -394,17 +437,5 @@
 
     <!-- Tu script -->
     <script src="script.js"></script>
-
-    <!-- Script para el menú toggle en dispositivos móviles -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('menu-toggle');
-            const mainNav = document.getElementById('main-nav');
-
-            menuToggle.addEventListener('click', () => {
-                mainNav.classList.toggle('active');
-            });
-        });
-    </script>
 </body>
 </html>
