@@ -266,70 +266,52 @@ form {
     color: #FFFFFF;
 }
 
-/* Responsividad para Pantallas Medianas (481px - 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-    .input-group {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .input-group select {
-        width: 60px;
-    }
-
-    .calculated-value {
-        min-width: 80px;
-    }
+/* Estilos base para mejorar la adaptabilidad */
+body {
+    min-width: 320px; /* Ancho mínimo para evitar diseños rotos en pantallas muy pequeñas */
 }
 
-/* Responsividad para Pantallas Pequeñas (<480px) */
-@media (max-width: 480px) {
-    .nav-tabs {
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-        width: 100%;
-        border-radius: 0;
-        padding: 15px 0;
-    }
+main {
+    width: 100%;
+    max-width: 1200px; /* Limitar el ancho máximo para pantallas grandes */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
-    .nav-tab {
-        width: 100%;
-        text-align: center;
-        padding: 14px 0;
-        font-size: 1.1rem;
-        border-radius: 0;
+.section-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilos para hacer la aplicación responsive */
+@media (max-width: 1200px) {
+    main {
+        padding: 20px 15px;
     }
 
     .section-container {
         padding: 25px 20px;
-        margin: 25px 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    body {
+        font-size: 16px;
     }
 
-    .button-group,
-    .navigation-buttons {
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
+    .top-bar .app-name {
+        font-size: 2.2em;
     }
 
-    .button-group button, .navigation-buttons button {
-        width: 100%;
+    .section-container h2 {
+        font-size: 1.6rem;
     }
 
-    form {
-        padding: 0 15px;
-    }
-
+    /* Ajustar layout de los formularios */
     .form-group {
         margin-bottom: 20px;
-    }
-
-    .form-group input,
-    .form-group select {
-        padding: 12px 18px;
-        font-size: 1rem;
-        width: 100%;
     }
 
     .input-group {
@@ -338,36 +320,121 @@ form {
     }
 
     .input-group input,
-    .input-group select,
-    .calculated-value {
+    .input-group select {
         width: 100%;
+        margin-bottom: 10px;
     }
 
     .calculated-value {
-        font-size: 1rem;
-        margin-top: 10px;
+        width: 100%;
         text-align: left;
+        margin-top: 5px;
+    }
+
+    /* Ajustar botones */
+    .button-group {
+        flex-direction: column;
     }
 
     button, .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Barra de navegación deslizable */
+    .navbar {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .navbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-tabs {
+        flex-wrap: nowrap;
+        padding: 10px;
+    }
+
+    .nav-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    /* Ajustes adicionales para formularios */
+    .form-group label {
+        font-size: 0.95rem;
+    }
+
+    /* Ajustes para la tabla de amortización */
+    .tabla-amortizacion {
+        font-size: 14px;
+    }
+
+    .tabla-amortizacion th,
+    .tabla-amortizacion td {
+        padding: 8px;
+    }
+
+    /* Ajustes para el resumen y resultados */
+    .resumen-content p,
+    .resultados-content p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .top-bar .app-name {
+        font-size: 2em;
+    }
+
+    .section-container h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .total-inicial {
         font-size: 1.1rem;
-        padding: 14px;
     }
 
+    /* Ajustes para la sección de recursos */
+    .recurso-title {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+    }
+
+    .recurso-content {
+        padding: 15px;
+    }
+}
+
+/* Ajustes adicionales para pantallas muy pequeñas */
+@media (max-width: 400px) {
     body {
-        font-size: 17px;
+        font-size: 14px;
     }
 
-    h2 {
-        font-size: 1.75rem;
+    .top-bar .app-name {
+        font-size: 1.8em;
     }
 
-    h3 {
-        font-size: 1.5rem;
+    .section-container {
+        padding: 15px 10px;
     }
 
-    footer p {
-        font-size: 1rem;
+    .section-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
     }
 }
 
