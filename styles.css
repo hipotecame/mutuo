@@ -1,18 +1,19 @@
 /* Variables de Colores */
 :root {
-    --color-fondo: #121212;
-    --color-barra: #1F1F1F;
-    --color-seccion: #1F1F1F;
-    --color-texto: #E0E0E0;
-    --color-texto-secundario: #A0A0A0;
-    --color-borde: #333333;
-    --color-boton: #1F1F1F;
-    --color-boton-hover: #333333;
-    --color-boton-activo: #2C2C2C;
-    --color-acento: linear-gradient(90deg, #0400ff 0%, #6A0DAD 50%, #ff004c 100%);
+    --color-fondo: #000000;
+    --color-barra: #1C1C1E;
+    --color-seccion: #2C2C2E;
+    --color-texto: #FFFFFF;
+    --color-texto-secundario: #98989D;
+    --color-borde: #38383A;
+    --color-boton: #0A84FF;
+    --color-boton-hover: #409CFF;
+    --color-boton-activo: #0060D1;
+    --color-acento: linear-gradient(90deg, #0A84FF 0%, #5E5CE6 50%, #BF5AF2 100%);
     --color-acento-texto: transparent;
     --color-acento-fill: #FFFFFF;
-    --color-shadow: rgba(0, 0, 0, 0.5);
+    --color-shadow: rgba(0, 0, 0, 0.3);
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* Reset básico */
@@ -24,10 +25,10 @@
 
 /* Tipografía y colores */
 body {
-    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-family);
     background-color: var(--color-fondo);
     color: var(--color-texto);
-    line-height: 1.6;
+    line-height: 1.5;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -39,12 +40,12 @@ body {
     color: var(--color-texto);
     padding: 20px;
     text-align: center;
-    box-shadow: 0 2px 4px var(--color-shadow);
+    box-shadow: 0 1px 0 var(--color-borde);
 }
 
 .top-bar .app-name {
     font-size: 2.5em;
-    font-weight: bold;
+    font-weight: 700;
     text-align: center;
     margin: 0;
     background: var(--color-acento);
@@ -56,7 +57,7 @@ body {
 
 /* Barras de Navegación */
 .navbar {
-    background-color: transparent;
+    background-color: var(--color-barra);
     padding: 15px 0;
     display: flex;
     justify-content: center;
@@ -65,31 +66,28 @@ body {
 .nav-tabs {
     list-style: none;
     display: flex;
-    gap: 10px;
-    background-color: var(--color-barra);
-    padding: 10px 20px;
-    border-radius: 30px;
-    box-shadow: 0 2px 4px var(--color-shadow);
+    gap: 20px;
+    background-color: var(--color-seccion);
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .nav-tab {
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--color-texto);
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px;
 }
 
 .nav-tab:hover {
-    background-color: var(--color-boton-hover);
-    color: var(--color-acento-fill);
-    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .nav-tab.active {
-    background-color: #2C2C2C;
-    color: var(--color-acento-fill);
+    background-color: var(--color-boton);
+    color: #FFFFFF;
 }
 
 .nav-tab:not(.active):hover {
@@ -99,8 +97,8 @@ body {
 /* Main content */
 main {
     flex: 1;
-    padding: 60px 20px;
-    max-width: 1200px;
+    padding: 40px 20px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -125,29 +123,28 @@ main {
 /* Contenedor de la sección */
 .section-container {
     background-color: var(--color-seccion);
-    border-radius: 16px;
-    padding: 40px;
-    max-width: 900px;
-    margin: 0 auto 60px auto;
-    box-shadow: 0 4px 12px var(--color-shadow);
-    animation: fadeInUp 1s ease-out;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px var(--color-shadow);
+    animation: fadeInUp 0.5s ease-out;
 }
 
 .section-container h2 {
-    font-size: 1.75rem;
-    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
     color: var(--color-texto);
-    border-bottom: 2px solid var(--color-borde);
-    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-borde);
+    padding-bottom: 15px;
 }
 
 .section-container h3 {
-    font-size: 1.5rem;
-    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 25px;
     margin-bottom: 15px;
     color: var(--color-texto);
-    border-bottom: 1px solid var(--color-borde);
-    padding-bottom: 8px;
 }
 
 /* Formulario */
@@ -160,9 +157,9 @@ form {
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateY(10px);
     animation: slideIn 0.5s forwards;
 }
 
@@ -175,19 +172,20 @@ form {
 }
 
 .form-group label {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     margin-bottom: 8px;
-    color: var(--color-texto);
+    color: var(--color-texto-secundario);
 }
 
 .form-group input,
 .form-group select {
-    padding: 14px 20px;
+    padding: 12px 16px;
     border: 1px solid var(--color-borde);
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-    background-color: #2C2C2C;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.05);
     color: var(--color-texto);
     appearance: none;
 }
@@ -195,17 +193,16 @@ form {
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
-    border-color: #E0E0E0;
-    box-shadow: 0 0 0 3px rgba(224, 224, 224, 0.2);
-    transform: scale(1.02);
+    border-color: var(--color-boton);
+    box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3);
 }
 
 .form-group select {
-    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path fill="%23E0E0E0" d="M4 6l4 4 4-4z"/></svg>');
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><path fill="%23FFFFFF" d="M7 10L1 4h12z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 15px center;
-    background-size: 12px;
-    padding-right: 50px;
+    background-size: 14px;
+    padding-right: 40px;
 }
 
 /* Estilos para Entrada, Arras e IVA/ITP */
@@ -451,22 +448,25 @@ form {
 /* Estilos para la tabla de amortización y comparación */
 .tabla-amortizacion {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-top: 25px;
-    background-color: var(--color-barra);
+    background-color: var(--color-seccion);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .tabla-amortizacion th,
 .tabla-amortizacion td {
-    border: 1px solid var(--color-borde);
     padding: 12px;
-    text-align: center;
+    text-align: left;
     color: var(--color-texto);
+    border-bottom: 1px solid var(--color-borde);
 }
 
 .tabla-amortizacion th {
-    background-color: #2C2C2C;
-    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.05);
+    font-weight: 600;
 }
 
 .tabla-amortizacion tr:nth-child(even) {
@@ -478,9 +478,8 @@ form {
 }
 
 .tabla-amortizacion tr.capital-supera-interes {
-    background-color: #0066cc;
-    color: #FFFFFF;
-    font-weight: bold;
+    background-color: rgba(10, 132, 255, 0.1);
+    font-weight: 600;
 }
 
 /* Leyenda de la tabla */
@@ -519,23 +518,25 @@ form {
 }
 
 .simulacion-item {
-    background-color: var(--color-barra);
-    border-left: 5px solid #333333;
+    background-color: var(--color-seccion);
+    border-left: 4px solid var(--color-boton);
     padding: 20px 25px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px var(--color-shadow);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px var(--color-shadow);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .simulacion-item:hover {
-    background-color: #2C2C2C;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .simulacion-item h3 {
     margin-bottom: 12px;
     color: var(--color-texto);
+    font-weight: 600;
 }
 
 .simulacion-details p {
@@ -596,20 +597,20 @@ form {
 
 /* Estilo general para los botones */
 button, .btn {
-    padding: 14px 24px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     color: #FFFFFF;
     background-color: var(--color-boton);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 button:hover, .btn:hover {
     background-color: var(--color-boton-hover);
-    color: #FFFFFF;
     transform: translateY(-2px);
 }
 
@@ -618,86 +619,105 @@ button:active, .btn:active {
     transform: translateY(0);
 }
 
-/* Botón "Calcular cuota" */
-.btn-calcular {
-    background: linear-gradient(45deg, #003366, #0066cc);
-    color: #FFFFFF;
+#btn-cerrar-sesion {
+    position: absolute; /* Para posicionarlo libremente en la parte superior derecha */
+    top: 8px;          /* Ajusta el valor según el espacio que desees del borde superior */
+    right: 8px;        /* Ajusta el valor según el espacio que desees del borde derecho */
+    background-color: #B00020; /* Color de fondo rojo */
+    color: white;       /* Texto blanco para mayor contraste */
+    border: none;       /* Sin borde */
+    padding: 12px 24px; /* Añadir algo de espacio al botón */
+    border-radius: 10px; /* Bordes redondeados para una apariencia agradable */
+    cursor: pointer;    /* Cambia el cursor para indicar que es clickeable */
 }
 
-.btn-calcular:hover {
-    background: linear-gradient(45deg, #002244, #0055aa);
+/* Estilos para la sección de Recursos */
+.recursos-container {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.btn-calcular:active {
-    background: linear-gradient(45deg, #001122, #004488);
+.recursos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Botón "Exportar simulaciones" */
-.btn-exportar {
-    background: linear-gradient(45deg, #003366, #0066cc);
-    color: #FFFFFF;
+.recurso-item {
+    background-color: var(--color-seccion);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
 }
 
-.btn-exportar:hover {
-    background: linear-gradient(45deg, #002244, #0055aa);
+.recurso-item:hover {
+    box-shadow: 0 4px 15px var(--color-shadow);
 }
 
-.btn-exportar:active {
-    background: linear-gradient(45deg, #001122, #004488);
-}
-
-/* Botón "Guardar simulación" */
-.btn-guardar {
-    background-color: var(--color-boton);
-    border: 2px solid #555555;
+.recurso-title {
+    background-color: var(--color-barra);
     color: var(--color-texto);
-}
-
-.btn-guardar:hover {
-    background-color: var(--color-boton-hover);
-    border-color: #777777;
-    color: #FFFFFF;
-    transform: translateY(-2px);
-}
-
-.btn-guardar:active {
-    background-color: var(--color-boton-activo);
-    border-color: #555555;
-}
-
-/* Botón "Importar simulaciones" */
-.btn-importar {
-    background-color: var(--color-boton);
-    border: 2px solid #555555;
-    color: var(--color-texto);
-}
-
-.btn-importar:hover {
-    background-color: var(--color-boton-hover);
-    border-color: #777777;
-    color: #FFFFFF;
-    transform: translateY(-2px);
-}
-
-.btn-importar:active {
-    background-color: var(--color-boton-activo);
-    border-color: #555555;
-}
-
-/* Botón "Comparar simulaciones" */
-.btn-comparar {
-    background: linear-gradient(45deg, #003366, #0066cc);
-    color: #FFFFFF;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-comparar:hover {
-    background: linear-gradient(45deg, #002244, #0055aa);
+.recurso-title:hover {
+    background-color: var(--color-boton-hover);
     transform: translateY(-2px);
 }
 
-.btn-comparar:active {
-    background: linear-gradient(45deg, #001122, #004488);
+.recurso-title:active {
+    background-color: var(--color-boton-activo);
+    transform: translateY(0);
+}
+
+.recurso-title::after {
+    content: '\25BC';
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+}
+
+.recurso-item.active .recurso-title::after {
+    transform: rotate(-180deg);
+}
+
+.recurso-content {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+}
+
+.recurso-item.active .recurso-content {
+    padding: 20px;
+    max-height: 1000px; /* Ajusta este valor según sea necesario */
+}
+
+.recurso-content p, .recurso-content ul {
+    margin-bottom: 15px;
+}
+
+.recurso-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.recurso-content li {
+    margin-bottom: 5px;
+}
+
+/* Estilo para el contenido cuando está expandido */
+.recurso-item.active .recurso-content {
+    background-color: var(--color-seccion);
+    border-top: 1px solid var(--color-borde);
 }
 
 /* Estilos para el botón de inicio de sesión */
@@ -780,7 +800,7 @@ button:active, .btn:active {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -791,7 +811,7 @@ button:active, .btn:active {
 @keyframes slideIn {
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
@@ -800,7 +820,8 @@ footer {
     background-color: var(--color-barra);
     padding: 20px;
     text-align: center;
-    box-shadow: 0 -2px 4px var(--color-shadow);
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
 }
 
 footer p {
