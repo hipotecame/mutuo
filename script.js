@@ -956,6 +956,17 @@ function mostrarFormularioAutenticacion() {
   }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  const recursoTitles = document.querySelectorAll('.recurso-title');
+  
+  recursoTitles.forEach(title => {
+    title.addEventListener('click', () => {
+      const recursoItem = title.closest('.recurso-item');
+      recursoItem.classList.toggle('active');
+    });
+  });
+});
+
 // Inicializar la aplicación al cargar la página
 window.addEventListener('DOMContentLoaded', () => {
   initializeApp();
