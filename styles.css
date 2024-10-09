@@ -6,9 +6,9 @@
     --color-texto: #FFFFFF;
     --color-texto-secundario: #98989D;
     --color-borde: #38383A;
-    --color-boton: #0A84FF;
+    --color-boton: #336699;
     --color-boton-hover: #409CFF;
-    --color-boton-activo: #0060D1;
+    --color-boton-activo: #336699;
     --color-acento: linear-gradient(90deg, #0A84FF 0%, #5E5CE6 50%, #BF5AF2 100%);
     --color-acento-texto: transparent;
     --color-acento-fill: #FFFFFF;
@@ -36,17 +36,18 @@ body {
 
 /* Barra Superior */
 .top-bar {
-    background-color: var(--color-barra);
-    color: var(--color-texto);
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 1px 0 var(--color-borde);
+    background-color: #1C1C1E;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center; /* Vertically align elements */
+    justify-content: space-between; /* Horizontally distribute space between app name and button */
+    border-bottom: 1px solid #38383A;
 }
 
 .top-bar .app-name {
     font-size: 2.5em;
     font-weight: 700;
-    text-align: center;
     margin: 0;
     background: var(--color-acento);
     -webkit-background-clip: text;
@@ -69,16 +70,16 @@ body {
     gap: 20px;
     background-color: var(--color-seccion);
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 30px;
 }
 
 .nav-tab {
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1.0rem;
     color: var(--color-texto);
     transition: background-color 0.3s ease, color 0.3s ease;
-    border-radius: 8px;
+    border-radius: 30px;
 }
 
 .nav-tab:hover {
@@ -123,7 +124,7 @@ main {
 /* Contenedor de la sección */
 .section-container {
     background-color: var(--color-seccion);
-    border-radius: 20px;
+    border-radius: 30px;
     padding: 30px;
     margin-bottom: 40px;
     box-shadow: 0 4px 20px var(--color-shadow);
@@ -172,7 +173,7 @@ form {
 }
 
 .form-group label {
-    font-size: 0.9rem;
+    font-size: 1.0rem;
     font-weight: 600;
     margin-bottom: 8px;
     color: var(--color-texto-secundario);
@@ -266,6 +267,21 @@ form {
     color: #FFFFFF;
 }
 
+@media (min-width: 769px) {
+    .section-container {
+        width: 90%; /* Allow the container to take up 90% of the available width */
+        max-width: 1400px; /* Cap the maximum width */
+        margin: 30px auto; /* Center the content horizontally */
+        padding: 40px 30px;
+    }
+
+    /* Ensure parent container or body is not restricting width */
+    .parent-container, body {
+        width: 100%; /* Ensure the parent or body takes full width */
+        display: block; /* In case flex/grid is causing issues */
+    }
+}
+
 /* Responsividad para Pantallas Medianas (481px - 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
     .input-group {
@@ -284,52 +300,74 @@ form {
 
 /* Responsividad para Pantallas Pequeñas (<480px) */
 @media (max-width: 480px) {
+    /* Barra de navegación principal */
     .nav-tabs {
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-        width: 100%;
-        border-radius: 0;
-        padding: 15px 0;
+        display: flex;
+        overflow-x: auto; /* Permite el scroll horizontal */
+        white-space: nowrap; /* Evita que los tabs se vayan a otra línea */
+        -webkit-overflow-scrolling: touch; /* Mejora la experiencia de scroll en móviles */
     }
 
     .nav-tab {
-        width: 100%;
-        text-align: center;
-        padding: 14px 0;
-        font-size: 1.1rem;
-        border-radius: 0;
+        flex: none; /* Asegura que cada tab mantenga su tamaño original sin ajustarse */
+        padding: 10px 20px; /* Ajusta el padding si es necesario */
+        font-size: 1rem; /* Ajusta el tamaño de la fuente para mejor legibilidad */
     }
 
+    /* Ajustes para la barra secundaria (barra de simulación) */
+    #secondary-nav .nav-tabs {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #secondary-nav .nav-tab {
+        flex: none;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes generales de contenido */
     .section-container {
-        padding: 25px 20px;
-        margin: 25px 15px;
+        width: 100%; /* Asegura que el contenido use todo el ancho de la pantalla */
+        margin: 20px auto;
+        padding: 20px 15px;
     }
 
-    .button-group,
-    .navigation-buttons {
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-    }
-
-    .button-group button, .navigation-buttons button {
-        width: 100%;
-    }
-
-    form {
-        padding: 0 15px;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
+    /* Ajustes en inputs y selects */
     .form-group input,
     .form-group select {
-        padding: 12px 18px;
         font-size: 1rem;
-        width: 100%;
+        padding: 10px; /* Asegura que los campos de formulario sean cómodos de usar */
+        width: 100%; /* Hacer que los inputs ocupen el 100% del ancho disponible */
+    }
+
+    .button-group button, 
+    .navigation-buttons button {
+        font-size: 1.1rem; /* Aumenta el tamaño del texto en botones */
+        padding: 14px; /* Aumenta el tamaño de los botones para ser más táctiles */
+        width: 100%; /* Los botones ocupan todo el ancho del contenedor */
+    }
+
+    /* Ajustes de encabezados */
+    h2 {
+        font-size: 1.5rem; /* Ajusta los títulos para pantallas pequeñas */
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    footer p {
+        font-size: 0.9rem; /* Ajusta el tamaño del texto en el footer */
+    }
+
+    /* Asegurar buen espacio entre los elementos del formulario */
+    .form-group {
+        margin-bottom: 15px;
     }
 
     .input-group {
@@ -338,36 +376,8 @@ form {
     }
 
     .input-group input,
-    .input-group select,
-    .calculated-value {
-        width: 100%;
-    }
-
-    .calculated-value {
-        font-size: 1rem;
-        margin-top: 10px;
-        text-align: left;
-    }
-
-    button, .btn {
-        font-size: 1.1rem;
-        padding: 14px;
-    }
-
-    body {
-        font-size: 17px;
-    }
-
-    h2 {
-        font-size: 1.75rem;
-    }
-
-    h3 {
-        font-size: 1.5rem;
-    }
-
-    footer p {
-        font-size: 1rem;
+    .input-group select {
+        width: 100%; /* Inputs y selects toman todo el ancho */
     }
 }
 
@@ -558,7 +568,7 @@ form {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1.0rem;
     transition: background-color 0.3s ease, transform 0.2s ease;
     color: #FFFFFF;
     background-color: var(--color-boton);
@@ -599,7 +609,7 @@ form {
 button, .btn {
     padding: 12px 24px;
     border: none;
-    border-radius: 10px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
@@ -621,13 +631,13 @@ button:active, .btn:active {
 
 #btn-cerrar-sesion {
     position: absolute; /* Para posicionarlo libremente en la parte superior derecha */
-    top: 8px;          /* Ajusta el valor según el espacio que desees del borde superior */
-    right: 8px;        /* Ajusta el valor según el espacio que desees del borde derecho */
-    background-color: #B00020; /* Color de fondo rojo */
-    color: white;       /* Texto blanco para mayor contraste */
+    top: 18px;          /* Ajusta el valor según el espacio que desees del borde superior */
+    right: 18px;        /* Ajusta el valor según el espacio que desees del borde derecho */
+    background-color: white; /* Color de fondo rojo */
+    color: black;       /* Texto blanco para mayor contraste */
     border: none;       /* Sin borde */
     padding: 12px 24px; /* Añadir algo de espacio al botón */
-    border-radius: 10px; /* Bordes redondeados para una apariencia agradable */
+    border-radius: 30px; /* Bordes redondeados para una apariencia agradable */
     cursor: pointer;    /* Cambia el cursor para indicar que es clickeable */
 }
 
