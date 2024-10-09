@@ -708,7 +708,7 @@ button:active, .btn:active {
 
 .recurso-item.active .recurso-content {
     padding: 20px;
-    max-height: 1000px; /* Ajusta este valor según sea necesario */
+    max-height: none; /* Ajusta este valor según sea necesario */
 }
 
 .recurso-content p, .recurso-content ul {
