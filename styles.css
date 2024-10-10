@@ -45,15 +45,36 @@ body {
     border-bottom: 1px solid #38383A;
 }
 
+.top-bar-content {
+    display: flex;
+    align-items: center;
+}
+
 .top-bar .app-name {
     font-size: 2.5em;
     font-weight: 700;
     margin: 0;
-    background: var(--color-acento);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: var(--color-acento-texto);
-    background-clip: text;
-    color: var(--color-acento-texto);
+    background: none; /* Removed gradient background */
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    color: #BFBFBF; /* Set to white */
+}
+
+/* Ajustar la etiqueta "EXPERIMENT" para que esté al lado de "Mutuo" */
+.experiment-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: #E8E8E8;
+    background-color: #38383A;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 12px;
+    height: 20px;
 }
 
 /* Barras de Navegación */
@@ -301,6 +322,11 @@ form {
 /* Responsividad para Pantallas Pequeñas (<480px) */
 @media (max-width: 480px) {
     /* Barra de navegación principal */
+
+    .navbar {
+        padding: 10px 10px;
+    }
+
     .nav-tabs {
         display: flex;
         overflow-x: auto; /* Permite el scroll horizontal */
@@ -310,8 +336,8 @@ form {
 
     .nav-tab {
         flex: none; /* Asegura que cada tab mantenga su tamaño original sin ajustarse */
-        padding: 10px 20px; /* Ajusta el padding si es necesario */
-        font-size: 1rem; /* Ajusta el tamaño de la fuente para mejor legibilidad */
+        padding: 8px 15px; /* Ajusta el padding si es necesario */
+        font-size: 0.9rem; /* Ajusta el tamaño de la fuente para mejor legibilidad */
     }
 
     /* Ajustes para la barra secundaria (barra de simulación) */
@@ -345,18 +371,19 @@ form {
 
     .button-group button, 
     .navigation-buttons button {
-        font-size: 1.1rem; /* Aumenta el tamaño del texto en botones */
+        font-size: 1rem; /* Aumenta el tamaño del texto en botones */
         padding: 14px; /* Aumenta el tamaño de los botones para ser más táctiles */
-        width: 100%; /* Los botones ocupan todo el ancho del contenedor */
+        width: 50%; /* Los botones ocupan todo el ancho del contenedor */
+        margin-bottom: 10px; /* Añade un margen entre los botones */
     }
 
     /* Ajustes de encabezados */
-    h2 {
-        font-size: 1.5rem; /* Ajusta los títulos para pantallas pequeñas */
+    .section-container h2 {
+        font-size: 1.3rem; /* Ajusta los títulos para pantallas pequeñas */
         margin-bottom: 15px;
     }
 
-    h3 {
+    .section-container h3 {
         font-size: 1.3rem;
         margin-bottom: 10px;
     }
@@ -367,7 +394,7 @@ form {
 
     /* Asegurar buen espacio entre los elementos del formulario */
     .form-group {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .input-group {
@@ -378,6 +405,22 @@ form {
     .input-group input,
     .input-group select {
         width: 100%; /* Inputs y selects toman todo el ancho */
+    }
+
+    .top-bar .app-name {
+        font-size: 1.8em;
+    }
+
+    .experiment-label {
+        font-size: 0.55rem;
+        padding: 1px 6px;
+    }
+
+    /* Ajustes en el botón de cerrar sesión */
+    #btn-cerrar-sesion {
+        padding: 8px 14px; /* Ajustar el padding del botón */
+        font-size: 0.85rem; /* Reducir el tamaño de la fuente */
+        border-radius: 18px; /* Bordes más pequeños */
     }
 }
 
@@ -633,7 +676,7 @@ button:active, .btn:active {
     position: absolute; /* Para posicionarlo libremente en la parte superior derecha */
     top: 18px;          /* Ajusta el valor según el espacio que desees del borde superior */
     right: 18px;        /* Ajusta el valor según el espacio que desees del borde derecho */
-    background-color: white; /* Color de fondo rojo */
+    background-color: #BFBFBF; /* Color de fondo rojo */
     color: black;       /* Texto blanco para mayor contraste */
     border: none;       /* Sin borde */
     padding: 12px 24px; /* Añadir algo de espacio al botón */
@@ -708,7 +751,7 @@ button:active, .btn:active {
 
 .recurso-item.active .recurso-content {
     padding: 20px;
-    max-height: none; /* Ajusta este valor según sea necesario */
+    max-height: None; /* Ajusta este valor según sea necesario */
 }
 
 .recurso-content p, .recurso-content ul {
