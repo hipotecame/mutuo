@@ -26,17 +26,17 @@
     <nav class="navbar" id="main-nav">
         <ul class="nav-tabs">
             <li class="nav-tab active" data-tab="iniciar-simulacion">Simulador</li>
-            <li class="nav-tab" data-tab="mis-simulaciones">Mis Simulaciones</li>
+            <li class="nav-tab" data-tab="mis-simulaciones">Simulaciones</li>
             <li class="nav-tab" data-tab="comparador">Comparador</li>
+            <li class="nav-tab" data-tab="calculadora-endeudamiento">Capacidad de endeudamiento</li>
             <li class="nav-tab" data-tab="preguntas-frecuentes">Recursos</li>
-            <li class="nav-tab" data-tab="calculadora-endeudamiento">Mi capacidad de endeudamiento</li>
         </ul>
     </nav>
 
     <!-- Barra de Navegación Secundaria -->
     <nav class="navbar" id="secondary-nav">
         <ul class="nav-tabs" id="simulation-nav">
-            <li class="nav-tab active" data-tab="datos-simulacion">Datos de la simulación</li>
+            <li class="nav-tab active" data-tab="datos-simulacion">Gastos iniciales</li>
             <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la hipoteca</li>
             <li class="nav-tab" data-tab="cuota-mensual">Cuota mensual</li>
             <li class="nav-tab" data-tab="tabla-amortizacion">Cuadro de amortización</li>
@@ -86,10 +86,10 @@
         <div class="section active" id="iniciar-simulacion">
             <!-- Subsecciones dentro de Iniciar Simulación -->
 
-            <!-- Sección 1: Datos de la Simulación -->
+            <!-- Sección 1: Gastos iniciales -->
             <section class="subsection active" id="datos-simulacion">
                 <div class="section-container">
-                    <h2>Datos de la simulación</h2>
+                    <h2>Gastos iniciales</h2>
                     <form id="datos-simulacion-form">
                         <!-- Nombre de la Simulación -->
                         <div class="form-group">
@@ -101,8 +101,8 @@
                         <!-- Precio de la Propiedad -->
                         <div class="form-group">
                             <label for="precio-propiedad">Coste de la vivienda sin impuestos (€)</label>
-                            <input type="number" id="precio-propiedad" placeholder="Ingrese el precio de la propiedad" min="0" step="0.01" required>
-                            <small class="description">El valor total de la vivienda que deseas adquirir.</small>
+                            <input type="number" id="precio-propiedad" placeholder="Ejemplo: 180000" min="0" step="0.01" required>
+                            <small class="description">El valor de la vivienda que deseas adquirir.</small>
                         </div>
 
                         <!-- Entrada -->
@@ -123,7 +123,7 @@
                         <div class="form-group">
                             <label for="arras">Arras</label>
                             <div class="input-group">
-                                <input type="number" id="arras" name="arras" placeholder="Ejemplo: 2" min="0" step="0.01" required>
+                                <input type="number" id="arras" name="arras" placeholder="Ejemplo: 5" min="0" step="0.01" required>
                                 <select id="tipo-arras" name="tipo-arras">
                                     <option value="%">%</option>
                                     <option value="€">€</option>
@@ -139,7 +139,7 @@
                         <!-- Tasación de Vivienda -->
                         <div class="form-group">
                             <label for="tasacion">Tasación de vivienda (€)</label>
-                            <input type="number" id="tasacion" placeholder="Ingrese el costo de tasación" min="0" step="0.01" required>
+                            <input type="number" id="tasacion" placeholder="Valor de referencia: 300" min="0" step="0.01" required>
                             <small class="description">Costo del servicio profesional que determina el valor de la propiedad.</small>
                         </div>
 
@@ -149,21 +149,21 @@
                         <!-- Notaría -->
                         <div class="form-group">
                             <label for="notaria">Notaría (€)</label>
-                            <input type="number" id="notaria" placeholder="Ingrese el costo de notaría" min="0" step="0.01" required>
+                            <input type="number" id="notaria" placeholder="Valor de referencia: 1300" min="0" step="0.01" required>
                             <small class="description">Honorarios del notario para la formalización de la escritura.</small>
                         </div>
 
                         <!-- Gestoría -->
                         <div class="form-group">
                             <label for="gestoria">Gestoría (€)</label>
-                            <input type="number" id="gestoria" placeholder="Ingrese el costo de gestoría" min="0" step="0.01" required>
+                            <input type="number" id="gestoria" placeholder="Valor de referencia: 500" min="0" step="0.01" required>
                             <small class="description">Costos asociados a los trámites administrativos.</small>
                         </div>
 
                         <!-- Registro de la Propiedad -->
                         <div class="form-group">
                             <label for="registro-propiedad">Registro de la propiedad (€)</label>
-                            <input type="number" id="registro-propiedad" placeholder="Ingrese el costo del registro" min="0" step="0.01" required>
+                            <input type="number" id="registro-propiedad" placeholder="Valor de referencia: 600" min="0" step="0.01" required>
                             <small class="description">Gastos para inscribir la propiedad a tu nombre.</small>
                         </div>
 
@@ -171,7 +171,7 @@
                         <div class="form-group">
                             <label for="impuesto">IVA/ITP (%)</label>
                             <div class="input-group">
-                                <input type="number" id="impuesto" name="impuesto" placeholder="Ejemplo: 10" min="0" max="100" step="0.01" required>
+                                <input type="number" id="impuesto" name="impuesto" placeholder="Valor de referencia: 6" min="0" max="100" step="0.01" required>
                                 <span class="calculated-value" id="impuesto-calculado"></span>
                             </div>
                             <div class="description">Impuesto sobre el valor añadido o impuesto de transmisiones patrimoniales.</div>
@@ -207,7 +207,7 @@
                         <div class="form-group">
                             <label for="tae">Tasa Anual Equivalente (TAE) (%)</label>
                             <input type="number" id="tae" placeholder="Ejemplo: 1.75" min="0" step="0.01" required>
-                            <small class="description">Incluye intereses y otros gastos asociados.</small>
+                            <small class="description">Incluye intereses nominales (TIN) y otros gastos asociados.</small>
                         </div>
 
                         <!-- Plazo del Préstamo -->
@@ -282,16 +282,34 @@
                 </div>
             </section>
 
-            <!-- Sección 4: Tabla de Amortización -->
+            <!-- Sección 4: Resumen Financiero -->
+            <section class="subsection" id="resumen">
+                <div class="section-container">
+                    <h2>Resumen</h2>
+                    <div class="resumen-content">
+                        <p><strong>Ahorro inicial necesario (€):</strong> €<span id="ahorro-necesario">0.00</span></p>
+                        <p><strong>Financiación solicitada (€):</strong> €<span id="financiacion-solicitada">0.00</span></p>
+                        <p><strong>Coste total de la hipoteca (€):</strong> €<span id="coste-total-hipoteca">0.00</span></p>
+                    </div>
+
+                    <!-- Botones de Navegación -->
+                    <div class="navigation-buttons">
+                        <button type="button" class="btn btn-anterior" id="btn-anterior-resumen">Anterior</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Sección 5: Tabla de Amortización -->
             <section class="subsection" id="tabla-amortizacion">
                 <div class="section-container">
-                    <h2>Tabla de Amortización</h2>
+                    <h2>Tabla de amortización</h2>
 
                     <!-- Leyenda de la tabla de amortización -->
                     <div class="tabla-leyenda">
                         <div class="leyenda-item">
                             <span class="leyenda-color"></span>
-                            <span class="leyenda-texto">Mes en el que el capital supera al interés</span>
+                            <span class="leyenda-texto">Mes donde el pago de capital supera al pago de intereses</span>
                         </div>
                     </div>
 
@@ -315,24 +333,6 @@
                     <div class="navigation-buttons">
                         <button type="button" class="btn btn-anterior" id="btn-anterior-tabla-amortizacion">Anterior</button>
                         <button type="button" class="btn btn-siguiente" id="btn-siguiente-tabla-amortizacion">Siguiente</button>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- Sección 5: Resumen Financiero -->
-            <section class="subsection" id="resumen">
-                <div class="section-container">
-                    <h2>Resumen</h2>
-                    <div class="resumen-content">
-                        <p><strong>Ahorro inicial necesario (€):</strong> €<span id="ahorro-necesario">0.00</span></p>
-                        <p><strong>Financiación solicitada (€):</strong> €<span id="financiacion-solicitada">0.00</span></p>
-                        <p><strong>Coste total de la hipoteca (€):</strong> €<span id="coste-total-hipoteca">0.00</span></p>
-                    </div>
-
-                    <!-- Botones de Navegación -->
-                    <div class="navigation-buttons">
-                        <button type="button" class="btn btn-anterior" id="btn-anterior-resumen">Anterior</button>
                     </div>
 
                 </div>
@@ -370,7 +370,7 @@
                     <div class="recurso-content">
                       <p>Las arras son una cantidad de dinero que el comprador entrega al vendedor cuando ambos llegan a un acuerdo para la compra de una casa. Este pago sirve como garantía de que el comprador está comprometido con la compra.</p>
                       <ul>
-                        <li><strong>Garantía de compromiso y parte del pago final:</strong>Al finalizar la compra se restan del precio total del inmueble.</li>
+                        <li><strong>Garantía de compromiso y parte del pago final:</strong> al finalizar la compra se restan del precio total del inmueble.</li>
                         <li><strong>Si el comprador se retira:</strong> podría perder el dinero de las arras como compensación al vendedor.</li>
                         <li><strong>Si el vendedor se retira:</strong> normalmente, el vendedor debe devolver el doble del dinero recibido como arras al comprador, en concepto de penalización.</li>
                       </ul>
@@ -381,7 +381,7 @@
                     <div class="recurso-content">
                       <p>El TIN (Tipo de Interés Nominal) es el porcentaje que el banco te cobra anualmente por prestarte dinero, sin incluir comisiones ni otros gastos adicionales. Es una referencia básica para calcular los intereses del préstamo, pero no refleja el costo total del mismo.</p>
                       <ul>
-                        <li><strong>¿Sobre qué se aplica?:</strong> El TIN se aplica sobre el capital pendiente de pago del préstamo.</li>
+                        <li><strong>¿Sobre qué se aplica?:</strong> el TIN se aplica sobre el capital pendiente de pago del préstamo.</li>
                         <li><strong>Frecuencia de pago:</strong> aunque el TIN es un porcentaje anual, los intereses se abonan mensualmente..</li>
                       </ul>
                       <p><strong>Ejemplo:</strong></p>
@@ -423,7 +423,7 @@
                     <div class="recurso-content">
                       <p>La subrogación es un proceso mediante el cual se cambia al titular del préstamo o se traslada la hipoteca a otro banco. Existen dos tipos principales de subrogación:</p>
                       <ul>
-                        <li><strong>Subrogación del acreedor:</strong> cuando se cambia la hipoteca a otro banco con el objetivo de obtener mejores condiciones..</li>
+                        <li><strong>Subrogación del acreedor:</strong> cuando se cambia la hipoteca a otro banco con el objetivo de obtener mejores condiciones.</li>
                         <li><strong>Subrogación del deudor:</strong> cuando se cambia el titular del préstamo hipotecario, como ocurre en la compraventa de una vivienda con hipoteca.</li>
                       </ul>
                       <p><strong>¿Por qué se hace?</strong></p>
@@ -458,7 +458,7 @@
                       <p>El FIPER es un documento similar al FIPTE, pero adaptado a la situación personal del cliente. Este documento se entrega cuando el cliente ya ha manifestado un interés concreto en un préstamo hipotecario específico y contiene información personalizada según las características del cliente.</p>
                       <p><strong>¿Qué información incluye?</strong></p>
                       <ul>
-                        <li><strong>Condiciones específicas:</strong> condiciones particulares que aplican al cliente según su perfil y solicitud..</li>
+                        <li><strong>Condiciones específicas:</strong> condiciones particulares que aplican al cliente según su perfil y solicitud.</li>
                         <li><strong>Cuotas y gastos ajustados</strong> adaptados a la situación financiera del cliente.</li>
                         <li><strong>Detalles adicionales:</strong> información específica sobre las garantías y la forma de amortización.</li>
                       </ul>
