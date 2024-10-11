@@ -648,32 +648,32 @@ function listarSimulacionesGuardadas() {
           detallesDiv.classList.add('simulacion-details');
 
           const pFecha = document.createElement('p');
-          pFecha.innerHTML = `<strong>Fecha de Creación:</strong> ${simulacion.fecha}`;
+          pFecha.innerHTML = `<strong>Fecha de creación:</strong> ${simulacion.fecha}`;
           detallesDiv.appendChild(pFecha);
 
           const pTotalInicial = document.createElement('p');
-          pTotalInicial.innerHTML = `<strong>Total Inicial Necesario (€):</strong> €${simulacion.totalInicial.toFixed(2)}`;
+          pTotalInicial.innerHTML = `<strong>Ahorro inicial necesario (€):</strong> €${simulacion.totalInicial.toFixed(2)}`;
           detallesDiv.appendChild(pTotalInicial);
 
           const pFinanciacionSolicitada = document.createElement('p');
-          pFinanciacionSolicitada.innerHTML = `<strong>Financiación Solicitada (€):</strong> €${simulacion.financiacionSolicitada.toFixed(2)}`;
+          pFinanciacionSolicitada.innerHTML = `<strong>Financiación solicitada (€):</strong> €${simulacion.financiacionSolicitada.toFixed(2)}`;
           detallesDiv.appendChild(pFinanciacionSolicitada);
 
-          const pCosteTotalHipoteca = document.createElement('p');
-          pCosteTotalHipoteca.innerHTML = `<strong>Coste Total de la Hipoteca (€):</strong> €${simulacion.costeTotalHipoteca.toFixed(2)}`;
-          detallesDiv.appendChild(pCosteTotalHipoteca);
-
           const pCuotaEstimada = document.createElement('p');
-          pCuotaEstimada.innerHTML = `<strong>Cuota Mensual Estimada (€):</strong> €${simulacion.cuotaEstimada.toFixed(2)}`;
+          pCuotaEstimada.innerHTML = `<strong>Cuota mensual sin seguros ni productos vinculados (€):</strong> €${simulacion.cuotaEstimada.toFixed(2)}`;
           detallesDiv.appendChild(pCuotaEstimada);
 
           const pCuotaTotal = document.createElement('p');
-          pCuotaTotal.innerHTML = `<strong>Cuota Mensual Total (€):</strong> €${simulacion.cuotaTotal.toFixed(2)}`;
+          pCuotaTotal.innerHTML = `<strong>Cuota mensual con seguros y productos vinculados (€):</strong> €${simulacion.cuotaTotal.toFixed(2)}`;
           detallesDiv.appendChild(pCuotaTotal);
+
+          const pCosteTotalHipoteca = document.createElement('p');
+          pCosteTotalHipoteca.innerHTML = `<strong>Coste total de la hipoteca (€):</strong> €${simulacion.costeTotalHipoteca.toFixed(2)}`;
+          detallesDiv.appendChild(pCosteTotalHipoteca);
 
           const pCuotaCapital = document.createElement('p');
           const cuotaText = simulacion.cuotaCapitalSuperaInteres ? simulacion.cuotaCapitalSuperaInteres : 'N/A';
-          pCuotaCapital.innerHTML = `<strong>Cuota Capital > Interés:</strong> ${cuotaText}`;
+          pCuotaCapital.innerHTML = `<strong>Cuota donde el pago de capital supera al pago de intereses:</strong> ${cuotaText}`;
           detallesDiv.appendChild(pCuotaCapital);
 
           simulacionDiv.appendChild(detallesDiv);
@@ -824,12 +824,12 @@ function mostrarComparacion(simulaciones) {
 
   // Lista de propiedades a comparar
   const propiedades = [
-      { clave: 'totalInicial', etiqueta: 'Total Inicial (€)' },
-      { clave: 'financiacionSolicitada', etiqueta: 'Financiación Solicitada (€)' },
-      { clave: 'costeTotalHipoteca', etiqueta: 'Coste Total Hipoteca (€)' },
-      { clave: 'cuotaEstimada', etiqueta: 'Cuota Mensual Estimada (€)' },
-      { clave: 'cuotaTotal', etiqueta: 'Cuota Mensual Total (€)' },
-      { clave: 'cuotaCapitalSuperaInteres', etiqueta: 'Cuota donde Capital > Interés' }
+      { clave: 'totalInicial', etiqueta: 'Ahorro inicial necesario (€)' },
+      { clave: 'financiacionSolicitada', etiqueta: 'Financiación solicitada (€)' },
+      { clave: 'cuotaEstimada', etiqueta: 'Cuota mensual sin seguros ni productos vinculados (€)' },
+      { clave: 'cuotaTotal', etiqueta: 'Cuota mensual con seguros y productos vinculados (€)' },
+      { clave: 'costeTotalHipoteca', etiqueta: 'Coste total de la hipoteca (€)' },
+      { clave: 'cuotaCapitalSuperaInteres', etiqueta: 'Cuota donde el pago de capital supera al pago de intereses' }
   ];
 
   propiedades.forEach(prop => {
