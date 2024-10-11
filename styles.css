@@ -6,10 +6,9 @@
     --color-texto: #FFFFFF;
     --color-texto-secundario: #98989D;
     --color-borde: #38383A;
-    --color-boton: #336699;
-    --color-boton-hover: #409CFF;
-    --color-boton-activo: #336699;
-    --color-acento: linear-gradient(90deg, #0A84FF 0%, #5E5CE6 50%, #BF5AF2 100%);
+    --color-boton: #005587;
+    --color-boton-hover: #2E4053;
+    --color-boton-activo: #2E4053;
     --color-acento-texto: transparent;
     --color-acento-fill: #FFFFFF;
     --color-shadow: rgba(0, 0, 0, 0.3);
@@ -42,7 +41,7 @@ body {
     display: flex;
     align-items: center; /* Vertically align elements */
     justify-content: space-between; /* Horizontally distribute space between app name and button */
-    border-bottom: 1px solid #38383A;
+    border-bottom: 2px solid #38383A;
 }
 
 .top-bar-content {
@@ -88,19 +87,19 @@ body {
 .nav-tabs {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 3px;
     background-color: var(--color-seccion);
-    padding: 5px;
     border-radius: 30px;
+    padding: 0px;
 }
 
 .nav-tab {
-    padding: 10px 20px;
+    padding: 12px 15px;
     cursor: pointer;
-    font-size: 1.0rem;
+    font-size: 15px;
     color: var(--color-texto);
-    transition: background-color 0.3s ease, color 0.3s ease;
     border-radius: 30px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-tab:hover {
@@ -145,9 +144,9 @@ main {
 /* Contenedor de la sección */
 .section-container {
     background-color: var(--color-seccion);
-    border-radius: 30px;
-    padding: 30px;
+    padding: 5px;
     margin-bottom: 40px;
+    border-radius: 10px;
     box-shadow: 0 4px 20px var(--color-shadow);
     animation: fadeInUp 0.5s ease-out;
 }
@@ -155,7 +154,7 @@ main {
 .section-container h2 {
     font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     color: var(--color-texto);
     border-bottom: 1px solid var(--color-borde);
     padding-bottom: 15px;
@@ -164,7 +163,7 @@ main {
 .section-container h3 {
     font-size: 1.4rem;
     font-weight: 600;
-    margin-top: 25px;
+    margin-top: 15px;
     margin-bottom: 15px;
     color: var(--color-texto);
 }
@@ -202,11 +201,11 @@ form {
 
 .form-group input,
 .form-group select {
-    padding: 12px 16px;
+    padding: 12px 10px;
     border: 1px solid var(--color-borde);
-    border-radius: 10px;
     font-size: 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--color-texto);
     appearance: none;
@@ -239,7 +238,6 @@ form {
     flex: 1;
     padding: 14px 20px;
     border: 1px solid var(--color-borde);
-    border-radius: 12px;
     font-size: 1rem;
     background-color: #2C2C2C;
     color: var(--color-texto);
@@ -257,7 +255,6 @@ form {
     width: 60px;
     padding: 14px 20px;
     border: 1px solid var(--color-borde);
-    border-radius: 12px;
     background-color: #2C2C2C;
     color: var(--color-texto);
     appearance: none;
@@ -324,7 +321,7 @@ form {
     /* Barra de navegación principal */
 
     .navbar {
-        padding: 10px 10px;
+        padding: 10px 15px;
     }
 
     .nav-tabs {
@@ -336,7 +333,7 @@ form {
 
     .nav-tab {
         flex: none; /* Asegura que cada tab mantenga su tamaño original sin ajustarse */
-        padding: 8px 15px; /* Ajusta el padding si es necesario */
+        padding: 8px 20px; /* Ajusta el padding si es necesario */
         font-size: 0.9rem; /* Ajusta el tamaño de la fuente para mejor legibilidad */
     }
 
@@ -357,7 +354,7 @@ form {
     /* Ajustes generales de contenido */
     .section-container {
         width: 100%; /* Asegura que el contenido use todo el ancho de la pantalla */
-        margin: 20px auto;
+        margin: 10px auto;
         padding: 20px 15px;
     }
 
@@ -371,8 +368,8 @@ form {
 
     .button-group button, 
     .navigation-buttons button {
-        font-size: 1rem; /* Aumenta el tamaño del texto en botones */
-        padding: 14px; /* Aumenta el tamaño de los botones para ser más táctiles */
+        font-size: 0.9rem; /* Aumenta el tamaño del texto en botones */
+        padding: 10px; /* Aumenta el tamaño de los botones para ser más táctiles */
         width: 50%; /* Los botones ocupan todo el ancho del contenedor */
         margin-bottom: 10px; /* Añade un margen entre los botones */
     }
@@ -418,9 +415,8 @@ form {
 
     /* Ajustes en el botón de cerrar sesión */
     #btn-cerrar-sesion {
-        padding: 8px 14px; /* Ajustar el padding del botón */
+        padding: 5px 10px; /* Ajustar el padding del botón */
         font-size: 0.85rem; /* Reducir el tamaño de la fuente */
-        border-radius: 18px; /* Bordes más pequeños */
     }
 }
 
@@ -505,7 +501,6 @@ form {
     border-spacing: 0;
     margin-top: 25px;
     background-color: var(--color-seccion);
-    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -554,7 +549,6 @@ form {
     background-color: #0066cc;
     border: 1px solid var(--color-borde);
     margin-right: 10px;
-    border-radius: 4px;
 }
 
 .leyenda-texto {
@@ -574,7 +568,6 @@ form {
     background-color: var(--color-seccion);
     border-left: 4px solid var(--color-boton);
     padding: 20px 25px;
-    border-radius: 10px;
     box-shadow: 0 2px 10px var(--color-shadow);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
@@ -607,12 +600,12 @@ form {
 }
 
 .simulacion-actions button {
-    padding: 8px 14px;
+    padding: 10px 14px;
     border: none;
-    border-radius: 20px;
     cursor: pointer;
     font-size: 1.0rem;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 30px;
     color: #FFFFFF;
     background-color: var(--color-boton);
 }
@@ -630,7 +623,6 @@ form {
 /* Botón Eliminar */
 .simulacion-actions .eliminar-btn {
     background-color: #B00020;
-    border-radius: 8px;
 }
 
 .simulacion-actions .eliminar-btn:hover {
@@ -652,13 +644,14 @@ form {
 button, .btn {
     padding: 12px 24px;
     border: none;
-    border-radius: 30px;
     cursor: pointer;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 30px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     color: #FFFFFF;
-    background-color: var(--color-boton);
+    background-color: black;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -676,11 +669,12 @@ button:active, .btn:active {
     position: absolute; /* Para posicionarlo libremente en la parte superior derecha */
     top: 18px;          /* Ajusta el valor según el espacio que desees del borde superior */
     right: 18px;        /* Ajusta el valor según el espacio que desees del borde derecho */
-    background-color: #BFBFBF; /* Color de fondo rojo */
+    font-weight: 500;
+    border-radius: 30px;
+    background-color: #e0e0e0; /* Color de fondo rojo */
     color: black;       /* Texto blanco para mayor contraste */
     border: none;       /* Sin borde */
-    padding: 12px 24px; /* Añadir algo de espacio al botón */
-    border-radius: 30px; /* Bordes redondeados para una apariencia agradable */
+    padding: 12px 15px; /* Añadir algo de espacio al botón */
     cursor: pointer;    /* Cambia el cursor para indicar que es clickeable */
 }
 
@@ -698,7 +692,6 @@ button:active, .btn:active {
 
 .recurso-item {
     background-color: var(--color-seccion);
-    border-radius: 10px;
     overflow: hidden;
     transition: box-shadow 0.3s ease;
 }
@@ -718,7 +711,6 @@ button:active, .btn:active {
     justify-content: space-between;
     align-items: center;
     border: none;
-    border-radius: 10px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -795,7 +787,6 @@ button:active, .btn:active {
 /* Estilos para el formulario de inicio de sesión y registro */
 .auth-form-container {
     background-color: var(--color-barra);
-    border-radius: 16px;
     padding: 40px;
     max-width: 450px;
     margin: 50px auto;
