@@ -63,6 +63,9 @@
                         <button type="submit" class="btn btn-login">Iniciar sesión</button>
                         <button type="button" id="mostrar-form-registro" class="btn btn-guardar">Crear cuenta</button>
                     </div>
+                    <p class="olvido-contrasena">
+                        <a href="#" id="mostrar-recuperar-password">Olvidé mi contraseña</a>
+                    </p>
                 </form>
 
                 <form id="form-registrar" class="auth-form" style="display: none;">
@@ -78,6 +81,23 @@
                     <div class="button-group">
                         <button type="submit" class="btn btn-login">Registrarse</button>
                         <button type="button" id="mostrar-form-iniciar-sesion" class="btn btn-guardar">Ya tengo una cuenta</button>
+                    </div>
+                </form>
+
+                <!-- Formulario: Recuperar Contraseña -->
+                <form id="form-recuperar-password" class="auth-form" style="display: none;">
+                    <h2>Recuperar Contraseña</h2>
+                    <div class="form-group">
+                        <label for="email-recuperar-password">Correo electrónico</label>
+                        <input type="email" id="email-recuperar-password" required>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-recuperar">Enviar enlace de recuperación</button>
+                    </div>
+                    <p id="mensaje-recuperacion" class="mensaje"></p>
+                    <!-- Botón para volver a iniciar sesión -->
+                    <div class="button-group">
+                        <button type="button" id="volver-inicio-sesion" class="btn btn-login">Volver a Inicio de sesión</button>
                     </div>
                 </form>
             </div>
