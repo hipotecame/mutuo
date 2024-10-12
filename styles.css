@@ -226,6 +226,43 @@ form {
     padding-right: 40px;
 }
 
+/* Estilo para el enlace de recuperación */
+.mensaje {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.btn-recuperar {
+    background-color: #FFA500; /* Puedes ajustar este color según tu diseño */
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-recuperar:hover {
+    background-color: #FF8C00; /* Un tono más oscuro */
+}
+
+/* Estilo para bajar ligeramente el texto de "Olvidé mi contraseña" */
+.olvido-contrasena {
+    margin-top: 10px; /* Ajusta el valor según el espacio que desees */
+    text-align: center; /* Opcional, si quieres que esté centrado */
+}
+
+.olvido-contrasena a {
+    color: #FFA500; /* El color que prefieras */
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.olvido-contrasena a:hover {
+    color: #FF8C00; /* Color al pasar el ratón por encima */
+}
+
 /* Estilos para Entrada, Arras e IVA/ITP */
 .input-group {
     display: flex;
