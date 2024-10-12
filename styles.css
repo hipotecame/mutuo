@@ -6,7 +6,7 @@
     --color-texto: #FFFFFF;
     --color-texto-secundario: #98989D;
     --color-borde: #38383A;
-    --color-boton: #005587;
+    --color-boton: #005AFF;
     --color-boton-hover: #2E4053;
     --color-boton-activo: #2E4053;
     --color-acento-texto: transparent;
@@ -641,7 +641,7 @@ form {
 }
 
 /* Estilo general para los botones */
-button, .btn {
+button, .btn, .btn-login {
     padding: 12px 24px;
     border: none;
     cursor: pointer;
@@ -655,12 +655,12 @@ button, .btn {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-button:hover, .btn:hover {
+button:hover, .btn:hover, .btn-login:hover {
     background-color: var(--color-boton-hover);
     transform: translateY(-2px);
 }
 
-button:active, .btn:active {
+button:active, .btn:active, .btn-login:hover {
     background-color: var(--color-boton-activo);
     transform: translateY(0);
 }
@@ -765,23 +765,49 @@ button:active, .btn:active {
     border-top: 1px solid var(--color-borde);
 }
 
-/* Estilos para el botón de inicio de sesión */
-.btn-login {
-    background-color: var(--color-boton);
-    border: 2px solid #555555;
+/* Estilos para la tabla de ITP */
+.tabla-itp {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-itp th, .tabla-itp td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-borde);
     color: var(--color-texto);
 }
 
-.btn-login:hover {
-    background-color: var(--color-boton-hover);
-    border-color: #777777;
-    color: #FFFFFF;
+.tabla-itp th {
+    background-color: rgba(255, 255, 255, 0.05);
+    font-weight: 600;
+}
+
+.tabla-itp tr:nth-child(even) {
+    background-color: var(--color-barra);
+}
+
+.tabla-itp tr:nth-child(odd) {
+    background-color: var(--color-seccion);
+}
+
+/* Estilo para el enlace de descarga del informe */
+a {
+    color: #FFA500; /* Cambia este color por el que prefieras */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+    color: #FF8C00; /* Un tono más oscuro al pasar el cursor */
     transform: translateY(-2px);
 }
 
-.btn-login:active {
-    background-color: var(--color-boton-activo);
-    border-color: #555555;
+a:active {
+    color: #FF4500; /* Un color más oscuro al hacer clic */
+    transform: translateY(0);
 }
 
 /* Estilos para el formulario de inicio de sesión y registro */
