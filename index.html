@@ -36,7 +36,7 @@
         </ul>
     </nav>
 
-    <!-- Barra de Navegación Secundaria -->
+    <!-- Barra de Navegación Secundaria Préstamo Hipotecario -->
     <nav class="navbar" id="secondary-nav">
         <ul class="nav-tabs" id="simulation-nav">
             <li class="nav-tab active" data-tab="datos-simulacion">Gastos iniciales</li>
@@ -572,40 +572,48 @@
             <div class="section-container">
                 <h2>Capacidad de endeudamiento</h2>
                 <form id="datos-financieros-form">
+                    <!-- Nombre de la Simulación -->
+                    <div class="form-group">
+                        <label for="nombre-capacidad-endeudamiento">Nombre de la simulación</label>
+                        <input type="text" id="nombre-capacidad-endeudamiento" placeholder="Ejemplo: Simulación Endeudamiento" required>
+                        <small class="description">Asigna un nombre único para identificar esta simulación.</small>
+                    </div>
+        
                     <!-- Ingresos Netos Mensuales -->
                     <div class="form-group">
                         <label for="ingresos-netos">Ingresos netos mensuales (€)</label>
                         <input type="number" id="ingresos-netos" placeholder="Ejemplo: 2500" min="0" step="0.01" required>
                         <small class="description">Ingresos totales después de impuestos.</small>
                     </div>
-
+        
                     <!-- Tasa de Endeudamiento -->
                     <div class="form-group">
                         <label for="tasa-endeudamiento">Tasa de endeudamiento (%)</label>
                         <input type="number" id="tasa-endeudamiento" placeholder="Ejemplo: 35" min="0" max="100" step="0.01" required>
                         <small class="description">Porcentaje máximo de tus ingresos destinado al pago de deudas.</small>
                     </div>
-
+        
                     <!-- TIN -->
                     <div class="form-group">
                         <label for="tin-endeudamiento">Tipo de Interés Nominal (TIN) (%)</label>
                         <input type="number" id="tin-endeudamiento" placeholder="Ejemplo: 1.5" min="0" step="0.01" required>
                         <small class="description">El interés anual que aplicará el banco.</small>
                     </div>
-
+        
                     <!-- Plazo del Préstamo -->
                     <div class="form-group">
                         <label for="plazo-endeudamiento">Plazo del préstamo (años)</label>
                         <input type="number" id="plazo-endeudamiento" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
                         <small class="description">Duración del préstamo en años.</small>
                     </div>
-
+        
                     <!-- Botón para Calcular -->
                     <div class="button-group">
                         <button id="calcular-endeudamiento" class="btn btn-calcular" type="button">Calcular</button>
+                        <button id="guardar-simulacion-capacidad" class="btn btn-guardar" type="button">Guardar simulación</button>
                     </div>
                 </form>
-
+        
                 <!-- Sección: Resultados -->
                 <section class="subsection" id="resultados-endeudamiento">
                     <div class="section-container">
