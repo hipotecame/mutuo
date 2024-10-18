@@ -55,6 +55,12 @@ if (calcularCuotaBtn) {
   calcularCuotaBtn.addEventListener('click', actualizarCuotaMensual);
 }
 
+// Añadir event listener al botón "Guardar simulación" en Capacidad de Endeudamiento
+const guardarSimulacionCapacidadBtn = document.getElementById('guardar-simulacion-capacidad');
+if (guardarSimulacionCapacidadBtn) {
+    guardarSimulacionCapacidadBtn.addEventListener('click', guardarSimulacionCapacidadEndeudamiento);
+}
+
 // Manejar el envío del formulario de registro
 const formRegistrar = document.getElementById('form-registrar');
 if (formRegistrar) {
@@ -686,242 +692,413 @@ document.getElementById('importe-maximo-financiable').textContent = importeMaxim
 document.getElementById('resultados-endeudamiento').classList.add('active');
 }
 
+function guardarSimulacionCapacidadEndeudamiento() {
+  const nombreSimulacion = document.getElementById('nombre-capacidad-endeudamiento').value.trim();
+  if (nombreSimulacion === "") {
+      alert("Por favor, ingresa un nombre para la simulación.");
+      return;
+  }
+
+  const ingresosNetos = parseFloat(document.getElementById('ingresos-netos').value) || 0;
+  const tasaEndeudamiento = parseFloat(document.getElementById('tasa-endeudamiento').value) || 0;
+  const tin = parseFloat(document.getElementById('tin-endeudamiento').value) || 0;
+  const plazo = parseInt(document.getElementById('plazo-endeudamiento').value) || 0;
+  const cuotaMensualMaxima = parseFloat(document.getElementById('cuota-mensual-maxima').textContent) || 0;
+  const capacidadDeEndeudamiento = parseFloat(document.getElementById('importe-maximo-financiable').textContent) || 0;
+
+  const simulacion = {
+      nombre: nombreSimulacion,
+      ingresosNetos: ingresosNetos,
+      tasaEndeudamiento: tasaEndeudamiento,
+      tipoInteres: tin,
+      plazo: plazo,
+      cuotaMensualMaxima: cuotaMensualMaxima,
+      capacidadDeEndeudamiento: capacidadDeEndeudamiento,
+      fecha: new Date().toLocaleString() // Agregar la fecha de creación
+  };
+
+  // Guardar la simulación en Firestore
+  const user = auth.currentUser;
+  if (user) {
+      db.collection('usuarios').doc(user.uid).collection('simulaciones').add(simulacion)
+          .then(() => {
+              alert("Simulación guardada correctamente.");
+              listarSimulacionesGuardadas(); // Actualizar la lista de simulaciones
+          })
+          .catch(error => {
+              console.error("Error al guardar la simulación: ", error);
+          });
+  } else {
+      alert("Debes iniciar sesión para guardar simulaciones.");
+  }
+}
+
 // Función para listar las simulaciones guardadas desde Firestore
 function listarSimulacionesGuardadas() {
-const listaSimulacionesDiv = document.getElementById('lista-simulaciones');
-listaSimulacionesDiv.innerHTML = ""; // Limpiar contenido previo
+  const listaSimulacionesDiv = document.getElementById('lista-simulaciones');
+  listaSimulacionesDiv.innerHTML = ""; // Limpiar contenido previo
 
-const user = auth.currentUser;
-if (user) {
-  db.collection('usuarios').doc(user.uid).collection('simulaciones').get()
-    .then(querySnapshot => {
-      if (querySnapshot.empty) {
-        listaSimulacionesDiv.innerHTML = "<p>No hay simulaciones guardadas.</p>";
-        return;
-      }
-      querySnapshot.forEach(doc => {
-        const simulacion = doc.data();
-        // Crear elementos de interfaz
-        const simulacionDiv = document.createElement('div');
-        simulacionDiv.classList.add('simulacion-item');
+  const user = auth.currentUser;
+  if (user) {
+      db.collection('usuarios').doc(user.uid).collection('simulaciones').get()
+          .then(querySnapshot => {
+              if (querySnapshot.empty) {
+                  listaSimulacionesDiv.innerHTML = "<p>No hay simulaciones guardadas.</p>";
+                  return;
+              }
 
-        const titulo = document.createElement('h3');
-        titulo.textContent = simulacion.nombre;
-        simulacionDiv.appendChild(titulo);
+              querySnapshot.forEach(doc => {
+                  const simulacion = doc.data();
+                  const simulacionDiv = document.createElement('div');
+                  simulacionDiv.classList.add('simulacion-item');
 
-        const detallesDiv = document.createElement('div');
-        detallesDiv.classList.add('simulacion-details');
+                  const titulo = document.createElement('h3');
+                  titulo.textContent = simulacion.nombre;
+                  simulacionDiv.appendChild(titulo);
 
-        const pFecha = document.createElement('p');
-        pFecha.innerHTML = `<strong>Fecha de creación:</strong> ${simulacion.fecha}`;
-        detallesDiv.appendChild(pFecha);
+                  const detallesDiv = document.createElement('div');
+                  detallesDiv.classList.add('simulacion-details');
 
-        const pTotalInicial = document.createElement('p');
-        pTotalInicial.innerHTML = `<strong>Ahorro inicial necesario (€):</strong> €${simulacion.totalInicial.toFixed(2)}`;
-        detallesDiv.appendChild(pTotalInicial);
+                  const pFecha = document.createElement('p');
+                  pFecha.innerHTML = `<strong>Fecha de creación:</strong> ${simulacion.fecha}`;
+                  detallesDiv.appendChild(pFecha);
 
-        const pFinanciacionSolicitada = document.createElement('p');
-        pFinanciacionSolicitada.innerHTML = `<strong>Financiación solicitada (€):</strong> €${simulacion.financiacionSolicitada.toFixed(2)}`;
-        detallesDiv.appendChild(pFinanciacionSolicitada);
+                  // Añadir letrero diferenciador según el tipo de simulación
+                  if (simulacion.totalInicial) {
+                      // Si es una simulación de hipoteca
+                      const tipoHipoteca = document.createElement('p');
+                      tipoHipoteca.innerHTML = `<strong>Tipo de simulación:</strong> Préstamo hipotecario`;
+                      tipoHipoteca.style.fontWeight = 'bold';
+                      detallesDiv.appendChild(tipoHipoteca);
 
-        const pCuotaEstimada = document.createElement('p');
-        pCuotaEstimada.innerHTML = `<strong>Cuota mensual sin seguros ni productos vinculados (€):</strong> €${simulacion.cuotaEstimada.toFixed(2)}`;
-        detallesDiv.appendChild(pCuotaEstimada);
+                      const pTotalInicial = document.createElement('p');
+                      pTotalInicial.innerHTML = `<strong>Ahorro inicial necesario (€):</strong> €${simulacion.totalInicial.toFixed(2)}`;
+                      detallesDiv.appendChild(pTotalInicial);
 
-        const pCuotaTotal = document.createElement('p');
-        pCuotaTotal.innerHTML = `<strong>Cuota mensual con seguros y productos vinculados (€):</strong> €${simulacion.cuotaTotal.toFixed(2)}`;
-        detallesDiv.appendChild(pCuotaTotal);
+                      const pFinanciacionSolicitada = document.createElement('p');
+                      pFinanciacionSolicitada.innerHTML = `<strong>Financiación solicitada (€):</strong> €${simulacion.financiacionSolicitada.toFixed(2)}`;
+                      detallesDiv.appendChild(pFinanciacionSolicitada);
 
-        const pCosteTotalHipoteca = document.createElement('p');
-        pCosteTotalHipoteca.innerHTML = `<strong>Coste total de la hipoteca (€):</strong> €${simulacion.costeTotalHipoteca.toFixed(2)}`;
-        detallesDiv.appendChild(pCosteTotalHipoteca);
+                      const pCuotaEstimada = document.createElement('p');
+                      pCuotaEstimada.innerHTML = `<strong>Cuota mensual sin seguros ni productos vinculados (€):</strong> €${simulacion.cuotaEstimada.toFixed(2)}`;
+                      detallesDiv.appendChild(pCuotaEstimada);
 
-        const pCuotaCapital = document.createElement('p');
-        const cuotaText = simulacion.cuotaCapitalSuperaInteres ? simulacion.cuotaCapitalSuperaInteres : 'N/A';
-        pCuotaCapital.innerHTML = `<strong>Cuota donde el pago de capital supera al pago de intereses:</strong> ${cuotaText}`;
-        detallesDiv.appendChild(pCuotaCapital);
+                      const pCuotaTotal = document.createElement('p');
+                      pCuotaTotal.innerHTML = `<strong>Cuota mensual con seguros y productos vinculados (€):</strong> €${simulacion.cuotaTotal.toFixed(2)}`;
+                      detallesDiv.appendChild(pCuotaTotal);
 
-        simulacionDiv.appendChild(detallesDiv);
+                      const pCosteTotalHipoteca = document.createElement('p');
+                      pCosteTotalHipoteca.innerHTML = `<strong>Coste total de la hipoteca (€):</strong> €${simulacion.costeTotalHipoteca.toFixed(2)}`;
+                      detallesDiv.appendChild(pCosteTotalHipoteca);
 
-        // Añadir botones de acción
-        const accionesDiv = document.createElement('div');
-        accionesDiv.classList.add('simulacion-actions');
+                      const pCuotaCapital = document.createElement('p');
+                      const cuotaText = simulacion.cuotaCapitalSuperaInteres ? simulacion.cuotaCapitalSuperaInteres : 'N/A';
+                      pCuotaCapital.innerHTML = `<strong>Cuota donde el pago de capital supera al pago de intereses:</strong> ${cuotaText}`;
+                      detallesDiv.appendChild(pCuotaCapital);
 
-        // Botón Eliminar
-        const eliminarBtn = document.createElement('button');
-        eliminarBtn.textContent = 'Eliminar';
-        eliminarBtn.classList.add('eliminar-btn');
-        eliminarBtn.addEventListener('click', () => eliminarSimulacion(simulacion.nombre));
-        accionesDiv.appendChild(eliminarBtn);
+                  } else if (simulacion.capacidadDeEndeudamiento) {
+                      // Si es una simulación de capacidad de endeudamiento
+                      const tipoEndeudamiento = document.createElement('p');
+                      tipoEndeudamiento.innerHTML = `<strong>Tipo de simulación:</strong> Capacidad de endeudamiento`;
+                      tipoEndeudamiento.style.fontWeight = 'bold';
+                      detallesDiv.appendChild(tipoEndeudamiento);
 
-        simulacionDiv.appendChild(accionesDiv);
+                      const pCapacidadEndeudamiento = document.createElement('p');
+                      pCapacidadEndeudamiento.innerHTML = `<strong>Capacidad de endeudamiento (€):</strong> €${simulacion.capacidadDeEndeudamiento.toFixed(2)}`;
+                      detallesDiv.appendChild(pCapacidadEndeudamiento);
 
-        listaSimulacionesDiv.appendChild(simulacionDiv);
-      });
-    })
-    .catch(error => {
-      console.error("Error al obtener las simulaciones:", error);
-    });
-} else {
-  listaSimulacionesDiv.innerHTML = "<p>Debes iniciar sesión para ver tus simulaciones guardadas.</p>";
-}
+                      const pCuotaMensualMaxima = document.createElement('p');
+                      pCuotaMensualMaxima.innerHTML = `<strong>Cuota mensual máxima (€):</strong> €${simulacion.cuotaMensualMaxima.toFixed(2)}`;
+                      detallesDiv.appendChild(pCuotaMensualMaxima);
+
+                      const pIngresosNetos = document.createElement('p');
+                      pIngresosNetos.innerHTML = `<strong>Ingresos netos mensuales (€):</strong> €${simulacion.ingresosNetos.toFixed(2)}`;
+                      detallesDiv.appendChild(pIngresosNetos);
+
+                      const pTasaEndeudamiento = document.createElement('p');
+                      pTasaEndeudamiento.innerHTML = `<strong>Tasa de endeudamiento (%):</strong> ${simulacion.tasaEndeudamiento.toFixed(2)}%`;
+                      detallesDiv.appendChild(pTasaEndeudamiento);
+
+                      const pTipoInteres = document.createElement('p');
+                      pTipoInteres.innerHTML = `<strong>Tipo de interés (TIN) (%):</strong> ${simulacion.tipoInteres.toFixed(2)}%`;
+                      detallesDiv.appendChild(pTipoInteres);
+
+                      const pPlazo = document.createElement('p');
+                      pPlazo.innerHTML = `<strong>Plazo (años):</strong> ${simulacion.plazo}`;
+                      detallesDiv.appendChild(pPlazo);
+                  }
+
+                  simulacionDiv.appendChild(detallesDiv);
+
+                  // Añadir botones de acción
+                  const accionesDiv = document.createElement('div');
+                  accionesDiv.classList.add('simulacion-actions');
+
+                  // Botón Eliminar
+                  const eliminarBtn = document.createElement('button');
+                  eliminarBtn.textContent = 'Eliminar';
+                  eliminarBtn.classList.add('eliminar-btn');
+                  eliminarBtn.addEventListener('click', () => eliminarSimulacion(simulacion.nombre));
+                  accionesDiv.appendChild(eliminarBtn);
+
+                  simulacionDiv.appendChild(accionesDiv);
+
+                  listaSimulacionesDiv.appendChild(simulacionDiv);
+              });
+          })
+          .catch(error => {
+              console.error("Error al obtener las simulaciones:", error);
+          });
+  } else {
+      listaSimulacionesDiv.innerHTML = "<p>Debes iniciar sesión para ver tus simulaciones guardadas.</p>";
+  }
 }
 
 // Función para eliminar una simulación de Firestore
 function eliminarSimulacion(nombreSimulacion) {
-if (!confirm(`¿Estás seguro de que deseas eliminar la simulación "${nombreSimulacion}"?`)) {
-  return;
-}
+  if (!confirm(`¿Estás seguro de que deseas eliminar la simulación "${nombreSimulacion}"?`)) {
+      return;
+  }
 
-const user = auth.currentUser;
-if (user) {
-  db.collection('usuarios').doc(user.uid).collection('simulaciones').doc(nombreSimulacion).delete()
-    .then(() => {
-      console.log("Simulación eliminada de Firestore");
-      listarSimulacionesGuardadas();
-      alert("Simulación eliminada exitosamente.");
-    })
-    .catch(error => {
-      console.error("Error al eliminar la simulación:", error);
-      alert("Error al eliminar la simulación.");
-    });
-} else {
-  alert("Debes iniciar sesión para eliminar simulaciones.");
-}
+  const user = auth.currentUser;
+  if (user) {
+      // Buscar el documento donde el nombre de la simulación coincide
+      db.collection('usuarios').doc(user.uid).collection('simulaciones')
+          .where('nombre', '==', nombreSimulacion).get()
+          .then(querySnapshot => {
+              if (!querySnapshot.empty) {
+                  querySnapshot.forEach(doc => {
+                      // Eliminar el documento utilizando su ID
+                      doc.ref.delete().then(() => {
+                          console.log("Simulación eliminada de Firestore");
+                          listarSimulacionesGuardadas();
+                          alert("Simulación eliminada exitosamente.");
+                      }).catch(error => {
+                          console.error("Error al eliminar la simulación:", error);
+                          alert("Error al eliminar la simulación.");
+                      });
+                  });
+              } else {
+                  alert("Simulación no encontrada.");
+              }
+          })
+          .catch(error => {
+              console.error("Error al buscar la simulación:", error);
+              alert("Error al buscar la simulación.");
+          });
+  } else {
+      alert("Debes iniciar sesión para eliminar simulaciones.");
+  }
 }
 
 // Función para configurar el comparador
+// Función para configurar el comparador
 function setupComparador() {
-const comparadorContenido = document.getElementById('comparador-contenido');
-comparadorContenido.innerHTML = ''; // Limpiar contenido previo
+  const comparadorContenido = document.getElementById('comparador-contenido');
+  comparadorContenido.innerHTML = ''; // Limpiar contenido previo
 
-const user = auth.currentUser;
-if (user) {
-  db.collection('usuarios').doc(user.uid).collection('simulaciones').get()
-    .then(querySnapshot => {
-      const simulacionesGuardadas = [];
-      querySnapshot.forEach(doc => {
-        simulacionesGuardadas.push(doc.data());
-      });
+  const user = auth.currentUser;
+  if (user) {
+      db.collection('usuarios').doc(user.uid).collection('simulaciones').get()
+          .then(querySnapshot => {
+              const simulacionesGuardadas = [];
 
-      if (simulacionesGuardadas.length === 0) {
-        comparadorContenido.innerHTML = "<p>No hay simulaciones guardadas para comparar.</p>";
-        return;
-      }
+              // Limpiar el arreglo de simulaciones guardadas
+              querySnapshot.forEach(doc => {
+                  const simulacion = doc.data();
+                  // Solo añadimos simulaciones que aún existan y no hayan sido eliminadas
+                  if (simulacion) {
+                      simulacionesGuardadas.push({ id: doc.id, data: simulacion });
+                  }
+              });
 
-      // Crear una lista de checkboxes para seleccionar simulaciones
-      const formComparador = document.createElement('form');
-      formComparador.id = 'form-comparador';
+              // Verificamos si no hay simulaciones guardadas
+              if (simulacionesGuardadas.length === 0) {
+                  comparadorContenido.innerHTML = "<p>No hay simulaciones guardadas para comparar.</p>";
+                  return;
+              }
 
-      simulacionesGuardadas.forEach((simulacion, index) => {
-        const label = document.createElement('label');
-        label.style.display = 'block';
-        label.style.marginBottom = '10px';
+              // Crear una lista de checkboxes para seleccionar simulaciones
+              const formComparador = document.createElement('form');
+              formComparador.id = 'form-comparador';
 
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.name = 'simulacion';
-        checkbox.value = index;
+              simulacionesGuardadas.forEach((simulacion, index) => {
+                  const label = document.createElement('label');
+                  label.style.display = 'block';
+                  label.style.marginBottom = '10px';
 
-        label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(` ${simulacion.nombre}`));
-        formComparador.appendChild(label);
-      });
+                  const checkbox = document.createElement('input');
+                  checkbox.type = 'checkbox';
+                  checkbox.name = 'simulacion';
+                  checkbox.value = simulacion.id; // Usamos el ID como valor
 
-      // Botón para comparar
-      const compararBtn = document.createElement('button');
-      compararBtn.type = 'button';
-      compararBtn.textContent = 'Comparar Simulaciones';
-      compararBtn.classList.add('btn', 'btn-comparar');
-      compararBtn.style.marginTop = '20px';
-      compararBtn.addEventListener('click', () => {
-        const seleccionadas = Array.from(formComparador.elements['simulacion'])
-          .filter(checkbox => checkbox.checked)
-          .map(checkbox => simulacionesGuardadas[checkbox.value]);
+                  label.appendChild(checkbox);
 
-        if (seleccionadas.length < 2) {
-          alert('Por favor, selecciona al menos dos simulaciones para comparar.');
-          return;
-        }
+                  // Añadir letrero diferenciador según el tipo de simulación
+                  let tipoSimulacion = '';
+                  if (simulacion.data.totalInicial) {
+                      tipoSimulacion = 'Préstamo hipotecario';
+                  } else if (simulacion.data.capacidadDeEndeudamiento) {
+                      tipoSimulacion = 'Capacidad de endeudamiento';
+                  }
 
-        mostrarComparacion(seleccionadas);
-      });
+                  label.appendChild(document.createTextNode(` ${simulacion.data.nombre} (${tipoSimulacion})`));
+                  formComparador.appendChild(label);
+              });
 
-      formComparador.appendChild(compararBtn);
-      comparadorContenido.appendChild(formComparador);
-    })
-    .catch(error => {
-      console.error("Error al obtener las simulaciones para comparar:", error);
-    });
-} else {
-  comparadorContenido.innerHTML = "<p>Debes iniciar sesión para utilizar el comparador.</p>";
-}
+              // Botón para comparar
+              const compararBtn = document.createElement('button');
+              compararBtn.type = 'button';
+              compararBtn.textContent = 'Comparar Simulaciones';
+              compararBtn.classList.add('btn', 'btn-comparar');
+              compararBtn.style.marginTop = '20px';
+              compararBtn.addEventListener('click', () => {
+                  const seleccionadas = Array.from(formComparador.elements['simulacion'])
+                      .filter(checkbox => checkbox.checked)
+                      .map(checkbox => simulacionesGuardadas.find(simulacion => simulacion.id === checkbox.value).data);
+
+                  if (seleccionadas.length < 2) {
+                      alert('Por favor, selecciona al menos dos simulaciones para comparar.');
+                      return;
+                  }
+
+                  // Verificar que todas las simulaciones seleccionadas sean del mismo tipo
+                  const tipoPrimeraSimulacion = seleccionadas[0].totalInicial ? 'hipoteca' : 'endeudamiento';
+                  const tiposValidos = seleccionadas.every(sim => (sim.totalInicial && tipoPrimeraSimulacion === 'hipoteca') || (sim.capacidadDeEndeudamiento && tipoPrimeraSimulacion === 'endeudamiento'));
+
+                  if (!tiposValidos) {
+                      alert('No puedes comparar simulaciones de Préstamos hipotecarios con simulaciones de Capacidad de endeudamiento.');
+                      return;
+                  }
+
+                  mostrarComparacion(seleccionadas);
+              });
+
+              formComparador.appendChild(compararBtn);
+              comparadorContenido.appendChild(formComparador);
+          })
+          .catch(error => {
+              console.error("Error al obtener las simulaciones para comparar:", error);
+          });
+  } else {
+      comparadorContenido.innerHTML = "<p>Debes iniciar sesión para utilizar el comparador.</p>";
+  }
 }
 
 // Función para mostrar la comparación de simulaciones
 // Función para mostrar la comparación de simulaciones
 function mostrarComparacion(simulaciones) {
-const comparadorContenido = document.getElementById('comparador-contenido');
-comparadorContenido.innerHTML = ''; // Limpiar contenido previo
+  const comparadorContenido = document.getElementById('comparador-contenido');
+  comparadorContenido.innerHTML = ''; // Limpiar contenido previo
 
-// Crear una tabla con la misma clase que la tabla de amortización
-const tabla = document.createElement('table');
-tabla.classList.add('tabla-amortizacion'); // Usamos la misma clase
+  // Crear una tabla con la misma clase que la tabla de amortización
+  const tabla = document.createElement('table');
+  tabla.classList.add('tabla-amortizacion'); // Usamos la misma clase
 
-// Crear encabezados de la tabla
-const thead = document.createElement('thead');
-const encabezadoFila = document.createElement('tr');
+  // Crear encabezados de la tabla
+  const thead = document.createElement('thead');
+  const encabezadoFila = document.createElement('tr');
 
-const encabezadoVacio = document.createElement('th');
-encabezadoVacio.textContent = 'Parámetro';
-encabezadoFila.appendChild(encabezadoVacio);
+  const encabezadoVacio = document.createElement('th');
+  encabezadoVacio.textContent = 'Parámetro';
+  encabezadoFila.appendChild(encabezadoVacio);
 
-simulaciones.forEach(simulacion => {
-    const th = document.createElement('th');
-    th.textContent = simulacion.nombre;
-    encabezadoFila.appendChild(th);
-});
-thead.appendChild(encabezadoFila);
-tabla.appendChild(thead);
+  simulaciones.forEach(simulacion => {
+      const th = document.createElement('th');
+      th.textContent = simulacion.nombre;
+      encabezadoFila.appendChild(th);
+  });
+  thead.appendChild(encabezadoFila);
+  tabla.appendChild(thead);
 
-// Crear cuerpo de la tabla
-const tbody = document.createElement('tbody');
+  // Crear cuerpo de la tabla
+  const tbody = document.createElement('tbody');
 
-// Lista de propiedades a comparar
-const propiedades = [
-    { clave: 'totalInicial', etiqueta: 'Ahorro inicial necesario (€)' },
-    { clave: 'financiacionSolicitada', etiqueta: 'Financiación solicitada (€)' },
-    { clave: 'cuotaEstimada', etiqueta: 'Cuota mensual sin seguros ni productos vinculados (€)' },
-    { clave: 'cuotaTotal', etiqueta: 'Cuota mensual con seguros y productos vinculados (€)' },
-    { clave: 'costeTotalHipoteca', etiqueta: 'Coste total de la hipoteca (€)' },
-    { clave: 'cuotaCapitalSuperaInteres', etiqueta: 'Cuota donde el pago de capital supera al pago de intereses' }
-];
+  // Comprobar si es una simulación de "hipoteca" o "endeudamiento" y añadir las filas correspondientes
+  const esHipoteca = simulaciones[0].totalInicial !== undefined;
 
-propiedades.forEach(prop => {
-    const fila = document.createElement('tr');
-    const celdaEtiqueta = document.createElement('td');
-    celdaEtiqueta.textContent = prop.etiqueta;
-    fila.appendChild(celdaEtiqueta);
+  if (esHipoteca) {
+      // Comparar Préstamos hipotecarios
+      const propiedadesHipoteca = [
+          { clave: 'totalInicial', etiqueta: 'Ahorro inicial necesario (€)' },
+          { clave: 'financiacionSolicitada', etiqueta: 'Financiación solicitada (€)' },
+          { clave: 'cuotaEstimada', etiqueta: 'Cuota mensual sin seguros ni productos vinculados (€)' },
+          { clave: 'cuotaTotal', etiqueta: 'Cuota mensual con seguros y productos vinculados (€)' },
+          { clave: 'costeTotalHipoteca', etiqueta: 'Coste total de la hipoteca (€)' },
+          { clave: 'cuotaCapitalSuperaInteres', etiqueta: 'Cuota donde el pago de capital supera al pago de intereses' }
+      ];
 
-    simulaciones.forEach(simulacion => {
-        const celdaValor = document.createElement('td');
-        const valor = simulacion[prop.clave];
+      propiedadesHipoteca.forEach(prop => {
+          const fila = document.createElement('tr');
+          const celdaEtiqueta = document.createElement('td');
+          celdaEtiqueta.textContent = prop.etiqueta;
+          fila.appendChild(celdaEtiqueta);
 
-        // Formatear el valor según la propiedad
-        if (prop.clave === 'cuotaCapitalSuperaInteres') {
-            celdaValor.textContent = valor !== 'N/A' ? `Mes ${valor}` : 'N/A';
-        } else {
-            celdaValor.textContent = `€${valor.toFixed(2)}`;
-        }
+          simulaciones.forEach(simulacion => {
+              const celdaValor = document.createElement('td');
+              const valor = simulacion[prop.clave];
 
-        fila.appendChild(celdaValor);
-    });
+              if (valor !== undefined && valor !== null) {
+                  if (typeof valor === 'number') {
+                      celdaValor.textContent = `€${valor.toFixed(2)}`;
+                  } else if (prop.clave === 'cuotaCapitalSuperaInteres' && valor !== 'N/A') {
+                      celdaValor.textContent = `Mes ${valor}`;
+                  } else {
+                      celdaValor.textContent = valor;
+                  }
+              } else {
+                  celdaValor.textContent = 'N/A';
+              }
 
-    tbody.appendChild(fila);
-});
+              fila.appendChild(celdaValor);
+          });
 
-tabla.appendChild(tbody);
-comparadorContenido.appendChild(tabla);
+          tbody.appendChild(fila);
+      });
+  } else {
+      // Comparar Capacidad de endeudamiento
+      const propiedadesEndeudamiento = [
+          { clave: 'capacidadDeEndeudamiento', etiqueta: 'Financiación máxima (€)', esEuro: true },
+          { clave: 'cuotaMensualMaxima', etiqueta: 'Cuota mensual máxima (€)', esEuro: true },
+          { clave: 'ingresosNetos', etiqueta: 'Ingresos netos mensuales (€)', esEuro: true },
+          { clave: 'tasaEndeudamiento', etiqueta: 'Tasa de endeudamiento (%)', esPorcentaje: true },
+          { clave: 'tipoInteres', etiqueta: 'Tipo de interés (TIN) (%)', esPorcentaje: true },
+          { clave: 'plazo', etiqueta: 'Plazo (años)', esAnios: true }
+      ];
+
+      propiedadesEndeudamiento.forEach(prop => {
+          const fila = document.createElement('tr');
+          const celdaEtiqueta = document.createElement('td');
+          celdaEtiqueta.textContent = prop.etiqueta;
+          fila.appendChild(celdaEtiqueta);
+
+          simulaciones.forEach(simulacion => {
+              const celdaValor = document.createElement('td');
+              const valor = simulacion[prop.clave];
+
+              if (valor !== undefined && valor !== null) {
+                  if (prop.esEuro) {
+                      celdaValor.textContent = `€${valor.toFixed(2)}`;
+                  } else if (prop.esPorcentaje) {
+                      celdaValor.textContent = `${valor.toFixed(2)}%`;
+                  } else if (prop.esAnios) {
+                      celdaValor.textContent = `${valor} años`;
+                  } else {
+                      celdaValor.textContent = valor;
+                  }
+              } else {
+                  celdaValor.textContent = 'N/A';
+              }
+
+              fila.appendChild(celdaValor);
+          });
+
+          tbody.appendChild(fila);
+      });
+  }
+
+  tabla.appendChild(tbody);
+  comparadorContenido.appendChild(tabla);
 }
 
 // Función para mostrar el formulario de registro
