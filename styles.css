@@ -35,32 +35,30 @@ body {
 
 /* Barra Superior */
 .top-bar {
-    background-color: #1C1C1E;
-    color: #FFFFFF;
+    background-color: var(--color-barra);
+    color: var(--color-texto);
     padding: 10px 20px;
     display: flex;
-    align-items: center; /* Vertically align elements */
-    justify-content: space-between; /* Horizontally distribute space between app name and button */
-    border-bottom: 2px solid #38383A;
+    align-items: center;
+    border-bottom: 2px solid var(--color-borde);
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Asegura que la barra superior esté por encima de otros elementos */
 }
 
 .top-bar-content {
     display: flex;
     align-items: center;
+    /* Ocupa el espacio necesario sin afectar el centrado */
 }
 
 .top-bar .app-name {
     font-size: 2.5em;
     font-weight: 700;
     margin: 0;
-    background: none; /* Removed gradient background */
-    -webkit-background-clip: initial;
-    -webkit-text-fill-color: initial;
-    background-clip: initial;
-    color: #BFBFBF; /* Set to white */
+    color: #BFBFBF;
 }
 
-/* Ajustar la etiqueta "EXPERIMENT" para que esté al lado de "Mutuo" */
 .experiment-label {
     display: inline-flex;
     align-items: center;
@@ -76,43 +74,75 @@ body {
     height: 20px;
 }
 
-/* Barras de Navegación */
-.navbar {
-    background-color: var(--color-barra);
-    padding: 15px 0;
+/* Contenedor para centrar la barra de navegación */
+.navbar-container {
+    flex: 1; /* Ocupa todo el espacio disponible */
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centra la barra de navegación */
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
 }
 
 .nav-tabs {
     list-style: none;
     display: flex;
-    gap: 3px;
-    background-color: var(--color-seccion);
-    border-radius: 30px;
-    padding: 0px;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-tab {
-    padding: 12px 15px;
+    display: flex;
+    flex-direction: column; /* Apilar icono y texto verticalmente */
+    align-items: center;    /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    padding: 10px 15px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--color-texto);
-    border-radius: 30px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-tab i {
+    font-size: 24px;      /* Tamaño del icono */
+    margin-bottom: 5px;   /* Espacio entre el icono y el texto */
+    margin-right: 0;      /* Eliminar margen derecho */
+}
+
+.nav-tab.active {
+    color: var(--color-boton);
+    border-bottom: 2px solid var(--color-boton);
 }
 
 .nav-tab:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.nav-tab.active {
-    background-color: var(--color-boton);
-    color: #FFFFFF;
+/* Barra de navegación secundaria */
+#secondary-nav {
+    background-color: #242427;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0; /* Aumentamos el padding para aumentar el tamaño */
+    gap: 20px; /* Aumentamos el espacio entre pestañas */
+    position: sticky;
+    top: calc(80px); /* Ajustamos la posición para que quede debajo de la barra superior */
+    z-index: 999; /* Asegura que esté debajo de la barra superior pero encima del contenido */
 }
 
-.nav-tab:not(.active):hover {
-    color: var(--color-acento-fill);
+#secondary-nav .nav-tab {
+    padding: 10px 20px;
+    font-size: 16px; /* Aumentamos el tamaño de la fuente */
+    border-bottom: 2px solid transparent;
+}
+
+#secondary-nav .nav-tab.active {
+    color: #005AFF;
+    border-bottom: 2px solid #005AFF;
 }
 
 /* Main content */
@@ -322,6 +352,172 @@ form {
     color: #FFFFFF;
 }
 
+/* Estilos para dispositivos iPad (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Ajustes en la barra superior */
+    .top-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+        position: relative;
+    }
+
+    .top-bar-content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .top-bar .app-name {
+        font-size: 1.8em;
+    }
+
+    .experiment-label {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        margin-left: 8px;
+    }
+
+    /* Botón de cerrar sesión */
+    #btn-cerrar-sesion {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    /* Barra de navegación primaria debajo de "Mutuo" */
+    .navbar-container {
+        width: 100%;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: nowrap; /* Mantener las pestañas en una sola línea */
+        padding: 5px 0;
+        overflow-x: auto; /* Permite scroll horizontal si es necesario */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 5px; /* Reducir el espacio entre pestañas */
+        padding: 0;
+        margin: 0;
+        width: auto;
+    }
+
+    .nav-tab {
+        flex: none; /* Evita que las pestañas se estiren */
+        padding: 6px 4px;
+        font-size: 0.85rem; /* Reducir el tamaño de fuente */
+        text-align: center;
+        min-width: 100px; /* Ancho mínimo para las pestañas */
+    }
+
+    .nav-tab i {
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+
+    .nav-tab span {
+        white-space: normal; /* Permite saltos de línea */
+    }
+
+    /* Barra de navegación secundaria */
+    #secondary-nav {
+        padding: 5px 0; /* Igual que la barra primaria */
+        overflow-x: auto; /* Permite scroll horizontal si es necesario */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #secondary-nav .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap; /* Mantener las pestañas en una sola línea */
+        gap: 5px; /* Reducir el espacio entre pestañas */
+        padding: 0;
+        margin: 0;
+        width: auto;
+    }
+
+    #secondary-nav .nav-tab {
+        flex: none; /* Evita que las pestañas se estiren */
+        padding: 6px 4px;
+        font-size: 0.85rem; /* Mismo tamaño de fuente que la barra primaria */
+        text-align: center;
+        min-width: 100px; /* Ancho mínimo para las pestañas */
+    }
+
+    #secondary-nav .nav-tab i {
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+
+    #secondary-nav .nav-tab span {
+        white-space: normal; /* Permite saltos de línea */
+    }
+
+    /* Ajustar el margen del contenido principal */
+    main {
+        margin-top: 20px;
+    }
+
+    /* Ajustes generales de contenido */
+    .section-container {
+        width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    /* Ajustes en inputs y selects */
+    .form-group input,
+    .form-group select {
+        font-size: 1rem;
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* Ajustes en .input-group para "Entrada" y "Arras" */
+    .input-group {
+        display: flex;
+        align-items: center;
+        gap: 5px; /* Reducir el espacio entre elementos */
+    }
+
+    .input-group input {
+        flex: 1; /* El input ocupa todo el espacio disponible */
+        padding: 8px;
+        font-size: 1rem;
+    }
+
+    .input-group select {
+        flex: none; /* El select no se estira */
+        width: 60px; /* Reduce el ancho del select */
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes de botones */
+    .button-group button,
+    .navigation-buttons button {
+        font-size: 1rem;
+        padding: 10px;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    /* Ajustes de encabezados */
+    .section-container h2,
+    .section-container h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+}
+
 @media (min-width: 769px) {
     .section-container {
         width: 90%; /* Allow the container to take up 90% of the available width */
@@ -355,105 +551,175 @@ form {
 
 /* Responsividad para Pantallas Pequeñas (<480px) */
 @media (max-width: 480px) {
-    /* Barra de navegación principal */
+    /* Ajustes en la barra superior */
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 10px;
+        position: relative; /* Necesario para posicionar el botón de cerrar sesión */
+    }
+
+    .top-bar-content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 8px;
+    }
+
+    .top-bar .app-name {
+        font-size: 1.5em;
+    }
+
+    .experiment-label {
+        font-size: 0.5rem;
+        padding: 1px 4px;
+        margin-left: 5px;
+    }
+
+    /* Botón de cerrar sesión */
+    #btn-cerrar-sesion {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+        font-size: 0.7rem;
+        background-color: transparent;
+        color: var(--color-texto);
+        border: none;
+        cursor: pointer;
+    }
+
+    #btn-cerrar-sesion i {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+
+    #btn-cerrar-sesion span {
+        font-size: 0.7rem;
+    }
+
+    /* Barra de navegación primaria */
+    .navbar-container {
+        width: 100%;
+    }
 
     .navbar {
-        padding: 10px 15px;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding: 4px 0;
     }
 
     .nav-tabs {
         display: flex;
-        overflow-x: auto; /* Permite el scroll horizontal */
-        white-space: nowrap; /* Evita que los tabs se vayan a otra línea */
-        -webkit-overflow-scrolling: touch; /* Mejora la experiencia de scroll en móviles */
+        flex-wrap: wrap;
+        gap: 2px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
     }
 
     .nav-tab {
-        flex: none; /* Asegura que cada tab mantenga su tamaño original sin ajustarse */
-        padding: 8px 20px; /* Ajusta el padding si es necesario */
-        font-size: 0.9rem; /* Ajusta el tamaño de la fuente para mejor legibilidad */
+        flex: 1 1 30%;
+        padding: 6px 4px;
+        font-size: 0.7rem;
+        text-align: center;
     }
 
-    /* Ajustes para la barra secundaria (barra de simulación) */
+    .nav-tab i {
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+
+    /* Barra de navegación secundaria */
+    #secondary-nav {
+        padding: 6px 0;
+        overflow-x: auto; /* Permite el scroll horizontal */
+        -webkit-overflow-scrolling: touch; /* Mejora el scroll en móviles */
+        padding-left: 10px; /* Ajusta el espacio a la izquierda */
+    }
+
     #secondary-nav .nav-tabs {
         display: flex;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap; /* Mantiene las pestañas en una sola línea */
+        gap: 3px;
+        padding: 0;
+        margin: 0;
     }
 
     #secondary-nav .nav-tab {
         flex: none;
-        padding: 8px 15px;
-        font-size: 0.9rem;
+        flex-shrink: 0; /* Evita que las pestañas se encojan */
+        padding: 5px 4px;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    /* Opcional: Asegurar que las pestañas no se superponen */
+    #secondary-nav .nav-tab span {
+        white-space: nowrap; /* Evita que el texto de las pestañas se divida en varias líneas */
+    }
+
+    /* Evitar que las pestañas se superpongan */
+    #secondary-nav .nav-tab {
+        min-width: 80px; /* Ajusta este valor según sea necesario */
+    }
+
+    /* Ajustar el margen del contenido principal */
+    main {
+        margin-top: 10px;
     }
 
     /* Ajustes generales de contenido */
     .section-container {
-        width: 100%; /* Asegura que el contenido use todo el ancho de la pantalla */
+        width: 100%;
         margin: 10px auto;
-        padding: 20px 15px;
+        padding: 15px;
     }
 
     /* Ajustes en inputs y selects */
     .form-group input,
     .form-group select {
         font-size: 1rem;
-        padding: 10px; /* Asegura que los campos de formulario sean cómodos de usar */
-        width: 100%; /* Hacer que los inputs ocupen el 100% del ancho disponible */
+        padding: 10px;
+        width: 100%;
     }
 
-    .button-group button, 
+    /* Ajustes en .input-group para "Entrada" y "Arras" */
+    .input-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .input-group input {
+        flex: 1;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .input-group select {
+        flex: none;
+        width: 50px;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes de botones */
+    .button-group button,
     .navigation-buttons button {
-        font-size: 0.9rem; /* Aumenta el tamaño del texto en botones */
-        padding: 10px; /* Aumenta el tamaño de los botones para ser más táctiles */
-        width: 50%; /* Los botones ocupan todo el ancho del contenedor */
-        margin-bottom: 10px; /* Añade un margen entre los botones */
+        font-size: 0.9rem;
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     /* Ajustes de encabezados */
-    .section-container h2 {
-        font-size: 1.3rem; /* Ajusta los títulos para pantallas pequeñas */
-        margin-bottom: 15px;
-    }
-
+    .section-container h2,
     .section-container h3 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         margin-bottom: 10px;
-    }
-
-    footer p {
-        font-size: 0.9rem; /* Ajusta el tamaño del texto en el footer */
-    }
-
-    /* Asegurar buen espacio entre los elementos del formulario */
-    .form-group {
-        margin-bottom: 10px;
-    }
-
-    .input-group {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .input-group input,
-    .input-group select {
-        width: 100%; /* Inputs y selects toman todo el ancho */
-    }
-
-    .top-bar .app-name {
-        font-size: 1.8em;
-    }
-
-    .experiment-label {
-        font-size: 0.55rem;
-        padding: 1px 6px;
-    }
-
-    /* Ajustes en el botón de cerrar sesión */
-    #btn-cerrar-sesion {
-        padding: 5px 10px; /* Ajustar el padding del botón */
-        font-size: 0.85rem; /* Reducir el tamaño de la fuente */
     }
 }
 
