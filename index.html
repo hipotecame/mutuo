@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Mutuo | Aliado digital para préstamos hipotecarios</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Firebase App (the core Firebase SDK) -->
@@ -22,30 +23,46 @@
             <h1 class="app-name">Mutuo</h1>
             <span class="experiment-label">EXPERIMENT</span>
         </div>
+        <!-- Contenedor para centrar la barra de navegación primaria -->
+        <div class="navbar-container">
+            <nav class="navbar" id="main-nav">
+                <ul class="nav-tabs">
+                    <li class="nav-tab active" data-tab="iniciar-simulacion">
+                        <i class="fas fa-calculator"></i> Simulador
+                    </li>
+                    <li class="nav-tab" data-tab="mis-simulaciones">
+                        <i class="fas fa-folder-open"></i> Simulaciones
+                    </li>
+                    <li class="nav-tab" data-tab="comparador">
+                        <i class="fas fa-exchange-alt"></i> Comparador
+                    </li>
+                    <li class="nav-tab" data-tab="calculadora-endeudamiento">
+                        <i class="fas fa-wallet"></i> Capacidad de endeudamiento
+                    </li>
+                    <li class="nav-tab" data-tab="preguntas-frecuentes">
+                        <i class="fas fa-info-circle"></i> Términos hipotecarios
+                    </li>
+                    <li class="nav-tab" data-tab="referencias-financieras-fiscales">
+                        <i class="fas fa-file-alt"></i> Referencias financieras
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <!-- Barra de Navegación Principal -->
-    <nav class="navbar" id="main-nav">
-        <ul class="nav-tabs">
-            <li class="nav-tab active" data-tab="iniciar-simulacion">Simulador</li>
-            <li class="nav-tab" data-tab="mis-simulaciones">Simulaciones</li>
-            <li class="nav-tab" data-tab="comparador">Comparador</li>
-            <li class="nav-tab" data-tab="calculadora-endeudamiento">Capacidad de endeudamiento</li>
-            <li class="nav-tab" data-tab="preguntas-frecuentes">Términos hipotecarios</li>
-            <li class="nav-tab" data-tab="referencias-financieras-fiscales">Referencias financieras y fiscales</li>
-        </ul>
-    </nav>
-
-    <!-- Barra de Navegación Secundaria Préstamo Hipotecario -->
-    <nav class="navbar" id="secondary-nav">
-        <ul class="nav-tabs" id="simulation-nav">
-            <li class="nav-tab active" data-tab="datos-simulacion">Gastos iniciales</li>
-            <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la hipoteca</li>
-            <li class="nav-tab" data-tab="cuota-mensual">Cuota mensual</li>
-            <li class="nav-tab" data-tab="tabla-amortizacion">Cuadro de amortización</li>
-            <li class="nav-tab" data-tab="resumen">Resumen</li>
-        </ul>
-    </nav>
+    <!-- Contenedor principal de navegación (solo para la barra secundaria ahora) -->
+    <div class="navigation-container">
+        <!-- Barra de Navegación Secundaria -->
+        <nav class="navbar" id="secondary-nav">
+            <ul class="nav-tabs" id="simulation-nav">
+                <li class="nav-tab active" data-tab="datos-simulacion">Gastos iniciales</li>
+                <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la hipoteca</li>
+                <li class="nav-tab" data-tab="cuota-mensual">Cuota mensual</li>
+                <li class="nav-tab" data-tab="tabla-amortizacion">Cuadro de amortización</li>
+                <li class="nav-tab" data-tab="resumen">Resumen</li>
+            </ul>
+        </nav>
+    </div>
 
     <main>
         <!-- Sección: Autenticación -->
