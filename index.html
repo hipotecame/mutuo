@@ -28,22 +28,19 @@
             <nav class="navbar" id="main-nav">
                 <ul class="nav-tabs">
                     <li class="nav-tab active" data-tab="iniciar-simulacion">
-                        <i class="fas fa-calculator"></i> Simulador
+                        <i class="fas fa-calculator"></i> Iniciar simulación
                     </li>
                     <li class="nav-tab" data-tab="mis-simulaciones">
-                        <i class="fas fa-folder-open"></i> Simulaciones
+                        <i class="fas fa-folder-open"></i> Mis simulaciones
                     </li>
                     <li class="nav-tab" data-tab="comparador">
                         <i class="fas fa-exchange-alt"></i> Comparador
                     </li>
                     <li class="nav-tab" data-tab="calculadora-endeudamiento">
-                        <i class="fas fa-wallet"></i> Capacidad de endeudamiento
+                        <i class="fas fa-wallet"></i> Límite de financiación
                     </li>
                     <li class="nav-tab" data-tab="preguntas-frecuentes">
-                        <i class="fas fa-info-circle"></i> Términos hipotecarios
-                    </li>
-                    <li class="nav-tab" data-tab="referencias-financieras-fiscales">
-                        <i class="fas fa-file-alt"></i> Referencias financieras
+                        <i class="fas fa-info-circle"></i> Diccionario
                     </li>
                 </ul>
             </nav>
@@ -55,11 +52,11 @@
         <!-- Barra de Navegación Secundaria -->
         <nav class="navbar" id="secondary-nav">
             <ul class="nav-tabs" id="simulation-nav">
-                <li class="nav-tab active" data-tab="datos-simulacion">Gastos iniciales</li>
-                <li class="nav-tab" data-tab="condiciones-hipoteca">Condiciones de la hipoteca</li>
+                <li class="nav-tab active" data-tab="datos-simulacion">Costes iniciales</li>
+                <li class="nav-tab" data-tab="condiciones-hipoteca">Detalles del préstamo</li>
                 <li class="nav-tab" data-tab="cuota-mensual">Cuota mensual</li>
                 <li class="nav-tab" data-tab="tabla-amortizacion">Cuadro de amortización</li>
-                <li class="nav-tab" data-tab="resumen">Resumen</li>
+                <li class="nav-tab" data-tab="resumen">Resumen financiero</li>
             </ul>
         </nav>
     </div>
@@ -81,7 +78,9 @@
                     <div class="button-group">
                         <button type="submit" class="btn btn-login">Iniciar sesión</button>
                         <button type="button" id="mostrar-form-registro" class="btn btn-guardar">Crear cuenta</button>
+                        <button id="continuar-sin-registrarse" class="btn-continuar">Continuar sin registrarse</button>
                     </div>
+                    
                     <p class="olvido-contrasena">
                         <a href="#" id="mostrar-recuperar-password">Olvidé mi contraseña</a>
                     </p>
@@ -129,7 +128,7 @@
             <!-- Sección 1: Gastos iniciales -->
             <section class="subsection active" id="datos-simulacion">
                 <div class="section-container">
-                    <h2>Gastos iniciales</h2>
+                    <h2>Costes iniciales</h2>
                     <form id="datos-simulacion-form">
                         <!-- Nombre de la Simulación -->
                         <div class="form-group">
@@ -234,7 +233,7 @@
             <!-- Sección 2: Condiciones de la Hipoteca -->
             <section class="subsection" id="condiciones-hipoteca">
                 <div class="section-container">
-                    <h2>Condiciones de la hipoteca</h2>
+                    <h2>Detalles del préstamo</h2>
                     <form id="condiciones-hipoteca-form">
                         <!-- TIN -->
                         <div class="form-group">
@@ -281,7 +280,7 @@
                     <form id="cuota-mensual-form">
                         <!-- Monto del Préstamo -->
                         <div class="form-group">
-                            <label>Importe de la hipoteca (€)</label>
+                            <label>Financiación solicitada (€)</label>
                             <div class="input-with-calculation">
                                 <span id="monto-prestamo">0.00</span>
                             </div>
@@ -325,10 +324,14 @@
             <!-- Sección 4: Resumen Financiero -->
             <section class="subsection" id="resumen">
                 <div class="section-container">
-                    <h2>Resumen</h2>
+                    <h2>Resumen financiero</h2>
                     <div class="resumen-content">
+                        <p><strong>Precio del inmueble (€):</strong> €<span id="precio-inmueble">0.00</span></p>
                         <p><strong>Ahorro inicial necesario (€):</strong> €<span id="ahorro-necesario">0.00</span></p>
                         <p><strong>Financiación solicitada (€):</strong> €<span id="financiacion-solicitada">0.00</span></p>
+                        <p><strong>Porcentaje del precio del inmueble financiado (%):</strong> <span id="porcentaje-financiado">0.00</span>%</p>
+                        <p><strong>Cuota mensual sin seguros ni productos vinculados (€):</strong> €<span id="cuota-sin-seguros">0.00</span></p>
+                        <p><strong>Cuota mensual con seguros y productos vinculados (€):</strong> €<span id="cuota-con-seguros">0.00</span></p>
                         <p><strong>Coste total de la hipoteca (€):</strong> €<span id="coste-total-hipoteca">0.00</span></p>
                     </div>
 
@@ -558,14 +561,204 @@
                       <p>El Impuesto de Transmisiones Patrimoniales (ITP) es un tributo que se paga cuando compras una vivienda de segunda mano. Se aplica sobre el valor de la vivienda en el momento de la compra y el porcentaje varía según la comunidad autónoma donde esté ubicada.</p>
                       <p><strong>¿Cuándo se paga?</strong></p>
                       <p>Este impuesto se paga una única vez, al formalizar la compraventa de la vivienda de segunda mano. No afecta a viviendas de nueva construcción, donde se paga el IVA (Impuesto sobre el Valor Añadido) en su lugar.</p>
+                      <p><strong>Impuesto de Transmisiones Patrimoniales (ITP) por Comunidad Autónoma</strong></p>
+                      <p>Los valores del ITP indicados a continuación han sido extraídos del informe <strong><em>Panorama de la Fiscalidad Autonómica y Foral 2024</em></strong>.</p>
+                      <p><a href="https://economistas.es/Contenido/REAF/Informes/Panorama2024.pdf" target="_blank">Descargar informe</a></p>
+                      <table class="tabla-itp">
+                          <thead>
+                              <tr>
+                                  <th>Comunidad Autónoma</th>
+                                  <th>ITP (%)</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>Andalucía</td>
+                                  <td>7%</td>
+                              </tr>
+                              <tr>
+                                  <td>Aragon</td>
+                                  <td>8-10%</td>
+                              </tr>
+                              <tr>
+                                  <td>Asturias</td>
+                                  <td>8-10%</td>
+                              </tr>
+                              <tr>
+                                  <td>Baleares</td>
+                                  <td>8-13%</td>
+                              </tr>
+                              <tr>
+                                  <td>Canarias</td>
+                                  <td>6,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Cantabria</td>
+                                  <td>9%</td>
+                              </tr>
+                              <tr>
+                                  <td>Castilla-La Mancha</td>
+                                  <td>9%</td>
+                              </tr>
+                              <tr>
+                                  <td>Castilla y León</td>
+                                  <td>8-10%</td>
+                              </tr>
+                              <tr>
+                                  <td>Cataluña</td>
+                                  <td>10-11%</td>
+                              </tr>
+                              <tr>
+                                  <td>Ceuta</td>
+                                  <td>6%</td>
+                              </tr>
+                              <tr>
+                                  <td>Comunidad de Madrid</td>
+                                  <td>6%</td>
+                              </tr>
+                              <tr>
+                                  <td>Comunidad Valenciana</td>
+                                  <td>10-11%</td>
+                              </tr>
+                              <tr>
+                                  <td>Extremadura</td>
+                                  <td>8-11%</td>
+                              </tr>
+                              <tr>
+                                  <td>Galicia</td>
+                                  <td>8%</td>
+                              </tr>
+                              <tr>
+                                  <td>La Rioja</td>
+                                  <td>7%</td>
+                              </tr>
+                              <tr>
+                                  <td>Melilla</td>
+                                  <td>6%</td>
+                              </tr>
+                              <tr>
+                                  <td>Murcia</td>
+                                  <td>8%</td>
+                              </tr>
+                              <tr>
+                                  <td>Navarra</td>
+                                  <td>6%</td>
+                              </tr>
+                              <tr>
+                                  <td>País Vasco</td>
+                                  <td>7%</td>
+                              </tr>
+                              <!-- Añadir más filas según las comunidades autónomas -->
+                          </tbody>
+                      </table>
                     </div>
                   </div>
                   <div class="recurso-item">
-                    <h3 class="recurso-title">Actos Jurídicos Documentados (AJD)</h3>
+                    <h3 class="recurso-title">Impuesto sobre Actos Jurídicos Documentados (AJD)</h3>
                     <div class="recurso-content">
                       <p>El Impuesto de Actos Jurídicos Documentados (AJD) es un impuesto que se aplica cuando se firma un documento notarial que formaliza una transacción, como la compra de una vivienda o la constitución de una hipoteca. Este impuesto cubre los gastos relacionados con la formalización y registro del documento.</p>
                       <p><strong>¿Cuándo se paga?</strong></p>
                       <p>Se paga al firmar la escritura pública de compraventa o al constituir una hipoteca. El porcentaje varía según la comunidad autónoma y se aplica sobre el valor del bien o la responsabilidad hipotecaria.</p>
+                      <p><strong>Impuesto sobre Actos Jurídicos Documentados (AJD) por Comunidad Autónoma</strong></p>
+                      <p>Los valores del AJD indicados a continuación han sido extraídos del informe <strong><em>Panorama de la Fiscalidad Autonómica y Foral 2024</em></strong>.</p>
+                      <p><a href="https://economistas.es/Contenido/REAF/Informes/Panorama2024.pdf" target="_blank">Descargar informe</a></p>
+                      <small>Para Ceuta y Melilla los valores han sido extraídos de <a href="https://sede.agenciatributaria.gob.es/Sede/declaraciones-informativas-otros-impuestos-tasas/impuesto-sobre-transmisiones-patrimoniales-actos-juridicos/itp-ajd-transmisiones-derechos-reales-fianzas/base-imponible-tipos-ceuta-melilla.html" target="_blank">agenciatributaria.gob.es</a></small></p>
+                      <table class="tabla-itp">
+                          <thead>
+                              <tr>
+                                  <th>Comunidad Autónoma</th>
+                                  <th>AJD (%)</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>Andalucía</td>
+                                  <td>1,2%</td>
+                              </tr>
+                              <tr>
+                                  <td>Aragon</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Asturias</td>
+                                  <td>1,2%</td>
+                              </tr>
+                              <tr>
+                                  <td>Baleares</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Canarias</td>
+                                  <td>0,75%</td>
+                              </tr>
+                              <tr>
+                                  <td>Cantabria</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Castilla-La Mancha</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Castilla y León</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Cataluña</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Ceuta</td>
+                                  <td>0,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Comunidad de Madrid</td>
+                                  <td>0,75%</td>
+                              </tr>
+                              <tr>
+                                  <td>Comunidad Valenciana</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Extremadura</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Galicia</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>La Rioja</td>
+                                  <td>1%</td>
+                              </tr>
+                              <tr>
+                                  <td>Melilla</td>
+                                  <td>0,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Murcia</td>
+                                  <td>1,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>Navarra</td>
+                                  <td>0,5%</td>
+                              </tr>
+                              <tr>
+                                  <td>País Vasco</td>
+                                  <td>0,5%</td>
+                              </tr>
+                              <!-- Añadir más filas según las comunidades autónomas -->
+                          </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Tipo de interés de referencia</h3>
+                    <div class="recurso-content">
+                      <p>Es el tipo de interés que el Banco Central Europeo cobra a los bancos por prestarles dinero. Cuando este tipo de interés sube, suele aumentar el coste de los préstamos hipotecarios, ya que los bancos trasladan este aumento a los clientes. Esto se refleja en el TIN (Tipo de Interés Nominal), que es el interés que el banco aplica a tu hipoteca. Como resultado, también puede afectar a la TAE (Tasa Anual Equivalente), que incluye no solo el TIN, sino también otros gastos y comisiones.</p>
+                      <p><strong>Tipo de interés de referencia:</strong> 3,65% <br>
+                      <small>Este valor ha sido extraído de <a href="https://datosmacro.expansion.com/tipo-interes/zona-euro" target="_blank">datosmacro.expansion.com</a></small></p>
+                      <small>Última actualización: 18/09/2024</small>
                     </div>
                   </div>
                   <div class="recurso-item">
@@ -587,7 +780,7 @@
         <!-- Sección: Calculadora de Capacidad de Endeudamiento -->
         <div class="section" id="calculadora-endeudamiento">
             <div class="section-container">
-                <h2>Capacidad de endeudamiento</h2>
+                <h2>Límite de financiación</h2>
                 <form id="datos-financieros-form">
                     <!-- Nombre de la Simulación -->
                     <div class="form-group">
@@ -606,8 +799,8 @@
                     <!-- Tasa de Endeudamiento -->
                     <div class="form-group">
                         <label for="tasa-endeudamiento">Tasa de endeudamiento (%)</label>
-                        <input type="number" id="tasa-endeudamiento" placeholder="Ejemplo: 35" min="0" max="100" step="0.01" required>
-                        <small class="description">Porcentaje máximo de tus ingresos destinado al pago de deudas.</small>
+                        <input type="number" id="tasa-endeudamiento" placeholder="Ejemplo: 30" min="0" max="100" step="0.01" required>
+                        <small class="description">Porcentaje máximo de tus ingresos destinado al pago del préstamo hipotecario. Se recomienda un valor por debajo del 30%.</small>
                     </div>
         
                     <!-- TIN -->
@@ -643,216 +836,6 @@
                 </section>
             </div>
         </div>
-
-        <!-- Sección: Referencias Financieras y Fiscales -->
-        <div class="section" id="referencias-financieras-fiscales">
-            <div class="section-container recursos-container">
-                <h2>Referencias financieras y fiscales</h2>
-                <div class="recursos-list">
-                    <div class="recurso-item">
-                        <h3 class="recurso-title">Impuesto de Transmisiones Patrimoniales (ITP) por Comunidad Autónoma</h3>
-                        <div class="recurso-content">
-                            <p>Los valores del ITP indicados a continuación han sido extraídos del informe <strong><em>Panorama de la Fiscalidad Autonómica y Foral 2024</em></strong>.</p>
-                            <p><a href="https://economistas.es/Contenido/REAF/Informes/Panorama2024.pdf" target="_blank">Descargar informe</a></p>
-                            <table class="tabla-itp">
-                                <thead>
-                                    <tr>
-                                        <th>Comunidad Autónoma</th>
-                                        <th>ITP (%)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Andalucía</td>
-                                        <td>7%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Aragon</td>
-                                        <td>8-10%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Asturias</td>
-                                        <td>8-10%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Baleares</td>
-                                        <td>8-13%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Canarias</td>
-                                        <td>6,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cantabria</td>
-                                        <td>9%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Castilla-La Mancha</td>
-                                        <td>9%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Castilla y León</td>
-                                        <td>8-10%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cataluña</td>
-                                        <td>10-11%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ceuta</td>
-                                        <td>6%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Comunidad de Madrid</td>
-                                        <td>6%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Comunidad Valenciana</td>
-                                        <td>10-11%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Extremadura</td>
-                                        <td>8-11%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Galicia</td>
-                                        <td>8%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>La Rioja</td>
-                                        <td>7%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Melilla</td>
-                                        <td>6%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Murcia</td>
-                                        <td>8%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Navarra</td>
-                                        <td>6%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>País Vasco</td>
-                                        <td>7%</td>
-                                    </tr>
-                                    <!-- Añadir más filas según las comunidades autónomas -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="recurso-item">
-                        <h3 class="recurso-title">Impuesto sobre Actos Jurídicos Documentados (AJD) por Comunidad Autónoma</h3>
-                        <div class="recurso-content">
-                            <p>Los valores del AJD indicados a continuación han sido extraídos del informe <strong><em>Panorama de la Fiscalidad Autonómica y Foral 2024</em></strong>.</p>
-                            <p><a href="https://economistas.es/Contenido/REAF/Informes/Panorama2024.pdf" target="_blank">Descargar informe</a></p>
-                            <small>Para Ceuta y Melilla los valores han sido extraídos de <a href="https://sede.agenciatributaria.gob.es/Sede/declaraciones-informativas-otros-impuestos-tasas/impuesto-sobre-transmisiones-patrimoniales-actos-juridicos/itp-ajd-transmisiones-derechos-reales-fianzas/base-imponible-tipos-ceuta-melilla.html" target="_blank">agenciatributaria.gob.es</a></small></p>
-                            <table class="tabla-itp">
-                                <thead>
-                                    <tr>
-                                        <th>Comunidad Autónoma</th>
-                                        <th>AJD (%)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Andalucía</td>
-                                        <td>1,2%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Aragon</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Asturias</td>
-                                        <td>1,2%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Baleares</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Canarias</td>
-                                        <td>0,75%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cantabria</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Castilla-La Mancha</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Castilla y León</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cataluña</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ceuta</td>
-                                        <td>0,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Comunidad de Madrid</td>
-                                        <td>0,75%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Comunidad Valenciana</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Extremadura</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Galicia</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>La Rioja</td>
-                                        <td>1%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Melilla</td>
-                                        <td>0,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Murcia</td>
-                                        <td>1,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Navarra</td>
-                                        <td>0,5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>País Vasco</td>
-                                        <td>0,5%</td>
-                                    </tr>
-                                    <!-- Añadir más filas según las comunidades autónomas -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-        
-                    <div class="recurso-item">
-                        <h3 class="recurso-title">Tipo de interés de referencia</h3>
-                        <div class="recurso-content">
-                            <p>Es el tipo de interés que el Banco Central Europeo cobra a los bancos por prestarles dinero. Cuando este tipo de interés sube, suele aumentar el coste de los préstamos hipotecarios, ya que los bancos trasladan este aumento a los clientes. Esto se refleja en el TIN (Tipo de Interés Nominal), que es el interés que el banco aplica a tu hipoteca. Como resultado, también puede afectar a la TAE (Tasa Anual Equivalente), que incluye no solo el TIN, sino también otros gastos y comisiones.</p>
-                            <p><strong>Tipo de interés de referencia:</strong> 3,65% <br>
-                            <small>Este valor ha sido extraído de <a href="https://datosmacro.expansion.com/tipo-interes/zona-euro" target="_blank">datosmacro.expansion.com</a></small></p>
-                            <small>Última actualización: 18/09/2024</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </main>
 
     <footer>
