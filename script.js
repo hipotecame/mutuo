@@ -55,6 +55,52 @@ if (calcularCuotaBtn) {
   calcularCuotaBtn.addEventListener('click', actualizarCuotaMensual);
 }
 
+// Añadir event listener al botón "Continuar sin registrarse"
+const continuarSinRegistrarseBtn = document.getElementById('continuar-sin-registrarse');
+if (continuarSinRegistrarseBtn) {
+  continuarSinRegistrarseBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    mostrarContenidoSinRegistro(); // Función que mostrará la app sin autenticación
+  });
+}
+
+// Función para mostrar el contenido sin registro
+function mostrarContenidoSinRegistro() {
+    // Ocultar el formulario de autenticación
+    document.getElementById('autenticacion').style.display = 'none';
+    // Mostrar las secciones protegidas
+    document.getElementById('iniciar-simulacion').style.display = 'block';
+    document.getElementById('main-nav').style.display = 'flex';
+    document.getElementById('secondary-nav').style.display = 'flex';
+
+    // Mostrar una advertencia
+    const advertencia = document.createElement('p');
+    advertencia.textContent = "Estás utilizando el simulador sin registrarte. No podrás guardar simulaciones.";
+    advertencia.style.color = "red";
+    document.getElementById('iniciar-simulacion').prepend(advertencia);
+
+    // Deshabilitar la funcionalidad de guardar simulaciones
+    deshabilitarGuardado();
+}
+
+// Función para deshabilitar la funcionalidad de guardar simulaciones
+function deshabilitarGuardado() {
+    // Desactivar los botones de guardar simulaciones
+    const guardarSimulacionBtn = document.getElementById('guardar-simulacion');
+    if (guardarSimulacionBtn) {
+        guardarSimulacionBtn.disabled = true;
+        guardarSimulacionBtn.style.opacity = '0.5';
+        guardarSimulacionBtn.title = 'Debes iniciar sesión para guardar simulaciones';
+    }
+
+    const guardarSimulacionCapacidadBtn = document.getElementById('guardar-simulacion-capacidad');
+    if (guardarSimulacionCapacidadBtn) {
+        guardarSimulacionCapacidadBtn.disabled = true;
+        guardarSimulacionCapacidadBtn.style.opacity = '0.5';
+        guardarSimulacionCapacidadBtn.title = 'Debes iniciar sesión para guardar simulaciones';
+    }
+}
+
 // Añadir event listener al botón "Guardar simulación" en Capacidad de Endeudamiento
 const guardarSimulacionCapacidadBtn = document.getElementById('guardar-simulacion-capacidad');
 if (guardarSimulacionCapacidadBtn) {
@@ -592,68 +638,87 @@ if (cuotaIndicador) {
 
 // Función para actualizar el Resumen Financiero
 function actualizarResumenFinanciero() {
-const ahorroNecesarioSpan = document.getElementById('ahorro-necesario');
-const financiacionSolicitadaSpan = document.getElementById('financiacion-solicitada');
-const costeTotalHipotecaSpan = document.getElementById('coste-total-hipoteca');
+  const ahorroNecesarioSpan = document.getElementById('ahorro-necesario');
+  const financiacionSolicitadaSpan = document.getElementById('financiacion-solicitada');
+  const costeTotalHipotecaSpan = document.getElementById('coste-total-hipoteca');
+  
+  const precioInmuebleSpan = document.getElementById('precio-inmueble');
+  const cuotaSinSegurosSpan = document.getElementById('cuota-sin-seguros');
+  const cuotaConSegurosSpan = document.getElementById('cuota-con-seguros');
+  const porcentajeFinanciadoSpan = document.getElementById('porcentaje-financiado');
 
-const totalInicial = parseFloat(document.getElementById('total-inicial').textContent) || 0;
-const montoPrestamo = parseFloat(document.getElementById('monto-prestamo').textContent) || 0;
+  const totalInicial = parseFloat(document.getElementById('total-inicial').textContent) || 0;
+  const montoPrestamo = parseFloat(document.getElementById('monto-prestamo').textContent) || 0;
 
-ahorroNecesarioSpan.textContent = totalInicial.toFixed(2);
-financiacionSolicitadaSpan.textContent = montoPrestamo.toFixed(2);
+  ahorroNecesarioSpan.textContent = totalInicial.toFixed(2);
+  financiacionSolicitadaSpan.textContent = montoPrestamo.toFixed(2);
 
-// Calcular el coste total de la hipoteca
-const plazo = parseInt(document.getElementById('plazo').value) || 0;
-const numeroCuotas = plazo * 12;
-const cuotaMensualTotal = parseFloat(document.getElementById('cuota-total').textContent) || 0;
-const costeTotalHipoteca = cuotaMensualTotal * numeroCuotas;
-costeTotalHipotecaSpan.textContent = costeTotalHipoteca.toFixed(2);
+  // Update price of the property
+  const precioPropiedad = parseFloat(document.getElementById('precio-propiedad').value) || 0;
+  precioInmuebleSpan.textContent = precioPropiedad.toFixed(2);
+
+  // Calculate and update percentage of the price financed, ensuring no NaN
+  let porcentajeFinanciado = 0;
+  if (precioPropiedad > 0) {
+      porcentajeFinanciado = (montoPrestamo / precioPropiedad) * 100;
+  }
+  porcentajeFinanciadoSpan.textContent = porcentajeFinanciado.toFixed(2);
+
+  // Update monthly payments without and with insurances
+  const cuotaSinSeguros = parseFloat(document.getElementById('cuota-estimada').textContent) || 0;
+  const cuotaConSeguros = parseFloat(document.getElementById('cuota-total').textContent) || 0;
+  
+  cuotaSinSegurosSpan.textContent = cuotaSinSeguros.toFixed(2);
+  cuotaConSegurosSpan.textContent = cuotaConSeguros.toFixed(2);
+
+  // Calculate the total cost of the mortgage
+  const plazo = parseInt(document.getElementById('plazo').value) || 0;
+  const numeroCuotas = plazo * 12;
+  const cuotaMensualTotal = parseFloat(document.getElementById('cuota-total').textContent) || 0;
+  const costeTotalHipoteca = cuotaMensualTotal * numeroCuotas;
+  costeTotalHipotecaSpan.textContent = costeTotalHipoteca.toFixed(2);
 }
 
 // Función para guardar la simulación en Firestore
 function guardarSimulacion() {
-const nombreSimulacionInput = document.getElementById('nombre-simulacion');
-const nombreSimulacion = nombreSimulacionInput.value.trim();
+  const nombreSimulacionInput = document.getElementById('nombre-simulacion');
+  const nombreSimulacion = nombreSimulacionInput.value.trim();
 
-if (nombreSimulacion === "") {
-  alert("Por favor, ingresa un nombre para la simulación.");
-  return;
-}
+  if (nombreSimulacion === "") {
+      alert("Por favor, ingresa un nombre para la simulación.");
+      return;
+  }
 
-// Obtener los datos de la simulación actual
-const simulacion = {
-  nombre: nombreSimulacion,
-  totalInicial: parseFloat(document.getElementById('total-inicial').textContent) || 0,
-  financiacionSolicitada: parseFloat(document.getElementById('financiacion-solicitada').textContent) || 0,
-  costeTotalHipoteca: parseFloat(document.getElementById('coste-total-hipoteca').textContent) || 0,
-  cuotaEstimada: parseFloat(document.getElementById('cuota-estimada').textContent) || 0,
-  cuotaTotal: parseFloat(document.getElementById('cuota-total').textContent) || 0,
-  cuotaCapitalSuperaInteres: cuotaCapitalSuperaInteres || 'N/A',
-  fecha: new Date().toLocaleString()
-};
+  // Obtener los datos de la simulación actual
+  const simulacion = {
+      nombre: nombreSimulacion,
+      totalInicial: parseFloat(document.getElementById('total-inicial').textContent) || 0,
+      financiacionSolicitada: parseFloat(document.getElementById('financiacion-solicitada').textContent) || 0,
+      costeTotalHipoteca: parseFloat(document.getElementById('coste-total-hipoteca').textContent) || 0,
+      cuotaEstimada: parseFloat(document.getElementById('cuota-estimada').textContent) || 0,
+      cuotaTotal: parseFloat(document.getElementById('cuota-total').textContent) || 0,
+      cuotaCapitalSuperaInteres: cuotaCapitalSuperaInteres || 'N/A',
+      precioInmueble: parseFloat(document.getElementById('precio-propiedad').value) || 0, // New field
+      porcentajeFinanciado: parseFloat(document.getElementById('porcentaje-financiado').textContent) || 0, // New field
+      fecha: new Date().toLocaleString()
+  };
 
-// Obtener las simulaciones guardadas desde el Local Storage
-let simulacionesGuardadas = JSON.parse(localStorage.getItem('simulaciones')) || [];
-
-const user = auth.currentUser;
-if (user) {
   // Guardar la simulación en Firestore
-  db.collection('usuarios').doc(user.uid).collection('simulaciones').doc(nombreSimulacion).set(simulacion)
-    .then(() => {
-      console.log("Simulación guardada en Firestore");
-      alert("Simulación guardada exitosamente.");
-      // Limpiar el campo de nombre
-      nombreSimulacionInput.value = "";
-      // Actualizar la lista de simulaciones
-      listarSimulacionesGuardadas();
-    })
-    .catch(error => {
-      console.error("Error al guardar la simulación:", error);
-      alert("Error al guardar la simulación.");
-    });
-} else {
-  alert("Debes iniciar sesión para guardar simulaciones.");
-}
+  const user = auth.currentUser;
+  if (user) {
+      db.collection('usuarios').doc(user.uid).collection('simulaciones').doc(nombreSimulacion).set(simulacion)
+          .then(() => {
+              alert("Simulación guardada exitosamente.");
+              nombreSimulacionInput.value = ""; // Limpiar el campo de nombre
+              listarSimulacionesGuardadas(); // Actualizar la lista de simulaciones
+          })
+          .catch(error => {
+              console.error("Error al guardar la simulación:", error);
+              alert("Error al guardar la simulación.");
+          });
+  } else {
+      alert("Debes iniciar sesión para guardar simulaciones.");
+  }
 }
 
 // Función para configurar la Calculadora de Capacidad de Endeudamiento
@@ -771,6 +836,10 @@ function listarSimulacionesGuardadas() {
                       tipoHipoteca.style.fontWeight = 'bold';
                       detallesDiv.appendChild(tipoHipoteca);
 
+                      const pPrecioInmueble = document.createElement('p');
+                      pPrecioInmueble.innerHTML = `<strong>Precio del inmueble (€):</strong> €${simulacion.precioInmueble ? simulacion.precioInmueble.toFixed(2) : '0.00'}`;
+                      detallesDiv.appendChild(pPrecioInmueble);
+
                       const pTotalInicial = document.createElement('p');
                       pTotalInicial.innerHTML = `<strong>Ahorro inicial necesario (€):</strong> €${simulacion.totalInicial.toFixed(2)}`;
                       detallesDiv.appendChild(pTotalInicial);
@@ -778,6 +847,10 @@ function listarSimulacionesGuardadas() {
                       const pFinanciacionSolicitada = document.createElement('p');
                       pFinanciacionSolicitada.innerHTML = `<strong>Financiación solicitada (€):</strong> €${simulacion.financiacionSolicitada.toFixed(2)}`;
                       detallesDiv.appendChild(pFinanciacionSolicitada);
+
+                      const pPorcentajeFinanciado = document.createElement('p');
+                      pPorcentajeFinanciado.innerHTML = `<strong>Porcentaje del precio del inmueble financiado (%):</strong> ${simulacion.porcentajeFinanciado ? simulacion.porcentajeFinanciado.toFixed(2) : '0.00'}%`;
+                      detallesDiv.appendChild(pPorcentajeFinanciado);
 
                       const pCuotaEstimada = document.createElement('p');
                       pCuotaEstimada.innerHTML = `<strong>Cuota mensual sin seguros ni productos vinculados (€):</strong> €${simulacion.cuotaEstimada.toFixed(2)}`;
@@ -834,7 +907,6 @@ function listarSimulacionesGuardadas() {
                   const accionesDiv = document.createElement('div');
                   accionesDiv.classList.add('simulacion-actions');
 
-                  // Botón Eliminar
                   const eliminarBtn = document.createElement('button');
                   eliminarBtn.textContent = 'Eliminar';
                   eliminarBtn.classList.add('eliminar-btn');
@@ -1020,8 +1092,10 @@ function mostrarComparacion(simulaciones) {
   if (esHipoteca) {
       // Comparar Préstamos hipotecarios
       const propiedadesHipoteca = [
+          { clave: 'precioInmueble', etiqueta: 'Precio del inmueble (€)' },
           { clave: 'totalInicial', etiqueta: 'Ahorro inicial necesario (€)' },
           { clave: 'financiacionSolicitada', etiqueta: 'Financiación solicitada (€)' },
+          { clave: 'porcentajeFinanciado', etiqueta: 'Porcentaje del precio del inmueble financiado (%)' },
           { clave: 'cuotaEstimada', etiqueta: 'Cuota mensual sin seguros ni productos vinculados (€)' },
           { clave: 'cuotaTotal', etiqueta: 'Cuota mensual con seguros y productos vinculados (€)' },
           { clave: 'costeTotalHipoteca', etiqueta: 'Coste total de la hipoteca (€)' },
@@ -1029,32 +1103,34 @@ function mostrarComparacion(simulaciones) {
       ];
 
       propiedadesHipoteca.forEach(prop => {
-          const fila = document.createElement('tr');
-          const celdaEtiqueta = document.createElement('td');
-          celdaEtiqueta.textContent = prop.etiqueta;
-          fila.appendChild(celdaEtiqueta);
-
-          simulaciones.forEach(simulacion => {
-              const celdaValor = document.createElement('td');
-              const valor = simulacion[prop.clave];
-
-              if (valor !== undefined && valor !== null) {
-                  if (typeof valor === 'number') {
-                      celdaValor.textContent = `€${valor.toFixed(2)}`;
-                  } else if (prop.clave === 'cuotaCapitalSuperaInteres' && valor !== 'N/A') {
-                      celdaValor.textContent = `Mes ${valor}`;
-                  } else {
-                      celdaValor.textContent = valor;
-                  }
-              } else {
-                  celdaValor.textContent = 'N/A';
-              }
-
-              fila.appendChild(celdaValor);
-          });
-
-          tbody.appendChild(fila);
-      });
+        const fila = document.createElement('tr');
+        const celdaEtiqueta = document.createElement('td');
+        celdaEtiqueta.textContent = prop.etiqueta;
+        fila.appendChild(celdaEtiqueta);
+    
+        simulaciones.forEach(simulacion => {
+            const celdaValor = document.createElement('td');
+            const valor = simulacion[prop.clave];
+    
+            if (valor !== undefined && valor !== null) {
+                // Verificar si el campo es 'cuotaCapitalSuperaInteres' y no agregar unidades
+                if (prop.clave === 'cuotaCapitalSuperaInteres') {
+                    celdaValor.textContent = valor !== 'N/A' ? `Mes ${valor}` : 'N/A';
+                } else if (typeof valor === 'number') {
+                    // Agregar unidades de euros para campos numéricos excepto 'cuotaCapitalSuperaInteres'
+                    celdaValor.textContent = `€${valor.toFixed(2)}`;
+                } else {
+                    celdaValor.textContent = valor;
+                }
+            } else {
+                celdaValor.textContent = 'N/A';
+            }
+    
+            fila.appendChild(celdaValor);
+        });
+    
+        tbody.appendChild(fila);
+    });
   } else {
       // Comparar Capacidad de endeudamiento
       const propiedadesEndeudamiento = [
@@ -1168,15 +1244,18 @@ document.getElementById('iniciar-simulacion').style.display = 'block';
 document.getElementById('main-nav').style.display = 'flex';
 document.getElementById('secondary-nav').style.display = 'flex';
 
-// Añadir botón de cerrar sesión si no existe
-if (!document.getElementById('btn-cerrar-sesion')) {
-  const logoutBtn = document.createElement('button');
-  logoutBtn.textContent = 'Cerrar Sesión';
-  logoutBtn.id = 'btn-cerrar-sesion';
-  logoutBtn.classList.add('btn', 'btn-login');
-  logoutBtn.addEventListener('click', cerrarSesion);
-  document.querySelector('.top-bar-content').appendChild(logoutBtn);
-}
+  // Añadir botón de cerrar sesión si no existe
+  if (!document.getElementById('btn-cerrar-sesion')) {
+    const logoutBtn = document.createElement('button');
+    logoutBtn.id = 'btn-cerrar-sesion';
+    logoutBtn.classList.add('btn', 'btn-login');
+
+    // Añadir ícono de FontAwesome
+    logoutBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i>`;
+
+    logoutBtn.addEventListener('click', cerrarSesion);
+    document.querySelector('.top-bar-content').appendChild(logoutBtn);
+  }
 
 // Listar simulaciones guardadas al iniciar
 listarSimulacionesGuardadas();
