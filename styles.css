@@ -89,7 +89,7 @@ body {
 .nav-tabs {
     list-style: none;
     display: flex;
-    gap: 15px;
+    gap: 10px;
     padding: 0;
     margin: 0;
 }
@@ -116,10 +116,6 @@ body {
 .nav-tab.active {
     color: var(--color-boton);
     border-bottom: 2px solid var(--color-boton);
-}
-
-.nav-tab:hover {
-    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Barra de navegación secundaria */
@@ -770,13 +766,16 @@ form {
 @media (max-width: 480px) {
     /* Ajustes en la barra superior */
     .top-bar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 50px;
+        z-index: 1000;
+        display: flex;
         flex-direction: column;
         align-items: flex-start;
         padding: 8px 10px;
-        position: fixed; /* Cambiar a fixed */
-        top: 0; /* Siempre visible en la parte superior */
-        width: 100%;
-        z-index: 1000; /* Asegura que la barra superior esté por encima de otros elementos */
+        background-color: var(--color-barra);
     }
 
     .top-bar-content {
@@ -788,7 +787,7 @@ form {
     }
 
     .top-bar .app-name {
-        font-size: 1.5em;
+        font-size: 1.2em;
     }
 
     .experiment-label {
@@ -802,8 +801,8 @@ form {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 3px;
-        font-size: 1rem; /* Ajusta el tamaño del ícono */
+        padding: 2px 6px;
+        font-size: 0.6rem; /* Ajusta el tamaño del ícono */
         background-color: transparent;
         color: var(--color-texto);
         border: none;
@@ -816,62 +815,72 @@ form {
     
     /* Ajustar el tamaño del ícono */
     #btn-cerrar-sesion i {
-        font-size: 0.8rem; /* Tamaño del ícono */
+        font-size: 0.7rem; /* Tamaño del ícono */
     }
 
     /* Barra de navegación primaria */
     .navbar-container {
-        width: 100%;
         position: fixed;
-        bottom: 0; /* Fija la barra en la parte inferior de la pantalla */
-        background-color: var(--color-barra); /* Mantén el color de fondo */
-        z-index: 1000; /* Asegura que la barra esté siempre visible */
+        flex: 1;
+        display: flex;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: calc(10dvh); /* Usando dvh para definir la altura */
+        z-index: 1000;
+        padding: 10px;
+        margin: 0;
+        background-color: var(--color-barra);
     }
 
     .navbar {
         display: flex;
-        justify-content: space-around;
-        padding: 4px 0;
+        justify-content: space-between;
+        padding: 0;
+        width: 100%; /* Forzar que la barra ocupe el 100% */
     }
 
     .nav-tabs {
         display: flex;
-        flex-wrap: nowrap;
-        gap: 1px;
+        gap: 0px;
         padding: 0;
         margin: 0;
-        width: 95%;
+        width: 100%;
     }
 
     .nav-tab {
         flex: 1;
         padding: 4px 2px;
         font-size: 0.65rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0; /* Asegura que no haya márgenes adicionales */
         text-align: center;
     }
 
     .nav-tab i {
         font-size: 14px;
-        margin-bottom: 2px;
+        margin-bottom: 4px;
     }
 
     /* Barra de navegación secundaria */
     #secondary-nav {
-        padding: 6px 0;
-        display: flex;
-        overflow-x: auto; /* Permite el scroll horizontal */
-        -webkit-overflow-scrolling: touch; /* Mejora el scroll en móviles */
-        padding-left: 10px; /* Ajusta el espacio a la izquierda */
-        position: fixed; /* Cambiar a fixed */
-        gap: 20px;
-        top: 60px; /* Ajusta la distancia para que esté debajo de la top-bar */
+        position: fixed;
+        top: 50px;
         width: 100%;
-        z-index: 999; /* Asegura que esté debajo de la barra superior pero encima del contenido */
+        height: calc(5dvh); /* Ajusta con dvh */
+        z-index: 999;
+        padding-left: 10px;
+        display: flex;
+        overflow-x: auto;
+        background-color: var(--color-barra);
     }
 
     #secondary-nav .nav-tabs {
         display: flex;
         flex-wrap: nowrap; /* Mantiene las pestañas en una sola línea */
+        padding-left: 10px;
         gap: 3px;
         padding: 0;
         margin: 0;
@@ -897,10 +906,28 @@ form {
 
     /* Ajustar el margen del contenido principal */
     main {
-        flex: 1;
-        padding: 5px 20px;
-        max-width: 1000px;
-        margin: 120px auto 0 auto; /* Aumentar el margen superior para que no se superponga con las barras fijas */
+        margin-top: calc(5dvh + 50px); /* Ajusta según el tamaño de la barra superior */
+        margin-bottom: calc(8dvh + 50px); /* Añadir espacio adicional para el footer */
+        height: calc(100dvh - 60px - 40px - 8dvh - 50px); /* Ajustar para incluir el footer */
+        overflow-y: auto;
+        padding: 10px 20px;
+    }
+
+    /* Footer */
+    footer {
+        position: relative; /* El footer se posiciona después del contenido */
+        z-index: 1;
+        background-color: var(--color-barra);
+        padding: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--color-texto-secundario);
+        height: 50px; /* Añadir altura del footer */
+    }
+
+    /* Fallback para navegadores sin soporte de 'dvh' */
+    main {
+        height: calc(var(--dvh, 1vh) * 100 - 60px - 40px - 50px);
     }
 
     /* Ajustes generales de contenido */
