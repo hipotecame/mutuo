@@ -144,34 +144,6 @@
                             <small class="description">El valor de la vivienda que deseas adquirir.</small>
                         </div>
 
-                        <!-- Entrada -->
-                        <div class="form-group">
-                            <label for="entrada">Entrada</label>
-                            <div class="input-group">
-                                <input type="number" id="entrada" name="entrada" placeholder="Ejemplo: 20" min="0" step="0.01" required>
-                                <select id="tipo-entrada" name="tipo-entrada">
-                                    <option value="%">%</option>
-                                    <option value="€">€</option>
-                                </select>
-                                <span class="calculated-value" id="entrada-calculado"></span>
-                            </div>
-                            <div class="description">Ingrese la entrada como porcentaje (%) o en euros (€).</div>
-                        </div>
-
-                        <!-- Arras -->
-                        <div class="form-group">
-                            <label for="arras">Arras</label>
-                            <div class="input-group">
-                                <input type="number" id="arras" name="arras" placeholder="Ejemplo: 5" min="0" step="0.01" required>
-                                <select id="tipo-arras" name="tipo-arras">
-                                    <option value="%">%</option>
-                                    <option value="€">€</option>
-                                </select>
-                                <span class="calculated-value" id="arras-calculado"></span>
-                            </div>
-                            <div class="description">Ingrese las arras como porcentaje (%) o en euros (€).</div>
-                        </div>
-
                         <!-- Gastos hipoteca -->
                         <h3>Gastos hipoteca</h3>
 
@@ -218,7 +190,7 @@
 
                         <!-- Total Inicial -->
                         <div class="total-inicial">
-                            <strong>Ahorro inicial necesario (€):</strong> €<span id="total-inicial">0.00</span>
+                            <strong>Coste total de la inversión (€):</strong> €<span id="total-inicial">0.00</span>
                         </div>
 
                         <!-- Botones de Navegación -->
@@ -235,6 +207,26 @@
                 <div class="section-container">
                     <h2>Detalles del préstamo</h2>
                     <form id="condiciones-hipoteca-form">
+
+                        <!-- Entrada -->
+                        <div class="form-group">
+                            <label for="entrada">Aportación inicial (€)</label>
+                            <div class="input-group">
+                                <input type="number" id="entrada" name="entrada" placeholder="Ejemplo: 20000" min="0" step="0.01" required>
+                                <span class="calculated-value" id="entrada-calculado"></span>
+                            </div>
+                            <div class="description">Ingrese la aportación inicial en euros (€).</div>
+                        </div>
+
+                        <!-- Monto del Préstamo -->
+                        <div class="form-group">
+                            <label>Financiación solicitada (€)</label>
+                            <div class="input-with-calculation">
+                                <span id="monto-prestamo">0.00</span>
+                            </div>
+                            <small class="description">Cantidad que solicitarás al banco.</small>
+                        </div>
+
                         <!-- TIN -->
                         <div class="form-group">
                             <label for="tin">Tipo de Interés Nominal (TIN) (%)</label>
@@ -278,14 +270,6 @@
                 <div class="section-container">
                     <h2>Cuota mensual</h2>
                     <form id="cuota-mensual-form">
-                        <!-- Monto del Préstamo -->
-                        <div class="form-group">
-                            <label>Financiación solicitada (€)</label>
-                            <div class="input-with-calculation">
-                                <span id="monto-prestamo">0.00</span>
-                            </div>
-                            <small class="description">Cantidad que solicitarás al banco.</small>
-                        </div>
 
                         <!-- Cuota Mensual Estimada -->
                         <div class="form-group">
@@ -327,9 +311,10 @@
                     <h2>Resumen financiero</h2>
                     <div class="resumen-content">
                         <p><strong>Precio del inmueble (€):</strong> €<span id="precio-inmueble">0.00</span></p>
-                        <p><strong>Ahorro inicial necesario (€):</strong> €<span id="ahorro-necesario">0.00</span></p>
+                        <p><strong>Coste total sujeto a financiación (€):</strong> €<span id="ahorro-necesario">0.00</span></p>
+                        <p><strong>Aportación (€):</strong> €<span id="entrada-resumen">0.00</span></p>
                         <p><strong>Financiación solicitada (€):</strong> €<span id="financiacion-solicitada">0.00</span></p>
-                        <p><strong>Porcentaje del precio del inmueble financiado (%):</strong> <span id="porcentaje-financiado">0.00</span>%</p>
+                        <p><strong>Porcentaje del coste total de la inversión financiado (%):</strong> <span id="porcentaje-financiado">0.00</span>%</p>
                         <p><strong>Cuota mensual sin seguros ni productos vinculados (€):</strong> €<span id="cuota-sin-seguros">0.00</span></p>
                         <p><strong>Cuota mensual con seguros y productos vinculados (€):</strong> €<span id="cuota-con-seguros">0.00</span></p>
                         <p><strong>Coste total de la hipoteca (€):</strong> €<span id="coste-total-hipoteca">0.00</span></p>
@@ -770,6 +755,39 @@
                         <li><strong>Cuota fija: </strong> el importe que se paga cada mes es siempre el mismo.</li>
                         <li><strong>Intereses decrecientes: </strong> al principio del préstamo, se paga una mayor cantidad de intereses, ya que se calculan sobre el capital pendiente. A medida que se va amortizando el préstamo, el saldo deudor disminuye, y con ello también los intereses que se pagan.</li>
                         <li><strong>Amortización creciente: </strong> aunque la cuota es fija, la parte del capital que se amortiza va aumentando progresivamente. En las primeras cuotas, la mayor parte del pago corresponde a los intereses y una pequeña parte a la amortización del capital. Con el paso del tiempo, la proporción destinada a amortizar el capital aumenta.</li>
+                    </ul>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">FEIN (Ficha Europea de Información Normalizada)</h3>
+                    <div class="recurso-content">
+                      <p>La FEIN o Ficha Europea de Información Normalizada es un documento que los bancos y entidades financieras deben entregar al cliente antes de formalizar un préstamo hipotecario. Esta ficha contiene toda la información esencial sobre las condiciones del préstamo hipotecario y permite al cliente comparar entre diferentes ofertas para tomar una decisión informada. Debe entregarse al menos diez días antes de firmar el préstamo.</p>
+                      <p>La FEIN incluye detalles sobre el tipo de interés, el importe total a pagar, la duración del préstamo, las comisiones, el TAE, las consecuencias en caso de impago, y otros aspectos relevantes del préstamo.</p>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">FIAE (Ficha de Advertencias Estandarizadas)</h3>
+                    <div class="recurso-content">
+                      <p>La FIAE o Ficha de Advertencias Estandarizadas es un documento complementario al proceso de solicitud de una hipoteca, diseñado para informar a los consumidores sobre los riesgos y condiciones especiales de ciertos productos hipotecarios. Este documento es obligatorio en España y su función es proteger a los clientes al proporcionarles detalles claros y comprensibles sobre aspectos financieros que podrían resultar complejos o significar algún riesgo.</p>
+                      <p><strong>¿Qué términos incluye?</strong></p>
+                      <ul>
+                        <li><strong>Cláusulas suelo: </strong> explica si el préstamo tiene un límite mínimo de interés, conocido como "suelo". Esto significa que, aunque el tipo de interés bajara en el mercado, el interés aplicable al préstamo no bajará por debajo de este límite.</li>
+                        <li><strong>Cláusulas de vencimiento anticipado: </strong> informa sobre las circunstancias bajo las cuales el banco podría decidir dar por vencido el préstamo antes de la fecha de finalización acordada, generalmente debido a impagos.</li>
+                        <li><strong>Costes adicionales por cambios en el tipo de interés: </strong> advierte sobre posibles variaciones en la cuota mensual en caso de tipos de interés variables y cómo podrían impactar las finanzas del cliente.</li>
+                        <li><strong>Consecuencias de impagos y embargos: </strong> Describe los procedimientos y consecuencias en caso de que el cliente no cumpla con sus obligaciones de pago, incluyendo el riesgo de embargo del inmueble hipotecado.</li>
+                    </ul>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">ITE (Inspección Técnica de Edificios)</h3>
+                    <div class="recurso-content">
+                      <p>La ITE o Inspección Técnica de Edificios es una evaluación obligatoria en España que deben pasar ciertos edificios para verificar su estado de conservación y seguridad. Esta inspección tiene como objetivo principal garantizar que los edificios, especialmente aquellos más antiguos o en determinadas condiciones, cumplan con unos estándares mínimos de seguridad, habitabilidad y salubridad, evitando riesgos para sus habitantes y para el entorno urbano.</p>
+                      <p><strong>Aspectos clave de la ITE:</strong></p>
+                      <ul>
+                        <li><strong>Periodicidad de la inspección: </strong> generalmente, los edificios de más de 30 años deben someterse a esta inspección cada 10 años, aunque la edad y la frecuencia exacta pueden variar según la normativa de cada comunidad autónoma o municipio.</li>
+                        <li><strong>Aspectos evaluados: </strong> la ITE revisa el estado de elementos estructurales y de seguridad, como la fachada, la cubierta, las instalaciones de fontanería y electricidad, y los sistemas de evacuación de aguas, entre otros.</li>
+                        <li><strong>Resultado de la ITE: </strong> tras la inspección, el edificio obtiene un informe que clasifica su estado. Si se detectan deficiencias graves, los propietarios están obligados a realizar las reparaciones necesarias para subsanarlas en un plazo determinado.</li>
+                        <li><strong>Certificado de aptitud: </strong> este certificado, emitido tras una ITE favorable, asegura que el edificio cumple con los requisitos de seguridad y habitabilidad. Es recomendable solicitarlo antes de cerrar la compra de la vivienda.</li>
                     </ul>
                     </div>
                   </div>
