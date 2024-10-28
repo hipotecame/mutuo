@@ -64,6 +64,8 @@ if (continuarSinRegistrarseBtn) {
   });
 }
 
+
+
 // Función para mostrar el contenido sin registro
 function mostrarContenidoSinRegistro() {
     // Ocultar el formulario de autenticación
@@ -923,83 +925,81 @@ function setupComparador() {
 
   const user = auth.currentUser;
   if (user) {
-      db.collection('usuarios').doc(user.uid).collection('simulaciones').get()
-          .then(querySnapshot => {
-              const simulacionesGuardadas = [];
+    db.collection('usuarios').doc(user.uid).collection('simulaciones').get()
+      .then(querySnapshot => {
+        const simulacionesGuardadas = [];
 
-              querySnapshot.forEach(doc => {
-                  const simulacion = doc.data();
-                  // Solo añadimos simulaciones que aún existan y no hayan sido eliminadas
-                  if (simulacion) {
-                      // Calcular la aportación inicial si no está en los datos
-                      if (!simulacion.aportacionInicial && simulacion.totalInicial && simulacion.financiacionSolicitada) {
-                          simulacion.aportacionInicial = simulacion.totalInicial - simulacion.financiacionSolicitada;
-                      }
-                      simulacionesGuardadas.push({ id: doc.id, data: simulacion });
-                  }
-              });
+        querySnapshot.forEach(doc => {
+          const simulacion = doc.data();
+          if (simulacion) {
+            // Calcular la aportación inicial si no está en los datos
+            if (!simulacion.aportacionInicial && simulacion.totalInicial && simulacion.financiacionSolicitada) {
+              simulacion.aportacionInicial = simulacion.totalInicial - simulacion.financiacionSolicitada;
+            }
+            // Añadir tipo de simulación basado en la existencia de propiedades clave
+            const tipoSimulacion = simulacion.totalInicial ? 'hipoteca' : 'endeudamiento';
+            simulacionesGuardadas.push({ id: doc.id, data: simulacion, tipo: tipoSimulacion });
+          }
+        });
 
-              // Verificamos si no hay simulaciones guardadas
-              if (simulacionesGuardadas.length === 0) {
-                  comparadorContenido.innerHTML = "<p>No hay simulaciones guardadas para comparar.</p>";
-                  return;
-              }
+        if (simulacionesGuardadas.length === 0) {
+          comparadorContenido.innerHTML = "<p>No hay simulaciones guardadas para comparar.</p>";
+          return;
+        }
 
-              // Crear una lista de checkboxes para seleccionar simulaciones
-              const formComparador = document.createElement('form');
-              formComparador.id = 'form-comparador';
+        // Crear una lista de checkboxes para seleccionar simulaciones
+        const formComparador = document.createElement('form');
+        formComparador.id = 'form-comparador';
 
-              simulacionesGuardadas.forEach((simulacion, index) => {
-                  const label = document.createElement('label');
-                  label.style.display = 'block';
-                  label.style.marginBottom = '10px';
+        simulacionesGuardadas.forEach(simulacion => {
+          const label = document.createElement('label');
+          label.style.display = 'block';
+          label.style.marginBottom = '10px';
 
-                  const checkbox = document.createElement('input');
-                  checkbox.type = 'checkbox';
-                  checkbox.name = 'simulacion';
-                  checkbox.value = simulacion.id; // Usamos el ID como valor
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = 'simulacion';
+          checkbox.value = simulacion.id;
 
-                  label.appendChild(checkbox);
+          label.appendChild(checkbox);
+          label.appendChild(document.createTextNode(` ${simulacion.data.nombre} (${simulacion.tipo === 'hipoteca' ? 'Préstamo hipotecario' : 'Capacidad de endeudamiento'})`));
+          formComparador.appendChild(label);
+        });
 
-                  let tipoSimulacion = simulacion.totalInicial ? 'Préstamo hipotecario' : 'Capacidad de endeudamiento';
-                  label.appendChild(document.createTextNode(` ${simulacion.data.nombre} (${tipoSimulacion})`));
-                  formComparador.appendChild(label);
-              });
+        const compararBtn = document.createElement('button');
+        compararBtn.type = 'button';
+        compararBtn.textContent = 'Comparar Simulaciones';
+        compararBtn.classList.add('btn', 'btn-comparar');
+        compararBtn.style.marginTop = '20px';
+        compararBtn.addEventListener('click', () => {
+          const seleccionadas = Array.from(formComparador.elements['simulacion'])
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => simulacionesGuardadas.find(simulacion => simulacion.id === checkbox.value));
 
-              const compararBtn = document.createElement('button');
-              compararBtn.type = 'button';
-              compararBtn.textContent = 'Comparar Simulaciones';
-              compararBtn.classList.add('btn', 'btn-comparar');
-              compararBtn.style.marginTop = '20px';
-              compararBtn.addEventListener('click', () => {
-                  const seleccionadas = Array.from(formComparador.elements['simulacion'])
-                      .filter(checkbox => checkbox.checked)
-                      .map(checkbox => simulacionesGuardadas.find(simulacion => simulacion.id === checkbox.value).data);
+          if (seleccionadas.length < 2) {
+            alert('Por favor, selecciona al menos dos simulaciones para comparar.');
+            return;
+          }
 
-                  if (seleccionadas.length < 2) {
-                      alert('Por favor, selecciona al menos dos simulaciones para comparar.');
-                      return;
-                  }
+          const tipoPrimeraSimulacion = seleccionadas[0].tipo;
+          const tiposValidos = seleccionadas.every(sim => sim.tipo === tipoPrimeraSimulacion);
 
-                  const tipoPrimeraSimulacion = seleccionadas[0].totalInicial ? 'hipoteca' : 'endeudamiento';
-                  const tiposValidos = seleccionadas.every(sim => (sim.totalInicial && tipoPrimeraSimulacion === 'hipoteca') || (sim.capacidadDeEndeudamiento && tipoPrimeraSimulacion === 'endeudamiento'));
+          if (!tiposValidos) {
+            alert('No puedes comparar simulaciones de Préstamos hipotecarios con simulaciones de Capacidad de endeudamiento.');
+            return;
+          }
 
-                  if (!tiposValidos) {
-                      alert('No puedes comparar simulaciones de Préstamos hipotecarios con simulaciones de Capacidad de endeudamiento.');
-                      return;
-                  }
+          mostrarComparacion(seleccionadas.map(sim => sim.data));
+        });
 
-                  mostrarComparacion(seleccionadas);
-              });
-
-              formComparador.appendChild(compararBtn);
-              comparadorContenido.appendChild(formComparador);
-          })
-          .catch(error => {
-              console.error("Error al obtener las simulaciones para comparar:", error);
-          });
+        formComparador.appendChild(compararBtn);
+        comparadorContenido.appendChild(formComparador);
+      })
+      .catch(error => {
+        console.error("Error al obtener las simulaciones para comparar:", error);
+      });
   } else {
-      comparadorContenido.innerHTML = "<p>Debes iniciar sesión para utilizar el comparador.</p>";
+    comparadorContenido.innerHTML = "<p>Debes iniciar sesión para utilizar el comparador.</p>";
   }
 }
 
@@ -1198,7 +1198,7 @@ document.getElementById('secondary-nav').style.display = 'flex';
     logoutBtn.classList.add('btn', 'btn-login');
 
     // Añadir ícono de FontAwesome
-    logoutBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i>`;
+    logoutBtn.innerHTML = `<i class="fas fa-power-off"></i>`;
 
     logoutBtn.addEventListener('click', cerrarSesion);
     document.querySelector('.top-bar-content').appendChild(logoutBtn);
@@ -1251,5 +1251,6 @@ if ('serviceWorker' in navigator) {
 window.addEventListener('DOMContentLoaded', () => {
 initializeApp();
 });
+
 
 
