@@ -40,7 +40,7 @@ body {
 .top-bar {
     background-color: var(--color-barra);
     color: var(--color-texto);
-    padding: 10px 20px;
+    padding: 5px 20px;
     display: flex;
     align-items: center;
     border-bottom: 2px solid var(--color-borde);
@@ -58,7 +58,7 @@ body {
 .top-bar .app-name {
     font-family: 'Lato', sans-serif;
     font-style: italic;
-    font-size: 2.5em;
+    font-size: 2.0em;
     font-weight: 700;
     margin: 0;
     color: #FFA500; /*#BFBFBF*/
@@ -81,9 +81,9 @@ body {
 
 /* Contenedor para centrar la barra de navegación */
 .navbar-container {
-    flex: 1; /* Ocupa todo el espacio disponible */
     display: flex;
     justify-content: center; /* Centra la barra de navegación */
+    padding: 0 320px; /* Ajusta los espacios laterales si es necesario */
 }
 
 .navbar {
@@ -104,16 +104,16 @@ body {
     flex-direction: column; /* Apilar icono y texto verticalmente */
     align-items: center;    /* Centrar horizontalmente */
     justify-content: center; /* Centrar verticalmente */
-    padding: 10px 15px;
+    padding: 15px 20px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     color: var(--color-texto);
     transition: all 0.3s ease;
     border-bottom: 2px solid transparent;
 }
 
 .nav-tab i {
-    font-size: 24px;      /* Tamaño del icono */
+    font-size: 20px;      /* Tamaño del icono */
     margin-bottom: 5px;   /* Espacio entre el icono y el texto */
     margin-right: 0;      /* Eliminar margen derecho */
 }
@@ -128,16 +128,17 @@ body {
     background-color: #242427;
     display: flex;
     justify-content: center;
-    padding: 15px 0; /* Aumentamos el padding para aumentar el tamaño */
-    gap: 20px; /* Aumentamos el espacio entre pestañas */
-    position: sticky;
+    padding: 5px 0; /* Aumentamos el padding para aumentar el tamaño */
+    gap: 10px; /* Aumentamos el espacio entre pestañas */
+    position: fixed;
+    width: 100%;
     top: calc(80px); /* Ajustamos la posición para que quede debajo de la barra superior */
     z-index: 999; /* Asegura que esté debajo de la barra superior pero encima del contenido */
 }
 
 #secondary-nav .nav-tab {
     padding: 10px 20px;
-    font-size: 16px; /* Aumentamos el tamaño de la fuente */
+    font-size: 14px; /* Aumentamos el tamaño de la fuente */
     border-bottom: 2px solid transparent;
 }
 
@@ -351,426 +352,6 @@ form {
 
 .input-group:hover .calculated-value {
     color: #FFFFFF;
-}
-
-@media all and (display-mode: standalone) {
-    .navbar {
-        padding-bottom: 20px; /* Ajusta el valor según el espacio necesario */
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1366px) {
-    /* Ajustes en la barra superior */
-    .top-bar {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 15px;
-        position: relative;
-    }
-
-    .top-bar-content {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .top-bar .app-name {
-        font-size: 1.8em;
-    }
-
-    .experiment-label {
-        font-size: 0.6rem;
-        padding: 2px 6px;
-        margin-left: 8px;
-    }
-
-    /* Botón de cerrar sesión */
-    #btn-cerrar-sesion {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        padding: 5px 10px;
-        font-size: 0.8rem;
-    }
-
-    /* Barra de navegación primaria debajo de "Mutuo" */
-    .navbar-container {
-        width: 100%;
-    }
-
-    .navbar {
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: nowrap; /* Mantener las pestañas en una sola línea */
-        padding: 5px 0;
-        overflow-x: auto; /* Permite scroll horizontal si es necesario */
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .nav-tabs {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 5px; /* Reducir el espacio entre pestañas */
-        padding: 0;
-        margin: 0;
-        width: auto;
-    }
-
-    .nav-tab {
-        flex: none; /* Evita que las pestañas se estiren */
-        padding: 6px 4px;
-        font-size: 1rem; /* Reducir el tamaño de fuente */
-        text-align: center;
-        min-width: 100px; /* Ancho mínimo para las pestañas */
-    }
-
-    .nav-tab i {
-        font-size: 16px;
-        margin-bottom: 2px;
-    }
-
-    .nav-tab span {
-        white-space: normal; /* Permite saltos de línea */
-    }
-
-    /* Barra de navegación secundaria */
-    #secondary-nav {
-        padding: 5px 0; /* Igual que la barra primaria */
-        overflow-x: auto; /* Permite scroll horizontal si es necesario */
-        -webkit-overflow-scrolling: touch;
-    }
-
-    #secondary-nav .nav-tabs {
-        display: flex;
-        flex-wrap: nowrap; /* Mantener las pestañas en una sola línea */
-        gap: 5px; /* Reducir el espacio entre pestañas */
-        padding: 0;
-        margin: 0;
-        width: auto;
-    }
-
-    #secondary-nav .nav-tab {
-        flex: none; /* Evita que las pestañas se estiren */
-        padding: 8px 4px;
-        font-size: 1rem; /* Mismo tamaño de fuente que la barra primaria */
-        text-align: center;
-        min-width: 100px; /* Ancho mínimo para las pestañas */
-    }
-
-    #secondary-nav .nav-tab i {
-        font-size: 16px;
-        margin-bottom: 2px;
-    }
-
-    #secondary-nav .nav-tab span {
-        white-space: normal; /* Permite saltos de línea */
-    }
-
-    /* Ajustar el margen del contenido principal */
-    main {
-        margin-top: 20px;
-    }
-
-    /* Ajustes generales de contenido */
-    .section-container {
-        width: 100%;
-        margin: 20px auto;
-        padding: 20px;
-    }
-
-    /* Ajustes en inputs y selects */
-    .form-group input,
-    .form-group select {
-        font-size: 1rem;
-        padding: 10px;
-        width: 100%;
-    }
-
-    /* Ajustes en .input-group para "Entrada" y "Arras" */
-    .input-group {
-        display: flex;
-        align-items: center;
-        gap: 5px; /* Reducir el espacio entre elementos */
-    }
-
-    .input-group input {
-        flex: 1; /* El input ocupa todo el espacio disponible */
-        padding: 8px;
-        font-size: 1rem;
-    }
-
-    .input-group select {
-        flex: none; /* El select no se estira */
-        width: 60px; /* Reduce el ancho del select */
-        padding: 8px;
-        font-size: 0.9rem;
-    }
-
-    /* Ajustes de botones */
-    .button-group button,
-    .navigation-buttons button {
-        font-size: 1rem;
-        padding: 10px;
-        width: auto;
-        margin-bottom: 10px;
-    }
-
-    /* Ajustes de encabezados */
-    .section-container h2,
-    .section-container h3 {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-    }
-}
-
-@media (min-width: 769px) {
-    .section-container {
-        width: 90%; /* Allow the container to take up 90% of the available width */
-        max-width: 1400px; /* Cap the maximum width */
-        margin: 30px auto; /* Center the content horizontally */
-        padding: 40px 30px;
-    }
-
-    /* Ensure parent container or body is not restricting width */
-    .parent-container, body {
-        width: 100%; /* Ensure the parent or body takes full width */
-        display: block; /* In case flex/grid is causing issues */
-    }
-}
-
-/* Estilos para dispositivos iPad (768px - 1366px) */
-@media (min-width: 768px) and (max-width: 1024px) {
-    /* Ajustes en la barra superior */
-    .top-bar {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 15px;
-        position: relative;
-    }
-
-    .top-bar-content {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .top-bar .app-name {
-        font-size: 1.8em;
-    }
-
-    .experiment-label {
-        font-size: 0.6rem;
-        padding: 2px 6px;
-        margin-left: 8px;
-    }
-
-    /* Botón de cerrar sesión */
-    #btn-cerrar-sesion {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        padding: 5px 10px;
-        font-size: 0.8rem;
-    }
-
-    /* Barra de navegación primaria debajo de "Mutuo" */
-    .navbar-container {
-        width: 100%;
-    }
-
-    .navbar {
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: nowrap; /* Mantener las pestañas en una sola línea */
-        padding: 5px 0;
-        overflow-x: auto; /* Permite scroll horizontal si es necesario */
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .nav-tabs {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 5px; /* Reducir el espacio entre pestañas */
-        padding: 0;
-        margin: 0;
-        width: auto;
-    }
-
-    .nav-tab {
-        flex: none; /* Evita que las pestañas se estiren */
-        padding: 6px 4px;
-        font-size: 0.85rem; /* Reducir el tamaño de fuente */
-        text-align: center;
-        min-width: 100px; /* Ancho mínimo para las pestañas */
-    }
-
-    .nav-tab i {
-        font-size: 16px;
-        margin-bottom: 2px;
-    }
-
-    .nav-tab span {
-        white-space: normal; /* Permite saltos de línea */
-    }
-
-    /* Barra de navegación secundaria */
-    #secondary-nav {
-        padding: 5px 0; /* Igual que la barra primaria */
-        overflow-x: auto; /* Permite scroll horizontal si es necesario */
-        -webkit-overflow-scrolling: touch;
-    }
-
-    #secondary-nav .nav-tabs {
-        display: flex;
-        flex-wrap: nowrap; /* Mantener las pestañas en una sola línea */
-        gap: 5px; /* Reducir el espacio entre pestañas */
-        padding: 0;
-        margin: 0;
-        width: auto;
-    }
-
-    #secondary-nav .nav-tab {
-        flex: none; /* Evita que las pestañas se estiren */
-        padding: 6px 4px;
-        font-size: 0.85rem; /* Mismo tamaño de fuente que la barra primaria */
-        text-align: center;
-        min-width: 100px; /* Ancho mínimo para las pestañas */
-    }
-
-    #secondary-nav .nav-tab i {
-        font-size: 16px;
-        margin-bottom: 2px;
-    }
-
-    #secondary-nav .nav-tab span {
-        white-space: normal; /* Permite saltos de línea */
-    }
-
-    /* Ajustar el margen del contenido principal */
-    main {
-        margin-top: 20px;
-    }
-
-    /* Ajustes generales de contenido */
-    .section-container {
-        width: 100%;
-        margin: 20px auto;
-        padding: 20px;
-    }
-
-    /* Ajustes en inputs y selects */
-    .form-group input,
-    .form-group select {
-        font-size: 1rem;
-        padding: 10px;
-        width: 100%;
-    }
-
-    /* Ajustes en .input-group para "Entrada" y "Arras" */
-    .input-group {
-        display: flex;
-        align-items: center;
-        gap: 5px; /* Reducir el espacio entre elementos */
-    }
-
-    .input-group input {
-        flex: 1; /* El input ocupa todo el espacio disponible */
-        padding: 8px;
-        font-size: 1rem;
-    }
-
-    .input-group select {
-        flex: none; /* El select no se estira */
-        width: 60px; /* Reduce el ancho del select */
-        padding: 8px;
-        font-size: 0.9rem;
-    }
-
-    /* Ajustes de botones */
-    .button-group button,
-    .navigation-buttons button {
-        font-size: 1rem;
-        padding: 10px;
-        width: auto;
-        margin-bottom: 10px;
-    }
-
-    /* Ajustes de encabezados */
-    .section-container h2,
-    .section-container h3 {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-    }
-}
-
-/* For iPad mini (around 744px - 768px) */
-@media (min-width: 744px) and (max-width: 768px) {
-    .top-bar {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 15px;
-        position: relative;
-    }
-
-    .top-bar-content {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .top-bar .app-name {
-        font-size: 1.7em;
-    }
-
-    #btn-cerrar-sesion {
-        top: 15px;
-        right: 15px;
-        padding: 5px 10px;
-        font-size: 0.8rem;
-    }
-
-    .navbar-container {
-        width: 100%;
-    }
-
-    .navbar {
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-        padding: 5px 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .nav-tabs {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 5px;
-        padding: 0;
-        margin: 0;
-        width: auto;
-    }
-
-    .nav-tab {
-        flex: none;
-        padding: 4px 3px;
-        font-size: 0.8rem;
-        text-align: center;
-        min-width: 100px;
-    }
-
-    .section-container {
-        width: 100%;
-        margin: 20px auto;
-        padding: 20px;
-    }
-
-    main {
-        margin-top: 20px;
-    }
 }
 
 /* Input con cálculo */
@@ -1222,6 +803,562 @@ a:active {
     width: 100%;
 }
 
+@media all and (display-mode: standalone) {
+    .navbar {
+        padding-bottom: 20px; /* Ajusta el valor según el espacio necesario */
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+    /* Barra Superior */
+    .top-bar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 70px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+        background-color: var(--color-barra);
+    }
+
+    .top-bar-content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .top-bar .app-name {
+        font-size: 1.8em;
+    }
+
+    .experiment-label {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        margin-left: 8px;
+    }
+
+    /* Botón de cerrar sesión */
+    #btn-cerrar-sesion {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 35%; 
+        transform: translateY(-30%);
+        right: 20px;
+    }
+    
+    /* Tamaño del ícono */
+    #btn-cerrar-sesion i {
+        font-size: 1rem;
+    }
+
+    /* Barra de navegación primaria */
+    .navbar-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: calc(8dvh); /* Altura relativa al viewport */
+        z-index: 999;
+        padding: 10px;
+        background-color: var(--color-barra);
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 5px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav-tab {
+        flex: 1;
+        padding: 8px 10px;
+        font-size: 1rem;
+        text-align: center;
+        min-width: 120px;
+    }
+
+    .nav-tab i {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    /* Barra de navegación secundaria */
+    #secondary-nav {
+        position: fixed;
+        top: 70px;
+        height: calc(5dvh);
+        z-index: 998;
+        padding: 0;
+        margin: 0;
+        gap: 5px;
+        display: flex;
+        justify-content: center; /* Centra el contenido horizontalmente */
+        background-color: var(--color-barra);
+        flex-wrap: nowrap;
+    }
+
+    #secondary-nav .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 5px;
+        padding: 0;
+        margin: 0;
+    }
+
+    #secondary-nav .nav-tab {
+        flex: none;
+        padding: 8px 10px;
+        font-size: 1rem;
+        text-align: center;
+        min-width: 120px;
+    }
+
+    /* Ajuste del contenido principal */
+    main {
+        margin-top: calc(5dvh + 70px); /* Espacio para las barras de navegación */
+        margin-bottom: calc(8dvh); /* Espacio para la barra inferior */
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    /* Footer */
+    footer {
+        position: relative;
+        background-color: var(--color-barra);
+        padding: 20px;
+        text-align: center;
+        font-size: 1rem;
+        color: var(--color-texto-secundario);
+        height: 50px;
+    }
+
+    /* Ajustes en inputs y selects */
+    .form-group input,
+    .form-group select {
+        font-size: 1rem;
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* Ajustes en .input-group para "Entrada" y "Arras" */
+    .input-group {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .input-group input {
+        flex: 1;
+        padding: 8px;
+        font-size: 1rem;
+    }
+
+    .input-group select {
+        flex: none;
+        width: 60px;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes de botones */
+    .button-group button,
+    .navigation-buttons button {
+        font-size: 1rem;
+        padding: 10px;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    /* Encabezados */
+    .section-container h2,
+    .section-container h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+}
+
+@media (min-width: 768px) {
+    .section-container {
+        width: 90%; /* Allow the container to take up 90% of the available width */
+        max-width: 1400px; /* Cap the maximum width */
+        margin: 30px auto; /* Center the content horizontally */
+        padding: 40px 30px;
+    }
+
+    /* Ensure parent container or body is not restricting width */
+    .parent-container, body {
+        width: 100%; /* Ensure the parent or body takes full width */
+        display: block; /* In case flex/grid is causing issues */
+    }
+}
+
+/* Estilos para dispositivos iPad (768px - 1366px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Barra Superior */
+    .top-bar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 60px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+        background-color: var(--color-barra);
+    }
+
+    .top-bar-content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .top-bar .app-name {
+        font-size: 1.8em;
+    }
+
+    .experiment-label {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        margin-left: 8px;
+    }
+
+    /* Botón de cerrar sesión */
+    #btn-cerrar-sesion {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 35%; 
+        transform: translateY(-30%);
+        right: 20px;
+    }
+    
+    /* Tamaño del ícono */
+    #btn-cerrar-sesion i {
+        font-size: 1rem;
+    }
+
+    /* Barra de navegación primaria */
+    .navbar-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: calc(8dvh); /* Altura relativa al viewport */
+        z-index: 999;
+        padding: 10px;
+        background-color: var(--color-barra);
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 5px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .nav-tab {
+        flex: none;
+        padding: 6px 8px;
+        font-size: 0.85rem;
+        text-align: center;
+        min-width: 100px;
+    }
+
+    .nav-tab i {
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+
+    /* Barra de navegación secundaria */
+    #secondary-nav {
+        position: fixed;
+        top: 60px;
+        width: 100%;
+        height: calc(5dvh);
+        z-index: 998;
+        padding: 5px 0;
+        justify-content: center; /* Centra el contenido horizontalmente */
+        background-color: var(--color-barra);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #secondary-nav .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 5px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    #secondary-nav .nav-tab {
+        flex: none;
+        padding: 6px 4px;
+        font-size: 0.85rem;
+        text-align: center;
+        min-width: 100px;
+    }
+
+    /* Ajuste de contenido principal */
+    main {
+        margin-top: calc(5dvh + 60px); /* Espacio para las barras de navegación */
+        margin-bottom: calc(8dvh); /* Espacio para la barra inferior */
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    /* Footer */
+    footer {
+        position: relative;
+        background-color: var(--color-barra);
+        padding: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--color-texto-secundario);
+        height: 50px;
+    }
+
+    /* Ajustes en inputs y selects */
+    .form-group input,
+    .form-group select {
+        font-size: 1rem;
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* Ajustes en .input-group para "Entrada" y "Arras" */
+    .input-group {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .input-group input {
+        flex: 1;
+        padding: 8px;
+        font-size: 1rem;
+    }
+
+    .input-group select {
+        flex: none;
+        width: 60px;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes de botones */
+    .button-group button,
+    .navigation-buttons button {
+        font-size: 1rem;
+        padding: 10px;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    /* Encabezados */
+    .section-container h2,
+    .section-container h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+}
+
+/* For iPad mini (around 744px - 768px) */
+@media (min-width: 744px) and (max-width: 768px) {
+    /* Barra Superior */
+    .top-bar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 60px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 10px;
+        background-color: var(--color-barra);
+    }
+
+    .top-bar-content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 8px;
+    }
+
+    .top-bar .app-name {
+        font-size: 1.7em;
+        margin-left: 20px;
+    }
+
+    /* Botón de cerrar sesión */
+    #btn-cerrar-sesion {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem; /* Ajusta el tamaño del ícono */
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 35%;  /* Ajusta según la altura de la barra superior */
+        transform: translateY(-30%); /* Centra verticalmente el botón */
+        right: 20px; /* Espacio desde el borde derecho */
+    }
+    
+    /* Ajuste del tamaño del ícono del botón */
+    #btn-cerrar-sesion i {
+        font-size: 1rem;
+    }
+
+    /* Barra de navegación primaria */
+    .navbar-container {
+        position: fixed;
+        flex: 1;
+        display: flex;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: calc(8dvh); /* Usando dvh para definir la altura */
+        z-index: 999;
+        padding: 10px;
+        margin: 0;
+        background-color: var(--color-barra);
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 5px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .nav-tab {
+        flex: none;
+        padding: 6px 8px;
+        font-size: 0.9rem;
+        text-align: center;
+        min-width: 100px;
+    }
+
+    /* Barra de navegación secundaria */
+    #secondary-nav {
+        position: fixed;
+        top: 60px; /* Ajustar para que quede justo debajo de la barra superior */
+        width: 100%;
+        height: calc(5dvh); /* Ajusta con dvh */
+        z-index: 998;
+        padding-left: 10px;
+        display: flex;
+        justify-content: center; /* Centra el contenido horizontalmente */
+        background-color: var(--color-barra);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #secondary-nav .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-left: 10px;
+        gap: 5px;
+    }
+
+    #secondary-nav .nav-tab {
+        flex: none;
+        padding: 6px 8px;
+        font-size: 0.8rem;
+        text-align: center;
+        min-width: 80px; /* Ajusta este valor si es necesario */
+    }
+
+    /* Ajuste del contenido principal */
+    main {
+        margin-top: calc(5dvh + 60px); /* Ajusta según el tamaño de las barras superiores */
+        margin-bottom: calc(8dvh); /* Añadir espacio adicional para la barra inferior */
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    /* Footer */
+    footer {
+        position: relative;
+        background-color: var(--color-barra);
+        padding: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--color-texto-secundario);
+        height: 50px;
+    }
+
+    /* Ajustes en inputs y selects */
+    .form-group input,
+    .form-group select {
+        font-size: 1rem;
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* Ajustes de botones */
+    .button-group button,
+    .navigation-buttons button {
+        font-size: 0.9rem;
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Encabezados en secciones */
+    .section-container h2,
+    .section-container h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+}
+
 /* Responsividad para Pantallas Pequeñas (<480px) */
 @media (max-width: 744px) {
     /* Ajustes en la barra superior */
@@ -1293,6 +1430,7 @@ a:active {
 
     .navbar {
         display: flex;
+        padding-bottom: env(safe-area-inset-bottom, 20px); /* Ajusta el espacio para el notch */
         justify-content: space-between;
         padding: 0;
         width: 100%; /* Forzar que la barra ocupe el 100% */
@@ -1318,7 +1456,7 @@ a:active {
     }
 
     .nav-tab i {
-        font-size: 14px;
+        font-size: 20px;
         margin-bottom: 4px;
     }
 
