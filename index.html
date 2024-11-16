@@ -6,7 +6,7 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#000000">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>apalanca | Aliado digital para préstamos hipotecarios</title>
+    <title>BALMA | Building Accessible Learning for Mortgage Awareness</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
@@ -20,8 +20,18 @@
 <body>
     <header class="top-bar">
         <div class="top-bar-content">
-            <h1 class="app-name">apalanca</h1>
-            <span class="experiment-label">EXPERIMENT</span>
+            <h1 class="app-name">BALMA</h1>
+            <span class="experiment-label">Building Accessible Learning for Mortgage Awareness</span>
+
+            <!-- Botón de Usuario -->
+            <div class="user-menu">
+                <button id="user-button">
+                    <i class="fas fa-user"></i>
+                </button>
+                <div class="user-dropdown" id="user-dropdown">
+                    <!-- Las opciones se agregarán dinámicamente -->
+                </div>
+            </div>
         </div>
         <!-- Contenedor para centrar la barra de navegación primaria -->
         <div class="navbar-container">
@@ -64,6 +74,46 @@
     <main>
         <!-- Sección: Autenticación -->
         <div class="section active" id="autenticacion">
+            <!-- Añadido: Sección de Tarjetas de Información -->
+            <section id="info-cards" class="info-cards">
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2>Simulaciones personalizadas</h2>
+                    <p>Crea simulaciones detalladas de préstamos hipotecarios adaptadas a tus necesidades específicas.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h2>Calcula tu capacidad de endeudamiento</h2>
+                    <p>Descubre cuánto puedes financiar según tus ingresos.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h2>Glosario hipotecario</h2>
+                    <p>Aprende términos clave del mundo hipotecario para tomar decisiones informadas.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h2>Comparador de hipotecas</h2>
+                    <p>Compara diferentes ofertas hipotecarias para elegir la más conveniente.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h2>Seguridad de datos</h2>
+                    <p>Tus datos están protegidos. Utilizamos servicios de Google para gestionar la información de manera segura.</p>
+                </div>
+            </section>
+            <!-- Fin de la sección de Tarjetas de Información -->
+
             <div class="auth-form-container">
                 <form id="form-iniciar-sesion" class="auth-form">
                     <h2>Iniciar Sesión</h2>
@@ -741,9 +791,9 @@
                     <h3 class="recurso-title">Tipo de interés de referencia</h3>
                     <div class="recurso-content">
                       <p>Es el tipo de interés que el Banco Central Europeo cobra a los bancos por prestarles dinero. Cuando este tipo de interés sube, suele aumentar el coste de los préstamos hipotecarios, ya que los bancos trasladan este aumento a los clientes. Esto se refleja en el TIN (Tipo de Interés Nominal), que es el interés que el banco aplica a tu hipoteca. Como resultado, también puede afectar a la TAE (Tasa Anual Equivalente), que incluye no solo el TIN, sino también otros gastos y comisiones.</p>
-                      <p><strong>Tipo de interés de referencia:</strong> 3,65% <br>
+                      <p><strong>Tipo de interés de referencia:</strong> 3,40% <br>
                       <small>Este valor ha sido extraído de <a href="https://datosmacro.expansion.com/tipo-interes/zona-euro" target="_blank">datosmacro.expansion.com</a></small></p>
-                      <small>Última actualización: 18/09/2024</small>
+                      <small>Última actualización: 23/10/2024</small>
                     </div>
                   </div>
                   <div class="recurso-item">
@@ -858,7 +908,7 @@
 
     <footer>
         <div class="footer-container">
-            <p>&copy; 2024 apalanca. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Balma. Todos los derechos reservados.</p>
         </div>
     </footer>
 
