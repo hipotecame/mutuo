@@ -18,20 +18,81 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+// Elementos del DOM para el botón de usuario y el menú desplegable
+const userButton = document.getElementById('user-button');
+const userDropdown = document.getElementById('user-dropdown');
+
 // Variable global para almacenar la cuota donde Capital supera a Interés
 let cuotaCapitalSuperaInteres = null;
 
-// Observador de cambios en el estado de autenticación (Definido una sola vez fuera de initializeApp)
+// Observador de cambios en el estado de autenticación
 auth.onAuthStateChanged(user => {
-if (user) {
-  // Usuario está autenticado
-  console.log("Usuario autenticado:", user);
-  mostrarContenidoProtegido();
-} else {
-  // Usuario no está autenticado
-  console.log("No hay usuario autenticado");
-  mostrarFormularioAutenticacion();
+  buildUserDropdown(); // Actualizar el menú del usuario
+  if (user) {
+      // Usuario está autenticado
+      console.log("Usuario autenticado:", user);
+      mostrarContenidoProtegido();
+  } else {
+      // Usuario no está autenticado
+      console.log("No hay usuario autenticado");
+      mostrarFormularioAutenticacion();
+  }
+});
+
+// Función para verificar si el usuario está autenticado
+function isUserLoggedIn() {
+  return auth.currentUser !== null;
 }
+
+// Función para construir el menú desplegable según el estado del usuario
+function buildUserDropdown() {
+  userDropdown.innerHTML = ''; // Limpiar el contenido previo
+
+  if (isUserLoggedIn()) {
+      // Usuario autenticado
+      const logoutOption = document.createElement('a');
+      logoutOption.href = '#';
+      logoutOption.textContent = 'Cerrar sesión';
+      logoutOption.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          cerrarSesion();
+      });
+      userDropdown.appendChild(logoutOption);
+  } else {
+      // Usuario no autenticado
+      const loginOption = document.createElement('a');
+      loginOption.href = '#';
+      loginOption.textContent = 'Iniciar sesión';
+      loginOption.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          mostrarFormularioIniciarSesion();
+      });
+
+      const registerOption = document.createElement('a');
+      registerOption.href = '#';
+      registerOption.textContent = 'Crear cuenta';
+      registerOption.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          mostrarFormularioRegistro();
+      });
+
+      userDropdown.appendChild(loginOption);
+      userDropdown.appendChild(registerOption);
+  }
+}
+
+// Evento para mostrar/ocultar el menú desplegable
+userButton.addEventListener('click', (e) => {
+  e.stopPropagation(); // Evita que el evento se propague al window
+  userDropdown.classList.toggle('show');
+});
+
+// Opcional: Cerrar el menú si se hace clic fuera de él
+window.addEventListener('click', () => {
+  userDropdown.classList.remove('show');
 });
 
 // Función principal para inicializar todas las configuraciones
@@ -64,7 +125,8 @@ if (continuarSinRegistrarseBtn) {
   });
 }
 
-
+// Construir el menú de usuario al iniciar
+buildUserDropdown();
 
 // Función para mostrar el contenido sin registro
 function mostrarContenidoSinRegistro() {
@@ -74,12 +136,6 @@ function mostrarContenidoSinRegistro() {
     document.getElementById('iniciar-simulacion').style.display = 'block';
     document.getElementById('main-nav').style.display = 'flex';
     document.getElementById('secondary-nav').style.display = 'flex';
-
-    // Mostrar una advertencia
-    const advertencia = document.createElement('p');
-    advertencia.textContent = "Estás utilizando el simulador sin registrarte. No podrás guardar simulaciones.";
-    advertencia.style.color = "red";
-    document.getElementById('iniciar-simulacion').prepend(advertencia);
 
     // Deshabilitar la funcionalidad de guardar simulaciones
     deshabilitarGuardado();
@@ -1126,14 +1182,30 @@ function mostrarComparacion(simulaciones) {
 
 // Función para mostrar el formulario de registro
 function mostrarFormularioRegistro() {
-document.getElementById('form-iniciar-sesion').style.display = 'none';
-document.getElementById('form-registrar').style.display = 'block';
+  // Mostrar el contenedor de autenticación
+  document.getElementById('autenticacion').style.display = 'block';
+  // Ocultar las secciones protegidas
+  document.getElementById('iniciar-simulacion').style.display = 'none';
+  document.getElementById('main-nav').style.display = 'none';
+  document.getElementById('secondary-nav').style.display = 'none';
+
+  // Mostrar el formulario de registro y ocultar el de inicio de sesión
+  document.getElementById('form-iniciar-sesion').style.display = 'none';
+  document.getElementById('form-registrar').style.display = 'block';
 }
 
 // Función para mostrar el formulario de inicio de sesión
 function mostrarFormularioIniciarSesion() {
-document.getElementById('form-registrar').style.display = 'none';
-document.getElementById('form-iniciar-sesion').style.display = 'block';
+  // Mostrar el contenedor de autenticación
+  document.getElementById('autenticacion').style.display = 'block';
+  // Ocultar las secciones protegidas
+  document.getElementById('iniciar-simulacion').style.display = 'none';
+  document.getElementById('main-nav').style.display = 'none';
+  document.getElementById('secondary-nav').style.display = 'none';
+
+  // Mostrar el formulario de inicio de sesión y ocultar el de registro
+  document.getElementById('form-registrar').style.display = 'none';
+  document.getElementById('form-iniciar-sesion').style.display = 'block';
 }
 
 // Mostrar los formularios correspondientes
@@ -1184,44 +1256,25 @@ auth.signOut()
 
 // Función para mostrar el contenido protegido
 function mostrarContenidoProtegido() {
-// Ocultar el formulario de autenticación
-document.getElementById('autenticacion').style.display = 'none';
-// Mostrar las secciones protegidas
-document.getElementById('iniciar-simulacion').style.display = 'block';
-document.getElementById('main-nav').style.display = 'flex';
-document.getElementById('secondary-nav').style.display = 'flex';
+  // Ocultar el formulario de autenticación
+  document.getElementById('autenticacion').style.display = 'none';
+  // Mostrar las secciones protegidas
+  document.getElementById('iniciar-simulacion').style.display = 'block';
+  document.getElementById('main-nav').style.display = 'flex';
+  document.getElementById('secondary-nav').style.display = 'flex';
 
-  // Añadir botón de cerrar sesión si no existe
-  if (!document.getElementById('btn-cerrar-sesion')) {
-    const logoutBtn = document.createElement('button');
-    logoutBtn.id = 'btn-cerrar-sesion';
-    logoutBtn.classList.add('btn', 'btn-login');
-
-    // Añadir ícono de FontAwesome
-    logoutBtn.innerHTML = `<i class="fas fa-power-off"></i>`;
-
-    logoutBtn.addEventListener('click', cerrarSesion);
-    document.querySelector('.top-bar-content').appendChild(logoutBtn);
-  }
-
-// Listar simulaciones guardadas al iniciar
-listarSimulacionesGuardadas();
+  // Listar simulaciones guardadas al iniciar
+  listarSimulacionesGuardadas();
 }
 
 // Función para mostrar el formulario de autenticación
 function mostrarFormularioAutenticacion() {
-// Mostrar el formulario de autenticación
-document.getElementById('autenticacion').style.display = 'block';
-// Ocultar las secciones protegidas
-document.getElementById('iniciar-simulacion').style.display = 'none';
-document.getElementById('main-nav').style.display = 'none';
-document.getElementById('secondary-nav').style.display = 'none';
-
-// Remover el botón de cerrar sesión si existe
-const logoutBtn = document.getElementById('btn-cerrar-sesion');
-if (logoutBtn) {
-  logoutBtn.remove();
-}
+  // Mostrar el formulario de autenticación
+  document.getElementById('autenticacion').style.display = 'block';
+  // Ocultar las secciones protegidas
+  document.getElementById('iniciar-simulacion').style.display = 'none';
+  document.getElementById('main-nav').style.display = 'none';
+  document.getElementById('secondary-nav').style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
