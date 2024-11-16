@@ -67,12 +67,11 @@ body {
 .experiment-label {
     display: inline-flex;
     align-items: center;
+    font-family: 'Lato', sans-serif;
     padding: 3px 9px;
-    font-size: 0.7rem;
+    font-size: 1rem;
     font-weight: 400;
     color: #E8E8E8;
-    background-color: #38383A;
-    border-radius: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-left: 12px;
@@ -599,31 +598,59 @@ button:active, .btn:active, .btn-login:hover {
     transform: translateY(0);
 }
 
-#btn-cerrar-sesion {
+/* Estilos para el botón de usuario */
+#user-button {
     position: absolute;
     top: 18px;
     right: 18px;
-    background-color: #f44336; /* Un rojo elegante */
-    color: white; /* Texto blanco para contraste */
+    background-color: transparent;
+    color: #FFFFFF;
     border: none;
-    border-radius: 50%; /* Forma circular */
-    padding: 10px; /* Ajusta el tamaño del botón */
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-size: 1rem; /* Ajusta el tamaño del ícono */
+    font-size: 1.5rem; /* Tamaño del ícono */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
 }
 
-#btn-cerrar-sesion i {
-    font-size: 1.2rem; /* Tamaño del ícono */
+#user-button:hover {
+    color: var(--color-boton-hover);
 }
 
-#btn-cerrar-sesion:hover {
-    background-color: #d32f2f; /* Un rojo más oscuro al hacer hover */
-    transform: scale(1.05); /* Efecto de zoom */
+#user-button i {
+    font-size: 1.5rem; /* Asegúrate de que el ícono tenga el tamaño adecuado */
 }
 
-#btn-cerrar-sesion:active {
-    transform: scale(0.95); /* Efecto al presionar */
+/* Estilos para el menú desplegable */
+#user-dropdown {
+    position: absolute;
+    top: 50px; /* Ajusta según la altura de tu barra superior */
+    right: 18px;
+    background-color: var(--color-barra);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--color-shadow);
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 1000;
+}
+
+#user-dropdown.show {
+    display: flex;
+}
+
+#user-dropdown a {
+    padding: 12px 16px;
+    color: var(--color-texto);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#user-dropdown a:hover {
+    background-color: var(--color-boton-hover);
 }
 
 /* Estilos para la sección de Recursos */
@@ -758,6 +785,106 @@ a:active {
     transform: translateY(0);
 }
 
+/* Estilos para el contenedor de las tarjetas */
+.info-cards {
+    display: flex;
+    flex-wrap: wrap; /* Las tarjetas se ajustan en varias filas si es necesario */
+    justify-content: center; /* Centra las tarjetas en el contenedor */
+    gap: 20px; /* Espacio entre las tarjetas */
+    margin-top: 40px; /* Separación superior del contenedor */
+}
+
+/* Estilos básicos para las tarjetas */
+.info-cards .card {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Fondo con degradado elegante */
+    border-radius: 20px; /* Bordes redondeados */
+    padding: 30px 20px; /* Espaciado interno */
+    width: 90%; /* Ancho del 90% del contenedor para móviles */
+    max-width: 400px; /* Límite máximo del ancho de la tarjeta */
+    text-align: center; /* Centra el texto y los elementos internos */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease; /* Suaviza las animaciones */
+    position: relative; /* Para posicionar elementos decorativos */
+    overflow: hidden; /* Oculta cualquier contenido que sobresalga */
+}
+
+/* Efecto al pasar el cursor sobre la tarjeta */
+.info-cards .card:hover {
+    transform: translateY(-15px); /* Eleva la tarjeta */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    background: linear-gradient(135deg, #bbdefb, #e3f2fd); /* Invierte los colores del degradado */
+}
+
+/* Iconos decorativos */
+.info-cards .card::before {
+    content: ""; /* Elemento decorativo */
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.3); /* Círculo translúcido */
+    border-radius: 50%;
+    z-index: 0;
+    filter: blur(30px); /* Difumina el círculo */
+    transition: all 0.4s ease; /* Anima los elementos decorativos */
+}
+
+.info-cards .card::after {
+    content: ""; /* Elemento decorativo */
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.2); /* Círculo translúcido */
+    border-radius: 50%;
+    z-index: 0;
+    filter: blur(40px); /* Difumina el círculo */
+    transition: all 0.4s ease; /* Anima los elementos decorativos */
+}
+
+/* Título dentro de las tarjetas */
+.info-cards .card h2 {
+    font-size: 28px; /* Tamaño grande para destacar */
+    font-weight: bold; /* Título en negrita */
+    color: #0d47a1; /* Azul oscuro */
+    z-index: 1; /* Por encima de los elementos decorativos */
+    position: relative;
+    margin-bottom: 15px; /* Separación inferior */
+    transition: color 0.4s ease; /* Cambio de color suave */
+}
+
+/* Cambia el color del título al pasar el cursor */
+.info-cards .card:hover h2 {
+    color: #1e88e5; /* Azul más brillante */
+}
+
+/* Texto descriptivo dentro de las tarjetas */
+.info-cards .card p {
+    font-size: 16px; /* Tamaño moderado para la descripción */
+    color: #1565c0; /* Azul medio */
+    line-height: 1.6; /* Altura de línea para mejorar legibilidad */
+    z-index: 1; /* Por encima de los elementos decorativos */
+    position: relative;
+}
+
+/* Iconos dentro de las tarjetas */
+.info-cards .card .icon {
+    font-size: 50px; /* Tamaño grande para los iconos */
+    color: #42a5f5; /* Azul claro */
+    margin-bottom: 20px; /* Separación inferior del icono */
+    z-index: 1; /* Por encima de los elementos decorativos */
+    position: relative;
+    transition: transform 0.4s ease, color 0.4s ease; /* Anima el color y el tamaño */
+}
+
+/* Efecto al pasar el cursor sobre los iconos */
+.info-cards .card:hover .icon {
+    color: #1e88e5; /* Azul más vibrante */
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+}
+
 /* Estilos para el formulario de inicio de sesión y registro */
 .auth-form-container {
     background-color: var(--color-barra);
@@ -809,7 +936,7 @@ a:active {
     }
 }
 
-@media (min-width: 1024px) and (max-width: 1366px) {
+@media (min-width: 1024px) {
     /* Barra Superior */
     .top-bar {
         position: fixed;
@@ -842,7 +969,7 @@ a:active {
     }
 
     /* Botón de cerrar sesión */
-    #btn-cerrar-sesion {
+    #user-button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -854,9 +981,9 @@ a:active {
         transform: translateY(-30%);
         right: 20px;
     }
-    
+
     /* Tamaño del ícono */
-    #btn-cerrar-sesion i {
+    #user-button i {
         font-size: 1rem;
     }
 
@@ -1017,12 +1144,12 @@ a:active {
         position: fixed;
         top: 0;
         width: 100%;
-        height: 60px;
+        height: 55px;
         z-index: 1000;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: 10px 15px;
+        padding: 8px 15px;
         background-color: var(--color-barra);
     }
 
@@ -1044,7 +1171,7 @@ a:active {
     }
 
     /* Botón de cerrar sesión */
-    #btn-cerrar-sesion {
+    #user-button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1056,9 +1183,9 @@ a:active {
         transform: translateY(-30%);
         right: 20px;
     }
-    
+
     /* Tamaño del ícono */
-    #btn-cerrar-sesion i {
+    #user-button i {
         font-size: 1rem;
     }
 
@@ -1068,9 +1195,9 @@ a:active {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: calc(8dvh); /* Altura relativa al viewport */
+        height: calc(7dvh); /* Altura relativa al viewport */
         z-index: 999;
-        padding: 10px;
+        padding: 8px 15px;
         background-color: var(--color-barra);
     }
 
@@ -1086,7 +1213,7 @@ a:active {
         flex-wrap: nowrap;
         gap: 5px;
         padding: 0;
-        margin: 0;
+        margin: 0 auto;
         width: 100%;
     }
 
@@ -1106,11 +1233,13 @@ a:active {
     /* Barra de navegación secundaria */
     #secondary-nav {
         position: fixed;
-        top: 60px;
+        top: 55px;
         width: 100%;
-        height: calc(5dvh);
+        height: calc(4dvh);
         z-index: 998;
-        padding: 5px 0;
+        display: flex;
+        align-items: center;
+        padding: 0;
         justify-content: center; /* Centra el contenido horizontalmente */
         background-color: var(--color-barra);
         overflow-x: auto;
@@ -1120,9 +1249,10 @@ a:active {
     #secondary-nav .nav-tabs {
         display: flex;
         flex-wrap: nowrap;
+        justify-content: center;
         gap: 5px;
         padding: 0;
-        margin: 0;
+        margin: 0 auto;
         width: 100%;
     }
 
@@ -1136,8 +1266,8 @@ a:active {
 
     /* Ajuste de contenido principal */
     main {
-        margin-top: calc(5dvh + 60px); /* Espacio para las barras de navegación */
-        margin-bottom: calc(8dvh); /* Espacio para la barra inferior */
+        margin-top: calc(4dvh + 55px); /* Espacio para las barras de navegación */
+        margin-bottom: calc(7dvh); /* Espacio para la barra inferior */
         padding: 20px;
         overflow-y: auto;
     }
@@ -1228,21 +1358,21 @@ a:active {
     }
 
     /* Botón de cerrar sesión */
-    #btn-cerrar-sesion {
+    #user-button {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.8rem; /* Ajusta el tamaño del ícono */
+        font-size: 0.8rem;
         border: none;
         cursor: pointer;
         position: absolute;
-        top: 35%;  /* Ajusta según la altura de la barra superior */
-        transform: translateY(-30%); /* Centra verticalmente el botón */
-        right: 20px; /* Espacio desde el borde derecho */
+        top: 35%; 
+        transform: translateY(-30%);
+        right: 20px;
     }
     
-    /* Ajuste del tamaño del ícono del botón */
-    #btn-cerrar-sesion i {
+    /* Tamaño del ícono */
+    #user-button i {
         font-size: 1rem;
     }
 
@@ -1389,13 +1519,13 @@ a:active {
     }
 
     .experiment-label {
-        font-size: 0.5rem;
+        font-size: 0.4rem;
         padding: 1px 4px;
         margin-left: 5px;
     }
 
     /* Botón de cerrar sesión */
-    #btn-cerrar-sesion {
+    #user-button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1409,7 +1539,7 @@ a:active {
     }
     
     /* Ajustar el tamaño del ícono */
-    #btn-cerrar-sesion i {
+    #user-button i {
         font-size: 0.8rem; /* Tamaño del ícono */
     }
 
