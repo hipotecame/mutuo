@@ -556,74 +556,105 @@ actualizarCuotaComparador();
 
 // Función para generar el calendario de pagos
 function generarCalendarioPagos() {
-const tablaBody = document.getElementById('tabla-amortizacion-body');
-tablaBody.innerHTML = ''; // Limpiar contenido previo
+  const tablaBody = document.getElementById('tabla-amortizacion-body');
+  tablaBody.innerHTML = ''; // Limpiar contenido previo
 
-const montoPrestamo = parseFloat(document.getElementById('monto-prestamo').textContent) || 0;
-const tin = parseFloat(document.getElementById('tin').value) || 0;
-const plazo = parseInt(document.getElementById('plazo').value) || 0;
+  const montoPrestamo = parseFloat(document.getElementById('monto-prestamo').textContent) || 0;
+  const tin = parseFloat(document.getElementById('tin').value) || 0;
+  const plazo = parseInt(document.getElementById('plazo').value) || 0;
 
-if (montoPrestamo === 0 || plazo === 0 || tin === 0) {
-  // Si no hay datos suficientes, no generamos el calendario
-  return;
-}
-
-const numeroCuotas = plazo * 12;
-const interesMensual = (tin / 100) / 12;
-const cuotaMensual = (montoPrestamo * interesMensual) / (1 - Math.pow(1 + interesMensual, -numeroCuotas));
-let saldoPendiente = montoPrestamo;
-
-// Reiniciar la variable antes de generar el calendario
-cuotaCapitalSuperaInteres = null;
-
-for (let i = 1; i <= numeroCuotas; i++) {
-  const interes = saldoPendiente * interesMensual;
-  const capital = cuotaMensual - interes;
-  saldoPendiente -= capital;
-
-  // Aseguramos que el saldo pendiente no sea negativo debido a decimales
-  if (saldoPendiente < 0) saldoPendiente = 0;
-
-  // Crear una fila para la tabla
-  const fila = document.createElement('tr');
-
-  // Columna Mes
-  const columnaMes = document.createElement('td');
-  columnaMes.textContent = i;
-  fila.appendChild(columnaMes);
-
-  // Columna Cuota
-  const columnaCuota = document.createElement('td');
-  columnaCuota.textContent = '€' + cuotaMensual.toFixed(2);
-  fila.appendChild(columnaCuota);
-
-  // Columna Interés
-  const columnaInteres = document.createElement('td');
-  columnaInteres.textContent = '€' + interes.toFixed(2);
-  fila.appendChild(columnaInteres);
-
-  // Columna Capital
-  const columnaCapital = document.createElement('td');
-  columnaCapital.textContent = '€' + capital.toFixed(2);
-  fila.appendChild(columnaCapital);
-
-  // Columna Capital Pendiente
-  const columnaSaldo = document.createElement('td');
-  columnaSaldo.textContent = '€' + saldoPendiente.toFixed(2);
-  fila.appendChild(columnaSaldo);
-
-  // Verificar si Capital > Interés y si aún no se ha encontrado la cuota
-  if (capital > interes && cuotaCapitalSuperaInteres === null) {
-    fila.classList.add('capital-supera-interes');
-    cuotaCapitalSuperaInteres = i;
+  if (montoPrestamo === 0 || plazo === 0 || tin === 0) {
+      // Si no hay datos suficientes, no generamos el calendario
+      return;
   }
 
-  // Agregar la fila al cuerpo de la tabla
-  tablaBody.appendChild(fila);
-}
+  const numeroCuotas = plazo * 12;
+  const interesMensual = (tin / 100) / 12;
+  const cuotaMensual = (montoPrestamo * interesMensual) / (1 - Math.pow(1 + interesMensual, -numeroCuotas));
+  let saldoPendiente = montoPrestamo;
 
-// Actualizar el Comparador con la cuota encontrada
-actualizarCuotaComparador();
+  // Variables para acumular totales
+  let totalIntereses = 0;
+  let totalCapital = 0;
+
+  // Reiniciar la variable antes de generar el calendario
+  cuotaCapitalSuperaInteres = null;
+
+  for (let i = 1; i <= numeroCuotas; i++) {
+      const interes = saldoPendiente * interesMensual;
+      const capital = cuotaMensual - interes;
+      saldoPendiente -= capital;
+
+      // Aseguramos que el saldo pendiente no sea negativo debido a decimales
+      if (saldoPendiente < 0) saldoPendiente = 0;
+
+      // Acumular totales
+      totalIntereses += interes;
+      totalCapital += capital;
+
+      // Crear una fila para la tabla
+      const fila = document.createElement('tr');
+
+      // Columna Mes
+      const columnaMes = document.createElement('td');
+      columnaMes.textContent = i;
+      fila.appendChild(columnaMes);
+
+      // Columna Cuota
+      const columnaCuota = document.createElement('td');
+      columnaCuota.textContent = '€' + cuotaMensual.toFixed(2);
+      fila.appendChild(columnaCuota);
+
+      // Columna Interés
+      const columnaInteres = document.createElement('td');
+      columnaInteres.textContent = '€' + interes.toFixed(2);
+      fila.appendChild(columnaInteres);
+
+      // Columna Capital
+      const columnaCapital = document.createElement('td');
+      columnaCapital.textContent = '€' + capital.toFixed(2);
+      fila.appendChild(columnaCapital);
+
+      // Columna Capital Pendiente
+      const columnaSaldo = document.createElement('td');
+      columnaSaldo.textContent = '€' + saldoPendiente.toFixed(2);
+      fila.appendChild(columnaSaldo);
+
+      // Verificar si Capital > Interés y si aún no se ha encontrado la cuota
+      if (capital > interes && cuotaCapitalSuperaInteres === null) {
+          fila.classList.add('capital-supera-interes');
+          cuotaCapitalSuperaInteres = i;
+      }
+
+      // Agregar la fila al cuerpo de la tabla
+      tablaBody.appendChild(fila);
+  }
+
+  // Añadir fila de totales al final
+  const filaTotales = document.createElement('tr');
+  filaTotales.classList.add('fila-totales'); // Clase opcional para estilo
+
+  const columnaTotales = document.createElement('td');
+  columnaTotales.textContent = 'Totales';
+  columnaTotales.colSpan = 2; // Combinar celdas
+  filaTotales.appendChild(columnaTotales);
+
+  const columnaTotalIntereses = document.createElement('td');
+  columnaTotalIntereses.textContent = '€' + totalIntereses.toFixed(2);
+  filaTotales.appendChild(columnaTotalIntereses);
+
+  const columnaTotalCapital = document.createElement('td');
+  columnaTotalCapital.textContent = '€' + totalCapital.toFixed(2);
+  filaTotales.appendChild(columnaTotalCapital);
+
+  const columnaVacia = document.createElement('td');
+  columnaVacia.textContent = ''; // Celda vacía
+  filaTotales.appendChild(columnaVacia);
+
+  tablaBody.appendChild(filaTotales);
+
+  // Actualizar el Comparador con la cuota encontrada
+  actualizarCuotaComparador();
 }
 
 // Función para actualizar la cuota en el Comparador
