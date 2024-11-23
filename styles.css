@@ -1,5 +1,5 @@
-/* Importar Lato en cursiva */
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap');
+/* Importar Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
 /* Variables de Colores */
 :root {
@@ -56,14 +56,14 @@ body {
 }
 
 .top-bar .app-name {
-    font-family: 'Lato', sans-serif;
-    font-style: italic;
-    font-size: 2.0em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2em;
     font-weight: 700;
     margin: 0;
-    color: #FFA500; /*#BFBFBF*/
+    color: #FFA500; /* Naranja atractivo */
+    text-transform: uppercase; /* Para un estilo moderno */
+    letter-spacing: 1px; /* Espaciado entre letras */
 }
-
 .experiment-label {
     display: inline-flex;
     align-items: center;
@@ -72,7 +72,6 @@ body {
     font-size: 1rem;
     font-weight: 400;
     color: #E8E8E8;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-left: 12px;
     height: 20px;
@@ -401,13 +400,39 @@ form {
 }
 
 /* Resumen Financiero */
-.resumen-content p {
-    font-size: 1.1rem;
-    margin-bottom: 18px;
-    color: var(--color-texto);
+.resumen-content {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.resumen-content p strong {
+.resumen-card {
+    background-color: #1C1C1E;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resumen-icon {
+    font-size: 1.8rem;
+    color: #FFA500; /* Ajusta el color del icono */
+    flex-shrink: 0; /* Evita que el icono cambie de tamaño */
+}
+
+.resumen-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.resumen-card p {
+    font-size: 1.1rem;
+    color: var(--color-texto);
+    margin: 0;
+}
+
+.resumen-card strong {
+    font-weight: bold;
     color: #FFFFFF;
 }
 
@@ -653,6 +678,16 @@ button:active, .btn:active, .btn-login:hover {
     background-color: var(--color-boton-hover);
 }
 
+.navigation-buttons {
+    margin-top: 20px; /* Añade un margen superior */
+    display: flex;
+    justify-content: space-between; /* Coloca los botones a los extremos */
+}
+
+.navigation-buttons .btn {
+    margin: 0 10px; /* Espaciado lateral entre los botones */
+}
+
 /* Estilos para la sección de Recursos */
 .recursos-container {
     max-width: 800px;
@@ -783,106 +818,6 @@ a:hover {
 a:active {
     color: #FF4500; /* Un color más oscuro al hacer clic */
     transform: translateY(0);
-}
-
-/* Estilos para el contenedor de las tarjetas */
-.info-cards {
-    display: flex;
-    flex-wrap: wrap; /* Las tarjetas se ajustan en varias filas si es necesario */
-    justify-content: center; /* Centra las tarjetas en el contenedor */
-    gap: 20px; /* Espacio entre las tarjetas */
-    margin-top: 40px; /* Separación superior del contenedor */
-}
-
-/* Estilos básicos para las tarjetas */
-.info-cards .card {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Fondo con degradado elegante */
-    border-radius: 20px; /* Bordes redondeados */
-    padding: 30px 20px; /* Espaciado interno */
-    width: 90%; /* Ancho del 90% del contenedor para móviles */
-    max-width: 400px; /* Límite máximo del ancho de la tarjeta */
-    text-align: center; /* Centra el texto y los elementos internos */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease; /* Suaviza las animaciones */
-    position: relative; /* Para posicionar elementos decorativos */
-    overflow: hidden; /* Oculta cualquier contenido que sobresalga */
-}
-
-/* Efecto al pasar el cursor sobre la tarjeta */
-.info-cards .card:hover {
-    transform: translateY(-15px); /* Eleva la tarjeta */
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-    background: linear-gradient(135deg, #bbdefb, #e3f2fd); /* Invierte los colores del degradado */
-}
-
-/* Iconos decorativos */
-.info-cards .card::before {
-    content: ""; /* Elemento decorativo */
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 150px;
-    height: 150px;
-    background: rgba(255, 255, 255, 0.3); /* Círculo translúcido */
-    border-radius: 50%;
-    z-index: 0;
-    filter: blur(30px); /* Difumina el círculo */
-    transition: all 0.4s ease; /* Anima los elementos decorativos */
-}
-
-.info-cards .card::after {
-    content: ""; /* Elemento decorativo */
-    position: absolute;
-    bottom: -50px;
-    left: -50px;
-    width: 150px;
-    height: 150px;
-    background: rgba(255, 255, 255, 0.2); /* Círculo translúcido */
-    border-radius: 50%;
-    z-index: 0;
-    filter: blur(40px); /* Difumina el círculo */
-    transition: all 0.4s ease; /* Anima los elementos decorativos */
-}
-
-/* Título dentro de las tarjetas */
-.info-cards .card h2 {
-    font-size: 28px; /* Tamaño grande para destacar */
-    font-weight: bold; /* Título en negrita */
-    color: #0d47a1; /* Azul oscuro */
-    z-index: 1; /* Por encima de los elementos decorativos */
-    position: relative;
-    margin-bottom: 15px; /* Separación inferior */
-    transition: color 0.4s ease; /* Cambio de color suave */
-}
-
-/* Cambia el color del título al pasar el cursor */
-.info-cards .card:hover h2 {
-    color: #1e88e5; /* Azul más brillante */
-}
-
-/* Texto descriptivo dentro de las tarjetas */
-.info-cards .card p {
-    font-size: 16px; /* Tamaño moderado para la descripción */
-    color: #1565c0; /* Azul medio */
-    line-height: 1.6; /* Altura de línea para mejorar legibilidad */
-    z-index: 1; /* Por encima de los elementos decorativos */
-    position: relative;
-}
-
-/* Iconos dentro de las tarjetas */
-.info-cards .card .icon {
-    font-size: 50px; /* Tamaño grande para los iconos */
-    color: #42a5f5; /* Azul claro */
-    margin-bottom: 20px; /* Separación inferior del icono */
-    z-index: 1; /* Por encima de los elementos decorativos */
-    position: relative;
-    transition: transform 0.4s ease, color 0.4s ease; /* Anima el color y el tamaño */
-}
-
-/* Efecto al pasar el cursor sobre los iconos */
-.info-cards .card:hover .icon {
-    color: #1e88e5; /* Azul más vibrante */
-    transform: scale(1.1); /* Aumenta ligeramente el tamaño */
 }
 
 /* Estilos para el formulario de inicio de sesión y registro */
@@ -1736,18 +1671,4 @@ a:active {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Footer */
-footer {
-    background-color: var(--color-barra);
-    padding: 20px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--color-texto-secundario);
-}
-
-footer p {
-    color: var(--color-texto-secundario);
-    font-size: 0.9rem;
 }
