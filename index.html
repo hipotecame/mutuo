@@ -53,6 +53,9 @@
                     <li class="nav-tab" data-tab="preguntas-frecuentes">
                         <i class="fas fa-info-circle"></i> Diccionario
                     </li>
+                    <li class="nav-tab" data-tab="guia">
+                        <i class="fas fa-book"></i> Guía
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -76,58 +79,32 @@
         <!-- Sección: Autenticación -->
         <div class="section active" id="autenticacion">
             <div class="auth-form-container">
+                <h2>Bienvenidos</h2>
+                <p class="welcome-message">
+                    <span class="highlight-letter">B</span>uilding 
+                    <span class="highlight-letter">A</span>ccessible 
+                    <span class="highlight-letter">L</span>earning for 
+                    <span class="highlight-letter">M</span>ortgage 
+                    <span class="highlight-letter">A</span>wareness
+                </p>
+                <p class="app-description">
+                    Más conocimiento, mejores decisiones: empieza tu camino con BALMA.
+                </p>
                 <form id="form-iniciar-sesion" class="auth-form">
-                    <h2>Iniciar Sesión</h2>
-                    <div class="form-group">
-                        <label for="email-iniciar-sesion">Correo electrónico</label>
-                        <input type="email" id="email-iniciar-sesion" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password-iniciar-sesion">Contraseña</label>
-                        <input type="password" id="password-iniciar-sesion" required>
-                    </div>
                     <div class="button-group">
-                        <button type="submit" class="btn btn-login">Iniciar sesión</button>
-                        <button type="button" id="mostrar-form-registro" class="btn btn-guardar">Crear cuenta</button>
-                        <button id="continuar-sin-registrarse" class="btn-continuar">Continuar sin registrarse</button>
+                        <!-- Botón de inicio de sesión con Google -->
+                        <button type="button" id="btn-google-login" class="btn-google">
+                            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" class="google-logo" />
+                            Continuar con Google
+                        </button>
+                        <!-- Botón de continuar sin registrarse -->
+                        <button id="continuar-sin-registrarse" class="btn-continuar">
+                            Continuar sin registrarse
+                        </button>
                     </div>
-                    
-                    <p class="olvido-contrasena">
-                        <a href="#" id="mostrar-recuperar-password">Olvidé mi contraseña</a>
+                    <p class="nota-advertencia">
+                        BALMA puede contener errores. Comprueba la información importante.
                     </p>
-                </form>
-
-                <form id="form-registrar" class="auth-form" style="display: none;">
-                    <h2>Crear Cuenta</h2>
-                    <div class="form-group">
-                        <label for="email-registro">Correo electrónico</label>
-                        <input type="email" id="email-registro" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password-registro">Contraseña</label>
-                        <input type="password" id="password-registro" required>
-                    </div>
-                    <div class="button-group">
-                        <button type="submit" class="btn btn-login">Registrarse</button>
-                        <button type="button" id="mostrar-form-iniciar-sesion" class="btn btn-guardar">Ya tengo una cuenta</button>
-                    </div>
-                </form>
-
-                <!-- Formulario: Recuperar Contraseña -->
-                <form id="form-recuperar-password" class="auth-form" style="display: none;">
-                    <h2>Recuperar Contraseña</h2>
-                    <div class="form-group">
-                        <label for="email-recuperar-password">Correo electrónico</label>
-                        <input type="email" id="email-recuperar-password" required>
-                    </div>
-                    <div class="button-group">
-                        <button type="submit" class="btn btn-recuperar">Enviar enlace de recuperación</button>
-                    </div>
-                    <p id="mensaje-recuperacion" class="mensaje"></p>
-                    <!-- Botón para volver a iniciar sesión -->
-                    <div class="button-group">
-                        <button type="button" id="volver-inicio-sesion" class="btn btn-login">Volver a Inicio de sesión</button>
-                    </div>
                 </form>
             </div>
         </div>
@@ -297,7 +274,6 @@
                         <!-- Botones de Acción -->
                         <div class="button-group">
                             <button id="calcular-cuota" class="btn btn-calcular" type="button">Calcular cuota</button>
-                            <button id="guardar-simulacion" class="btn btn-guardar" type="button">Guardar simulación</button>
                         </div>
 
                         <!-- Botones de Navegación -->
@@ -347,6 +323,10 @@
                             <i class="fas fa-file-invoice resumen-icon"></i>
                             <p><strong>Coste total de la hipoteca (€):</strong> <span id="coste-total-hipoteca">0.00</span></p>
                         </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="guardar-simulacion" class="btn btn-guardar" type="button">Guardar simulación</button>
                     </div>
 
                     <!-- Botones de Navegación -->
@@ -976,6 +956,54 @@
                         <p>Es fundamental solicitar un desglose detallado de la provisión de fondos para entender qué conceptos se están pagando y asegurarse de que el importe solicitado es razonable.</p>
                     </div>
                   </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Euríbor (Euro Interbank Offered Rate)</h3>
+                    <div class="recurso-content">
+                        <p>En desarrollo</p>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Cláusula suelo</h3>
+                    <div class="recurso-content">
+                        <p>En desarrollo</p>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Aval</h3>
+                    <div class="recurso-content">
+                        <p>En desarrollo</p>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Dación en pago</h3>
+                    <div class="recurso-content">
+                        <p>En desarrollo</p>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Scoring bancario</h3>
+                    <div class="recurso-content">
+                        <p>En desarrollo</p>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Ratio Loan to Value (LTV)</h3>
+                    <div class="recurso-content">
+                        <p>En desarrollo</p>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Impuesto sobre Bienes Inmuebles (IBI)</h3>
+                    <div class="recurso-content">
+                        <p>En desarrollo</p>
+                    </div>
+                  </div>
+                  <div class="recurso-item">
+                    <h3 class="recurso-title">Certificado energético</h3>
+                    <div class="recurso-content">
+                        <p>En desarrollo</p>
+                    </div>
+                  </div>
                 </div>
               </div>
         </div>
@@ -1037,6 +1065,243 @@
                         </div>
                     </div>
                 </section>
+            </div>
+        </div>
+        <!-- Sección: Guía -->
+        <div class="section" id="guia">
+            <div class="section-container">
+              <h2>Guía paso a paso</h2>
+              <div class="guia-content">
+                <!-- Tarjeta 1: Evaluación Financiera Personal -->
+                <div class="guia-card">
+                    <div class="guia-card-header">
+                      <div class="step-number">1</div>
+                      <h3 class="guia-title">Evaluación financiera personal</h3>
+                      <div class="guia-toggle-icon">+</div>
+                    </div>
+                    <div class="guia-details">
+                      <p>El primer paso para comprar una casa es realizar una evaluación exhaustiva de tu situación financiera. Este análisis te permitirá determinar cuánto puedes destinar al pago de una hipoteca sin comprometer tu estabilidad económica a largo plazo. A continuación, se detallan los aspectos clave a considerar:</p>
+                      <!-- Subtarjetas -->
+                      <div class="subcards">
+                        <div class="subcard">
+                          <h4>Analiza tus ingresos y gastos actuales</h4>
+                          <p>Realiza un inventario detallado de tus ingresos mensuales netos y de todos tus gastos fijos y variables. Incluye gastos como alimentación, transporte, servicios públicos, entretenimiento y cualquier otra obligación financiera. Esta visión general te ayudará a identificar cuánto dinero tienes disponible para destinar al pago de una hipoteca.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Calcula tu capacidad de endeudamiento</h4>
+                          <p>Las entidades financieras suelen recomendar que la cuota hipotecaria no supere el 30-35% de tus ingresos mensuales netos. Utiliza nuestra sección <strong><a href="#calculadora-endeudamiento">Viabilidad</a></strong> para estimar cuánto puedes destinar al pago de una hipoteca considerando tus ingresos y la financiación máxima que te daría el banco.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Establece un presupuesto para la entrada y gastos iniciales</h4>
+                          <p>Además del precio de la vivienda, debes considerar los costos asociados a la compra, como impuestos, notaría, registro y otros gastos administrativos. Generalmente, necesitarás entre el 10% y 20% para cubrir la entrada y estos gastos iniciales.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Construye un fondo de emergencia</h4>
+                          <p>Es recomendable tener un fondo de emergencia que cubra al menos de 3 a 6 meses de tus gastos mensuales. Esto te brindará seguridad financiera ante imprevistos y evitará que incumplas con tus obligaciones hipotecarias.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Considera tus perspectivas laborales futuras</h4>
+                          <p>Reflexiona sobre la estabilidad de tu empleo y las posibilidades de crecimiento salarial. Un ingreso estable y en aumento puede mejorar tu capacidad para asumir una hipoteca más alta o pagarla en menos tiempo.</p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- Tarjeta 2: Investigación del Mercado Inmobiliario -->
+                <div class="guia-card">
+                    <div class="guia-card-header">
+                      <div class="step-number">2</div>
+                      <h3 class="guia-title">Investigación del mercado inmobiliario</h3>
+                      <div class="guia-toggle-icon">+</div>
+                    </div>
+                    <div class="guia-details">
+                      <p>Antes de comprar una vivienda, es fundamental conocer a fondo el mercado inmobiliario para tomar decisiones informadas y negociar en igualdad de condiciones. A continuación, te ofrecemos una guía detallada para realizar una investigación efectiva:</p>
+                      <!-- Subtarjetas -->
+                      <div class="subcards">
+                        <div class="subcard">
+                          <h4>Explora portales inmobiliarios y agencias</h4>
+                          <p>Utiliza plataformas en línea como <a href="https://www.idealista.com/" target="_blank" rel="noopener noreferrer">Idealista</a>, <a href="https://www.fotocasa.es/" target="_blank" rel="noopener noreferrer">Fotocasa</a> y <a href="https://www.pisos.com/" target="_blank" rel="noopener noreferrer">Pisos.com</a> para buscar propiedades que se ajusten a tus criterios. Estos sitios ofrecen filtros avanzados por precio, ubicación, tamaño y otras características.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Analiza la ubicación en profundidad</h4>
+                          <p>La ubicación es uno de los factores más importantes en el valor de una propiedad. Investiga aspectos como:</p>
+                          <ul>
+                            <li><strong>Infraestructura y servicios:</strong> Proximidad a supermercados, hospitales, parques y centros comerciales.</li>
+                            <li><strong>Transporte público:</strong> Acceso a líneas de metro, autobuses y carreteras principales.</li>
+                            <li><strong>Centros educativos:</strong> Calidad y cercanía de colegios y universidades.</li>
+                            <li><strong>Seguridad y tasas de criminalidad:</strong> Consulta estadísticas locales y opiniones de residentes.</li>
+                            <li><strong>Planes urbanísticos futuros:</strong> Infórmate sobre proyectos de construcción o cambios en la zonificación que puedan afectar al área.</li>
+                          </ul>
+                        </div>
+                        <div class="subcard">
+                          <h4>Compara precios de mercado</h4>
+                          <p>Investiga el precio por metro cuadrado en la zona y compara propiedades similares para asegurarte de que el precio es justo. Herramientas como el <a href="https://www.idealista.com/sala-de-prensa/informes-precio-vivienda/" target="_blank" rel="noopener noreferrer">Informe de precios de Idealista</a> pueden ser útiles.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Considera obra nueva vs. segunda mano</h4>
+                          <p>Evalúa las ventajas y desventajas de adquirir una vivienda nueva o usada:</p>
+                          <ul>
+                            <li><strong>Obra nueva:</strong> Inmuebles a estrenar, con instalaciones modernas y mayor eficiencia energética, pero generalmente a un precio más alto.</li>
+                            <li><strong>Segunda mano:</strong> Propiedades más asequibles, posibilidad de ubicaciones más céntricas, pero pueden requerir reformas o actualizaciones.</li>
+                          </ul>
+                        </div>
+                        <div class="subcard">
+                          <h4>Visita las propiedades en persona</h4>
+                          <p>Programa visitas para evaluar el estado real de las viviendas. Presta atención a detalles como la iluminación natural, el estado de las instalaciones, aislamiento acústico y térmico, y posibles desperfectos.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Consulta el Registro de la Propiedad</h4>
+                          <p>Verifica la situación legal de la vivienda solicitando una nota simple en el <a href="https://www.registradores.org/" target="_blank" rel="noopener noreferrer">Registro de la Propiedad</a>. Esto te permitirá conocer si existen cargas, hipotecas o embargos sobre el inmueble.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Infórmate sobre el mercado local</h4>
+                          <p>Habla con vecinos y comerciantes de la zona para obtener información de primera mano sobre el barrio, como niveles de ruido, ambiente comunitario y cualquier otro factor que pueda influir en tu decisión.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Asesórate con profesionales</h4>
+                          <p>Considera contratar los servicios de un agente inmobiliario de confianza o un asesor legal que te guíe durante el proceso y te ayude a identificar posibles riesgos.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Consulta recursos adicionales</h4>
+                          <p>Visita nuestra sección <strong><a href="#recursos">Recursos</a></strong> para obtener información sobre tasaciones, certificados energéticos y otros aspectos clave del proceso de compra.</p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- Tarjeta 3: Preaprobación Hipotecaria -->
+                <div class="guia-card">
+                    <div class="guia-card-header">
+                      <div class="step-number">3</div>
+                      <h3 class="guia-title">Preaprobación hipotecaria</h3>
+                      <div class="guia-toggle-icon">+</div>
+                    </div>
+                    <div class="guia-details">
+                      <p>Obtener una preaprobación hipotecaria es un paso esencial que te permite conocer de antemano cuánto dinero puedes solicitar al banco y bajo qué condiciones. Además, te brinda una posición más sólida al negociar con vendedores, ya que demuestras solvencia financiera. A continuación, te detallamos los pasos y consideraciones importantes para este proceso:</p>
+                      <!-- Subtarjetas -->
+                      <div class="subcards">
+                        <div class="subcard">
+                          <h4>Reúne la documentación necesaria</h4>
+                          <p>Para iniciar el proceso de preaprobación, necesitarás proporcionar al banco cierta información financiera. Esto incluye:</p>
+                          <ul>
+                            <li><strong>Identificación personal:</strong> DNI o NIE vigente.</li>
+                            <li><strong>Comprobantes de ingresos:</strong> Últimas nóminas, declaraciones de la renta (<a href="https://www.agenciatributaria.es/" target="_blank" rel="noopener noreferrer">IRPF</a>), y en caso de autónomos, modelos trimestrales y anuales.</li>
+                            <li><strong>Extractos bancarios:</strong> Movimientos de los últimos meses que reflejen ingresos y gastos.</li>
+                            <li><strong>Información sobre otras deudas:</strong> Detalles de préstamos personales, tarjetas de crédito y otras obligaciones financieras.</li>
+                            <li><strong>Contrato laboral:</strong> Para verificar tu estabilidad laboral.</li>
+                          </ul>
+                        </div>
+                        <div class="subcard">
+                          <h4>Comprende los tipos de hipotecas disponibles</h4>
+                          <p>Infórmate sobre los diferentes tipos de hipotecas que ofrecen las entidades financieras:</p>
+                          <ul>
+                            <li><strong>Hipoteca a tipo fijo:</strong> La tasa de interés se mantiene constante durante todo el plazo del préstamo.</li>
+                            <li><strong>Hipoteca a tipo variable:</strong> El interés puede variar según índices de referencia como el <a href="https://www.bde.es/bde/es/areas/estadis/estadisticas-por/tiempo-real/conceptos-basicos/que-es-el-euribor.html" target="_blank" rel="noopener noreferrer">Euríbor</a>.</li>
+                            <li><strong>Hipoteca mixta:</strong> Combina un período inicial a tipo fijo y el resto a tipo variable.</li>
+                          </ul>
+                          <p>Selecciona el tipo que mejor se adapte a tu perfil y tolerancia al riesgo.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Utiliza nuestro simulador hipotecario</h4>
+                          <p>En la sección <strong><a href="#simulador">Simulador</a></strong> de nuestra aplicación, puedes calcular diferentes escenarios ajustando variables como el tipo de interés nominal (TIN), la tasa anual equivalente (TAE) y el plazo de amortización. Esto te ayudará a tener una idea clara de las posibles cuotas mensuales y el coste total del préstamo.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Compara ofertas de diferentes bancos</h4>
+                          <p>No te quedes con la primera oferta. Visita varias entidades financieras y solicita información detallada sobre sus condiciones hipotecarias. Presta atención a:</p>
+                          <ul>
+                            <li><strong>Tipo de interés:</strong> Tanto TIN como TAE.</li>
+                            <li><strong>Comisiones:</strong> De apertura, estudio, amortización anticipada, entre otras.</li>
+                            <li><strong>Productos vinculados:</strong> Seguros, planes de pensiones o tarjetas que puedan ser obligatorios.</li>
+                            <li><strong>Plazo máximo de amortización:</strong> A mayor plazo, menor cuota mensual pero mayor coste total.</li>
+                          </ul>
+                        </div>
+                        <div class="subcard">
+                          <h4>Prepara y presenta tu solicitud</h4>
+                          <p>Una vez seleccionada la entidad financiera, presenta toda la documentación requerida. El banco evaluará tu perfil crediticio y determinará las condiciones específicas de la preaprobación.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Conoce tus derechos y obligaciones</h4>
+                          <p>Es fundamental que estés al tanto de la normativa vigente. Consulta el <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2019-3814" target="_blank" rel="noopener noreferrer">Real Decreto-ley 6/2019</a> que regula los contratos de crédito inmobiliario, donde se establecen las obligaciones de transparencia y protección al consumidor.</p>
+                        </div>
+                        <div class="subcard">
+                          <h4>Beneficios de la preaprobación hipotecaria</h4>
+                          <p>Contar con una preaprobación te ofrece ventajas como:</p>
+                          <ul>
+                            <li><strong>Mayor poder de negociación:</strong> Demuestras ser un comprador serio y solvente.</li>
+                            <li><strong>Agilidad en el proceso de compra:</strong> Al tener ya evaluada tu capacidad financiera, los trámites posteriores serán más rápidos.</li>
+                            <li><strong>Conocimiento claro de tu presupuesto:</strong> Evitas perder tiempo en propiedades fuera de tu alcance financiero.</li>
+                          </ul>
+                        </div>
+                        <div class="subcard">
+                          <h4>Mantén tu situación financiera estable</h4>
+                          <p>Desde que obtienes la preaprobación hasta la firma del préstamo, evita asumir nuevas deudas o cambiar de empleo, ya que esto podría afectar las condiciones iniciales ofrecidas por el banco.</p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- Tarjetas 4 a 12 deshabilitadas -->
+                <!-- Tarjeta 4: Selección de la Propiedad -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">4</div>
+                    <h3 class="guia-title">Selección de la propiedad adecuada</h3>
+                  </div>
+                </div>
+                <!-- Tarjeta 5: Negociación del Precio -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">5</div>
+                    <h3 class="guia-title">Negociación del precio de compra</h3>
+                  </div>
+                </div>
+                <!-- Tarjeta 6: Firma del Contrato de Arras -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">6</div>
+                    <h3 class="guia-title">Firma del contrato de arras</h3>
+                  </div>
+                </div>
+                <!-- Tarjeta 7: Solicitud Formal de Hipoteca -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">7</div>
+                    <h3 class="guia-title">Solicitud formal de la hipoteca</h3>
+                  </div>
+                </div>
+                <!-- Tarjeta 8: Tasación de la Vivienda -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">8</div>
+                    <h3 class="guia-title">Tasación de la vivienda</h3>
+                  </div>
+                </div>
+                <!-- Tarjeta 9: Firma de la Escritura Pública -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">9</div>
+                    <h3 class="guia-title">Firma de la escritura pública</h3>
+                  </div>
+                </div>
+                <!-- Tarjeta 10: Pago de Impuestos y Gastos -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">10</div>
+                    <h3 class="guia-title">Pago de impuestos y gastos asociados</h3>
+                  </div>
+                </div>
+                <!-- Tarjeta 11: Registro de la Propiedad -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">11</div>
+                    <h3 class="guia-title">Inscripción en el Registro de la Propiedad</h3>
+                  </div>
+                </div>
+                <!-- Tarjeta 12: Cambio de Titularidad de Servicios -->
+                <div class="guia-card coming-soon" aria-disabled="true">
+                  <div class="guia-card-header">
+                    <div class="step-number">12</div>
+                    <h3 class="guia-title">Actualización de titularidades y empadronamiento</h3>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
     </main>
