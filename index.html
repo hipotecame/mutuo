@@ -128,7 +128,7 @@
                         <!-- Precio de la Propiedad -->
                         <div class="form-group">
                             <label for="precio-propiedad">Coste de la vivienda sin impuestos (€)</label>
-                            <input type="number" id="precio-propiedad" placeholder="Ejemplo: 180000" min="0" step="0.01" required>
+                            <input type="text" id="precio-propiedad" placeholder="Ejemplo: 180000" min="0" step="0.01" required>
                             <small class="description">El valor de la vivienda que deseas adquirir.</small>
                         </div>
 
@@ -138,7 +138,7 @@
                         <!-- Tasación de Vivienda -->
                         <div class="form-group">
                             <label for="tasacion">Tasación de vivienda (€)</label>
-                            <input type="number" id="tasacion" placeholder="Valor de referencia: 300" min="0" step="0.01" required>
+                            <input type="text" id="tasacion" placeholder="Valor de referencia: 300" min="0" step="0.01" required>
                             <small class="description">Costo del servicio profesional que determina el valor de la propiedad.</small>
                         </div>
 
@@ -148,21 +148,21 @@
                         <!-- Notaría -->
                         <div class="form-group">
                             <label for="notaria">Notaría (€)</label>
-                            <input type="number" id="notaria" placeholder="Valor de referencia: 1300" min="0" step="0.01" required>
+                            <input type="text" id="notaria" placeholder="Valor de referencia: 1300" min="0" step="0.01" required>
                             <small class="description">Honorarios del notario para la formalización de la escritura.</small>
                         </div>
 
                         <!-- Gestoría -->
                         <div class="form-group">
                             <label for="gestoria">Gestoría (€)</label>
-                            <input type="number" id="gestoria" placeholder="Valor de referencia: 500" min="0" step="0.01" required>
+                            <input type="text" id="gestoria" placeholder="Valor de referencia: 500" min="0" step="0.01" required>
                             <small class="description">Costos asociados a los trámites administrativos.</small>
                         </div>
 
                         <!-- Registro de la Propiedad -->
                         <div class="form-group">
                             <label for="registro-propiedad">Registro de la propiedad (€)</label>
-                            <input type="number" id="registro-propiedad" placeholder="Valor de referencia: 600" min="0" step="0.01" required>
+                            <input type="text" id="registro-propiedad" placeholder="Valor de referencia: 600" min="0" step="0.01" required>
                             <small class="description">Gastos para inscribir la propiedad a tu nombre.</small>
                         </div>
 
@@ -170,7 +170,7 @@
                         <div class="form-group">
                             <label for="impuesto">IVA/ITP (%)</label>
                             <div class="input-group">
-                                <input type="number" id="impuesto" name="impuesto" placeholder="Valor de referencia: 6" min="0" max="100" step="0.01" required>
+                                <input type="text" id="impuesto" name="impuesto" placeholder="Valor de referencia: 6" min="0" max="100" step="0.01" required>
                                 <span class="calculated-value" id="impuesto-calculado"></span>
                             </div>
                             <div class="description">Impuesto sobre el valor añadido o impuesto de transmisiones patrimoniales.</div>
@@ -200,7 +200,7 @@
                         <div class="form-group">
                             <label for="entrada">Aportación inicial (€)</label>
                             <div class="input-group">
-                                <input type="number" id="entrada" name="entrada" placeholder="Ejemplo: 20000" min="0" step="0.01" required>
+                                <input type="text" id="entrada" name="entrada" placeholder="Ejemplo: 20000" min="0" step="0.01" required>
                                 <span class="calculated-value" id="entrada-calculado"></span>
                             </div>
                             <div class="description">Ingrese la aportación inicial en euros (€).</div>
@@ -218,28 +218,28 @@
                         <!-- TIN -->
                         <div class="form-group">
                             <label for="tin">Tipo de Interés Nominal (TIN) (%)</label>
-                            <input type="number" id="tin" placeholder="Ejemplo: 1.5" min="0" step="0.01" required>
+                            <input type="text" id="tin" placeholder="Ejemplo: 1.5" min="0" step="0.01" required>
                             <small class="description">El interés anual que aplicará el banco.</small>
                         </div>
 
                         <!-- TAE -->
                         <div class="form-group">
                             <label for="tae">Tasa Anual Equivalente (TAE) (%)</label>
-                            <input type="number" id="tae" placeholder="Ejemplo: 1.75" min="0" step="0.01" required>
+                            <input type="text" id="tae" placeholder="Ejemplo: 1.75" min="0" step="0.01" required>
                             <small class="description">Incluye intereses nominales (TIN) y otros gastos asociados.</small>
                         </div>
 
                         <!-- Plazo del Préstamo -->
                         <div class="form-group">
                             <label for="plazo">Plazo del préstamo (años)</label>
-                            <input type="number" id="plazo" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
+                            <input type="text" id="plazo" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
                             <small class="description">Número de años para pagar el préstamo.</small>
                         </div>
 
                         <!-- Seguros y Productos Vinculados -->
                         <div class="form-group">
                             <label for="seguros-productos">Seguros y productos vinculados (€)</label>
-                            <input type="number" id="seguros-productos" placeholder="Costo mensual" min="0" step="0.01">
+                            <input type="text" id="seguros-productos" placeholder="Costo mensual" min="0" step="0.01">
                             <small class="description">Costo mensual de seguros y otros productos obligatorios.</small>
                         </div>
 
@@ -401,611 +401,890 @@
         <div class="section" id="preguntas-frecuentes">
             <div class="section-container recursos-container">
                 <h2>Términos hipotecarios</h2>
+
+                <!-- Categoría: Tipos de interés y medidas financieras -->
+                <h3 class="categoria-title">Tipos de interés y medidas financieras</h3>
                 <div class="recursos-list">
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Arras</h3>
-                    <div class="recurso-content">
-                      <p>Las arras son un pago adelantado que el comprador entrega al vendedor al acordar la compra de un inmueble. Este pago sirve como garantía del compromiso de compra y se descuenta del precio total al formalizar la operación.</p>
-                      <ul>
-                        <li><strong>Garantía y parte del precio:</strong> al cerrar la compra, el importe de las arras se descuenta del precio total.</li>
-                        <li><strong>Si el comprador cancela:</strong> puede perder el dinero como compensación para el vendedor.</li>
-                        <li><strong>Si el vendedor cancela:</strong> normalmente, debe devolver el doble del importe recibido al comprador como penalización.</li>
-                      </ul>
+                    <!-- Recurso-item para TIN -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">TIN (Tipo de Interés Nominal)</h3>
+                        <div class="recurso-content">
+                            <p>El TIN, o Tipo de Interés Nominal, es el porcentaje que indica cuánto cobra el banco anualmente por prestarte dinero, sin incluir comisiones, seguros u otros gastos adicionales. Es una medida fundamental para entender los intereses que pagarás por un préstamo, aunque no refleja el costo total del mismo.</p>
+                            <ul>
+                                <li><strong>¿Cómo se aplica?:</strong> el TIN se calcula sobre el capital pendiente de pago del préstamo.</li>
+                                <li><strong>Frecuencia de pago:</strong> aunque el TIN se expresa como un porcentaje anual, los intereses se pagan normalmente de forma mensual, según el sistema de amortización del préstamo.</li>
+                            </ul>
+                            <p><strong>Cálculo de intereses con el TIN</strong></p>
+                            <p>Un ejemplo práctico para comprender cómo funciona:</p>
+                            <ul>
+                                <li>Importe del préstamo: 100.000 euros</li>
+                                <li>TIN: 3% anual</li>
+                                <li>Interés mensual en porcentaje: 0,25% (3% dividido entre 12 meses)</li>
+                                <li>Interés mensual en euros: 250 euros (100.000 × 0,25%)</li>
+                            </ul>
+                            <p>En este caso, pagarías 250 euros de intereses en el primer mes. Este importe disminuirá en los meses siguientes a medida que amortices parte del capital.</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">TIN (Tipo de Interés Nominal)</h3>
-                    <div class="recurso-content">
-                      <p>El TIN, o Tipo de Interés Nominal, es el porcentaje que indica cuánto cobra el banco anualmente por prestarte dinero, sin incluir comisiones, seguros u otros gastos adicionales. Es una medida fundamental para entender los intereses que pagarás por un préstamo, aunque no refleja el costo total del mismo.</p>
-                      <ul>
-                        <li><strong>¿Cómo se aplica?:</strong> el TIN se calcula sobre el capital pendiente de pago del préstamo.</li>
-                        <li><strong>Frecuencia de pago:</strong> aunque el TIN se expresa como un porcentaje anual, los intereses se pagan normalmente de forma mensual, según el sistema de amortización del préstamo.</li>
-                      </ul>
-                      <p><strong>Cálculo de intereses con el TIN</strong></p>
-                      <p>Un ejemplo práctico para comprender cómo funciona:</p>
-                      <ul>
-                        <li>Importe del préstamo: 100.000 euros</li>
-                        <li>TIN: 3% anual</li>
-                        <li>Interés mensual en porcentaje: 0,25% (3% dividido entre 12 meses)</li>
-                        <li>Interés mensual en euros: 250 euros (100.000 × 0,25%)</li>
-                      </ul>
-                      <p>En este caso, pagarías 250 euros de intereses en el primer mes. Este importe disminuirá en los meses siguientes a medida que amortices parte del capital.</p>
+
+                    <!-- Recurso-item para TAE -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">TAE (Tasa Anual Equivalente)</h3>
+                        <div class="recurso-content">
+                            <p>La TAE es un indicador para conocer el costo total de un préstamo. A diferencia del TIN, la TAE incluye no solo los intereses nominales, sino también otros gastos y comisiones, permitiendo comparar distintas ofertas de manera más precisa.</p>
+                            <p><strong>¿Qué incluye la TAE?</strong></p>
+                            <ul>
+                                <li><strong>Intereses nominales (TIN):</strong> el porcentaje aplicado al capital pendiente.</li>
+                                <li><strong>Comisiones:</strong> gastos por apertura, estudio u otros servicios relacionados con la formalización del préstamo.</li>
+                                <li><strong>Seguros obligatorios y otros cargos:</strong> como seguros de vida, hogar u otros que el banco pueda exigir como condición del préstamo.</li>
+                            </ul>
+                            <p><strong>¿Por qué es importante la TAE?</strong></p>
+                            <p>La TAE es el indicador más fiable para evaluar y comparar préstamos, ya que refleja el costo real anual incluyendo todos los gastos asociados. Es especialmente útil cuando decides entre diferentes entidades o productos financieros, porque muestra el impacto total de los costos en tus finanzas.</p>
+                            <p><strong>Importante</strong></p>
+                            <p>La TAE no se paga mensualmente, es solo un indicador del costo anual total del préstamo, a diferencia del TIN, que sí se aplica mensualmente para calcular los intereses.</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">TAE (Tasa Anual Equivalente)</h3>
-                    <div class="recurso-content">
-                      <p>La TAE es un indicador para conocer el costo total de un préstamo. A diferencia del TIN, la TAE incluye no solo los intereses nominales, sino también otros gastos y comisiones, permitiendo comparar distintas ofertas de manera más precisa.</p>
-                      <p><strong>¿Qué incluye la TAE?</strong></p>
-                      <ul>
-                        <li><strong>Intereses nominales (TIN):</strong> el porcentaje aplicado al capital pendiente.</li>
-                        <li><strong>Comisiones:</strong> gastos por apertura, estudio u otros servicios relacionados con la formalización del préstamo.</li>
-                        <li><strong>Seguros obligatorios y otros cargos:</strong> como seguros de vida, hogar u otros que el banco pueda exigir como condición del préstamo.</li>
-                      </ul>
-                      <p><strong>¿Por qué es importante la TAE?</strong></p>
-                      <p>La TAE es el indicador más fiable para evaluar y comparar préstamos, ya que refleja el costo real anual incluyendo todos los gastos asociados. Es especialmente útil cuando decides entre diferentes entidades o productos financieros, porque muestra el impacto total de los costos en tus finanzas.</p>
-                      <p><strong>Importante</strong></p>
-                      <p>La TAE no se paga mensualmente, es solo un indicador del costo anual total del préstamo, a diferencia del TIN, que sí se aplica mensualmente para calcular los intereses.</p>
+
+                    <!-- Recurso-item para Tipo de interés de referencia -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Tipo de interés de referencia</h3>
+                        <div class="recurso-content">
+                            <p>El tipo de interés de referencia es el porcentaje que el Banco Central Europeo (BCE) cobra a los bancos por prestarles dinero. Este indicador es clave en la economía, ya que influye directamente en el coste de los préstamos hipotecarios y otros productos financieros.</p>
+                            <p>Cuando este tipo de interés sube, los bancos suelen trasladar el incremento a los clientes en forma de un aumento en el <strong>TIN</strong> (Tipo de Interés Nominal) de las hipotecas. Esto también puede repercutir en la <strong>TAE</strong> (Tasa Anual Equivalente), que incluye tanto el TIN como otros gastos y comisiones asociados.</p>
+                            <p><strong>Impacto en las hipotecas:</strong></p>
+                            <ul>
+                                <li>Un aumento del tipo de interés de referencia implica cuotas más altas para las hipotecas a tipo variable.</li>
+                                <li>Los nuevos préstamos a tipo fijo pueden tener condiciones menos favorables si el tipo de interés de referencia es alto.</li>
+                            </ul>
+                            <p><strong>Tipo de interés de referencia actual:</strong> 3,40%<br>
+                                <small>Este valor ha sido extraído de <a href="https://datosmacro.expansion.com/tipo-interes/zona-euro" target="_blank">datosmacro.expansion.com</a></small>
+                            </p>
+                            <small>Última actualización: 23/10/2024</small>
+                        </div>
                     </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Novación</h3>
-                    <div class="recurso-content">
-                      <p>La novación es una operación que permite modificar las condiciones de un préstamo hipotecario ya existente. Este cambio se realiza sin necesidad de cancelar el préstamo actual ni cambiar de entidad financiera. Es una herramienta útil para adaptar el préstamo a nuevas necesidades o a cambios en las circunstancias del titular.</p>
-                      <p><strong>¿Qué condiciones se pueden modificar con una novación?</strong></p>
-                      <ul>
-                        <li><strong>Tipo de interés:</strong> cambiar de interés fijo a variable o viceversa, o ajustar el porcentaje aplicado.</li>
-                        <li><strong>Plazo del préstamo:</strong> ampliar o reducir la duración del préstamo para ajustar la cuota mensual.</li>
-                        <li><strong>Importe del préstamo:</strong> incrementar el capital pendiente en caso de necesitar financiación adicional.</li>
-                        <li><strong>Otras condiciones:</strong> como eliminar productos vinculados (seguros, tarjetas) o renegociar comisiones.</li>
-                      </ul>
+
+                    <!-- Recurso-item para Euríbor -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Euríbor (Euro Interbank Offered Rate)</h3>
+                        <div class="recurso-content">
+                            <p>El <strong>Euríbor</strong> es el tipo de interés de referencia que indica el promedio al que los principales bancos europeos se prestan dinero entre sí en el mercado interbancario. Se calcula diariamente y es uno de los índices más utilizados en Europa para establecer el tipo de interés de productos financieros, especialmente las hipotecas a tipo variable.</p>
+                            <p><strong>¿Cómo se calcula el Euríbor?</strong></p>
+                            <p>El Euríbor se basa en las contribuciones de un panel de bancos seleccionados, que informan de los tipos de interés que estarían dispuestos a ofrecer a otros bancos para préstamos a corto plazo. Una vez recopilados estos datos, se eliminan los valores más altos y más bajos, y se calcula la media del resto. Este valor se publica cada día laborable.</p>
+                            <p><strong>¿Qué tipos de Euríbor existen?</strong></p>
+                            <ul>
+                                <li><strong>Euríbor a 1 mes:</strong> Basado en préstamos a un plazo de 1 mes.</li>
+                                <li><strong>Euríbor a 3 meses:</strong> Uno de los más utilizados en contratos de productos financieros.</li>
+                                <li><strong>Euríbor a 12 meses:</strong> Es el índice más habitual para calcular hipotecas a tipo variable.</li>
+                            </ul>
+                            <p><strong>¿Por qué es importante el Euríbor?</strong></p>
+                            <p>El Euríbor afecta directamente al tipo de interés que los bancos aplican a los préstamos y productos financieros. Por ejemplo, en una hipoteca a tipo variable, el tipo de interés aplicable suele ser el resultado de sumar el Euríbor a un diferencial pactado con el banco.</p>
+                            <p><strong>¿Cómo afecta el Euríbor a las hipotecas?</strong></p>
+                            <p>Las cuotas de las hipotecas a tipo variable se revisan periódicamente (generalmente cada seis o doce meses) en función de la evolución del Euríbor. Si el Euríbor sube, las cuotas mensuales aumentan; si baja, las cuotas disminuyen.</p>
+                            <p><strong>Importante:</strong></p>
+                            <p>Es esencial entender que el Euríbor puede fluctuar debido a cambios en las condiciones económicas y en la política monetaria del Banco Central Europeo (BCE).</p>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para conocer el valor actual del Euríbor, puedes visitar el <a href="https://www.euribor-rates.eu/" target="_blank">sitio oficial del Euríbor</a> o consultar su histórico en el <a href="https://www.bde.es/" target="_blank">Banco de España</a>.</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Subrogación</h3>
-                    <div class="recurso-content">
-                      <p>La subrogación es un proceso que permite realizar cambios significativos en un préstamo hipotecario existente. Puede implicar un cambio de banco o un cambio de titular del préstamo, dependiendo de las necesidades y circunstancias. Es una herramienta útil para ajustar las condiciones del préstamo o facilitar la compraventa de una vivienda.</p>
-                      <p><strong>Tipos de subrogación</strong></p>
-                      <ul>
-                        <li><strong>Subrogación del acreedor:</strong> consiste en trasladar la hipoteca a otro banco con el objetivo de obtener mejores condiciones, como un interés más bajo o una reducción en las comisiones.</li>
-                        <li><strong>Subrogación del deudor:</strong> implica cambiar el titular del préstamo hipotecario, como ocurre cuando una vivienda con hipoteca se vende a un nuevo propietario.</li>
-                      </ul>
-                      <p><strong>¿Por qué se hace?</strong></p>
-                      <p>Cambiar de banco puede resultar en un ahorro significativo si las tasas de interés han bajado o si otro banco ofrece mejores condiciones.</p>
-                      <p><strong>Importante</strong></p>
-                      <ul>
-                        <li>La subrogación puede conllevar gastos notariales, de registro y posibles comisiones, aunque suelen ser menores que cancelar y abrir un nuevo préstamo.</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Nota simple</h3>
-                    <div class="recurso-content">
-                      <p>La nota simple es un documento informativo emitido por el Registro de la Propiedad que recoge los datos esenciales de un inmueble. Es una herramienta para conocer la situación jurídica de una propiedad y garantizar la seguridad en operaciones como la compraventa o la solicitud de hipotecas.</p>
-                      <p><strong>¿Qué información incluye?</strong></p>
-                      <ul>
-                        <li><strong>Descripción del inmueble:</strong> datos básicos como la ubicación, superficie, uso (vivienda, local, terreno) y otros detalles relevantes.</li>
-                        <li><strong>Propietarios actuales:</strong> identidad de las personas o entidades que figuran como titulares del inmueble.</li>
-                        <li><strong>Cargas y gravámenes:</strong> hipotecas, embargos, usufructos u otras limitaciones que puedan afectar a la propiedad.</li>
-                        <li><strong>Anotaciones adicionales:</strong> información relevante sobre posibles litigios, resoluciones judiciales u otras situaciones legales.</li>
-                      </ul>
-                      <p><strong>¿Por qué es importante?</strong></p>
-                      <ul>
-                        <li><strong>Garantía de seguridad:</strong> permite comprobar que la propiedad está libre de problemas legales o cargas ocultas que puedan afectar la transacción.</li>
-                        <li><strong>Transparencia:</strong> ayuda al comprador a tomar decisiones informadas antes de cerrar la compraventa.</li>
-                        <li><strong>Requisito para hipotecas:</strong> los bancos suelen exigir este documento antes de conceder un préstamo hipotecario.</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">FIPTE (Ficha de Información Precontractual de Préstamos Hipotecarios)</h3>
-                    <div class="recurso-content">
-                      <p>El FIPTE es un documento obligatorio que el banco debe entregar antes de formalizar un préstamo hipotecario. Contiene información detallada y clara sobre las condiciones del préstamo, asegurando que el cliente pueda tomar decisiones informadas y responsables.</p>
-                      <p><strong>¿Qué información incluye?</strong></p>
-                      <ul>
-                        <li><strong>Tipo de interés:</strong> fijo, variable o mixto, y cómo se calcula.</li>
-                        <li><strong>Gastos y comisiones:</strong> costes asociados, como los de apertura, gestión o cancelación, y posibles seguros obligatorios.</li>
-                        <li><strong>Condiciones de amortización:</strong> plazos, cuotas, y posibilidad de amortización anticipada, con detalle de posibles penalizaciones.</li>
-                        <li><strong>Ejemplo representativo:</strong> incluye el coste total del préstamo al finalizar el plazo.</li>
-                        <li><strong>Información sobre riesgos:</strong> especialmente en préstamos con interés variable.</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">FIPER (Ficha de Información Personalizada de Préstamos Hipotecarios)</h3>
-                    <div class="recurso-content">
-                      <p>El FIPER es un documento que el banco entrega cuando el cliente ha mostrado interés en un préstamo hipotecario específico. A diferencia del FIPTE, este documento está adaptado a las características personales y financieras del cliente, ofreciendo información detallada y personalizada sobre el préstamo.</p>
-                      <p><strong>¿Qué información incluye?</strong></p>
-                      <ul>
-                        <li><strong>Condiciones específicas:</strong> términos particulares que aplican al cliente según su perfil y la operación solicitada.</li>
-                        <li><strong>Cuotas y gastos ajustados:</strong> cálculo detallado de las cuotas mensuales, intereses y comisiones, adaptados a la capacidad financiera del cliente.</li>
-                        <li><strong>Garantías y amortización:</strong> detalles sobre las garantías requeridas y el sistema de amortización aplicado al préstamo.</li>
-                        <li><strong>Riesgos asociados:</strong> información personalizada sobre posibles riesgos, como variaciones de tipo de interés en préstamos variables.</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Amortización</h3>
-                    <div class="recurso-content">
-                      <p>La amortización es el proceso de devolución progresiva de un préstamo mediante pagos periódicos, generalmente cuotas mensuales. Cada cuota incluye una parte del capital prestado y una parte de los intereses generados, según el sistema de amortización pactado.</p>
-                      <p><strong>Tipos de amortización:</strong></p>
-                      <ul>
-                        <li><strong>Amortización parcial:</strong> Se realiza un pago adicional para reducir el capital pendiente. Esto puede traducirse en una disminución de la cuota mensual o en un acortamiento del plazo total del préstamo, dependiendo de la opción elegida.</li>
-                        <li><strong>Amortización total:</strong> Cancelación completa del préstamo antes de la fecha acordada. Este proceso libera al titular de cualquier obligación pendiente con el banco.</li>
-                      </ul>
-                      <p><strong>Importante:</strong></p>
-                      <p>En ambas modalidades, el banco puede cobrar comisiones, como la <em>comisión por amortización anticipada</em>. Estas están diseñadas para compensar la pérdida de intereses por parte de la entidad. Por ello, es fundamental revisar y negociar estos costos antes de formalizar el préstamo.</p>
-                      <p><strong>Sistemas de amortización:</strong></p>
-                      <ul>
-                        <li><strong>Francesa:</strong> La más común en préstamos hipotecarios. Las cuotas son constantes, pero la proporción de intereses y capital varía a lo largo del tiempo (más intereses al inicio y más capital hacia el final).</li>
-                        <li><strong>Alemana:</strong> Las cuotas varían porque se paga una cantidad fija de capital en cada periodo y los intereses disminuyen progresivamente.</li>
-                        <li><strong>Americana:</strong> Durante el plazo del préstamo se pagan solo intereses, dejando el capital para ser devuelto en un único pago final.</li>
-                      </ul>
-                      <p><strong>¿Cuándo no es interesante amortizar?</strong></p>
-                      <p>En escenarios de tipos de interés bajos, amortizar el préstamo puede no ser la mejor estrategia. Esto se debe a que el ahorro en intereses será reducido, y podrías obtener mayor rentabilidad invirtiendo ese dinero en productos financieros con bajo riesgo, como fondos de inversión conservadores o depósitos a plazo fijo.</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Deuda productiva y no productiva</h3>
-                    <div class="recurso-content">
-                      <p>El endeudamiento, cuando se utiliza de forma estratégica, puede ser una herramienta eficaz para alcanzar metas financieras importantes. La clave está en gestionar la deuda de manera responsable, permitiendo acceder a recursos para inversiones que no serían posibles en el corto plazo, como la compra de una vivienda o la financiación de estudios. Sin embargo, no todas las deudas son iguales, y es fundamental distinguir entre deuda productiva y no productiva.</p>
-                      <ul>
-                        <li>
-                          <strong>Deuda productiva:</strong> Este tipo de deuda está vinculada a inversiones que generan valor o ingresos a largo plazo. Algunos ejemplos incluyen:
-                          <ul>
-                            <li>Una hipoteca para la compra de una vivienda, que incrementa tu patrimonio.</li>
-                            <li>Un préstamo para financiar estudios universitarios o formación profesional, que mejora tu capacidad de generar ingresos futuros.</li>
-                          </ul>
-                          <p>Las deudas productivas suelen tener condiciones más favorables, como tipos de interés más bajos y plazos de amortización más largos. Además, la TAE (Tasa Anual Equivalente) es menor, ya que estas inversiones reducen el riesgo para el prestamista al estar respaldadas por activos tangibles o por el aumento de tus ingresos a futuro.</p>
-                        </li>
-                        <li>
-                          <strong>Deuda no productiva:</strong> Se refiere a deudas contraídas para financiar gastos que no generan valor ni aportan beneficios económicos a largo plazo. Algunos ejemplos son:
-                          <ul>
-                            <li>El uso de tarjetas de crédito para compras impulsivas o no esenciales.</li>
-                            <li>Préstamos personales para adquirir bienes que se deprecian rápidamente, como un coche o aparatos electrónicos.</li>
-                          </ul>
-                          <p>Las deudas no productivas suelen tener condiciones menos ventajosas, con tipos de interés más altos y plazos de amortización más cortos. Como resultado, la TAE tiende a ser significativamente mayor, ya que el prestamista asume un mayor riesgo debido a la naturaleza del gasto, que no mejora tu situación financiera futura.</p>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Préstamo y Crédito</h3>
-                    <div class="recurso-content">
-                      <p>Aunque los términos <strong>préstamo</strong> y <strong>crédito</strong> suelen utilizarse de manera indistinta, tienen diferencias clave que es importante conocer:</p>
-                      <ul>
-                        <li>
-                          <strong>Préstamo:</strong>  
-                          Es una cantidad fija de dinero que una entidad financiera te otorga con un propósito específico, como la compra de una vivienda, un coche o financiar estudios. Algunas características principales son:
-                          <ul>
-                            <li>El importe se entrega en su totalidad al inicio de la operación.</li>
-                            <li>Se devuelve en su totalidad, junto con los intereses pactados, mediante pagos periódicos en un plazo determinado.</li>
-                            <li>Es una operación cerrada, lo que significa que una vez recibido el dinero, no podrás acceder a más fondos hasta que solicites un nuevo préstamo.</li>
-                            <li>Ideal para objetivos con un costo definido y único, como inversiones puntuales.</li>
-                          </ul>
-                        </li>
-                        <li>
-                          <strong>Crédito:</strong>  
-                          Se refiere a una línea de financiación con un límite máximo de dinero del cual puedes disponer según tus necesidades. Sus características principales incluyen:
-                          <ul>
-                            <li>Flexibilidad para utilizar solo la cantidad que necesites dentro del límite pactado.</li>
-                            <li>Pagas intereses únicamente sobre el monto utilizado, no sobre el total disponible.</li>
-                            <li>A medida que devuelves el dinero, vuelves a tener disponible ese límite de crédito sin necesidad de solicitar un nuevo producto.</li>
-                            <li>Es una herramienta financiera continua, ideal para cubrir necesidades recurrentes o gastos imprevistos.</li>
-                            <li>Un ejemplo común es el uso de tarjetas de crédito o líneas de crédito personales.</li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Carencia</h3>
-                    <div class="recurso-content">
-                      <p>La carencia es un período en el que la persona que pidió un préstamo no paga el capital prestado, sino solo los intereses generados. Durante este tiempo, las cuotas mensuales son más bajas porque no se está amortizando la deuda principal.</p>
-                      <p><strong>¿Cuándo se aplica?</strong></p>
-                      <p>La carencia se aplica en situaciones específicas, como:</p>
-                      <ul>
-                        <li>Al inicio de una hipoteca, para facilitar los pagos en los primeros meses o años.</li>
-                        <li>En momentos de dificultad económica, como pérdida de empleo o reducción de ingresos, para aliviar temporalmente la carga financiera.</li>
-                      </ul>
-                      <p>Un ejemplo reciente ocurrió durante la crisis del Covid-19, cuando muchas personas pudieron solicitar periodos de carencia para reducir temporalmente sus pagos mientras enfrentaban la pérdida de ingresos.</p>
-                      <p><strong>Tipos de carencia:</strong></p>
-                      <ul>
-                        <li>
-                          <strong>Carencia total:</strong> Durante el periodo pactado, no se paga ni el capital ni los intereses. Sin embargo, los intereses se acumulan y se añaden a la deuda pendiente, incrementando el importe total a devolver al final del préstamo.
-                        </li>
-                        <li>
-                          <strong>Carencia parcial:</strong> Durante este tiempo, se pagan únicamente los intereses, pero no se amortiza la deuda principal. Esto mantiene las cuotas mensuales más bajas, aunque la deuda principal permanece igual.
-                        </li>
-                      </ul>
-                      <p><strong>Importante:</strong></p>
-                      <p>Los periodos de carencia pueden ser útiles para aliviar la carga financiera en el corto plazo, pero suelen incrementar el costo total del préstamo debido al aumento de los intereses acumulados.</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Impuesto de Transmisiones Patrimoniales (ITP)</h3>
-                    <div class="recurso-content">
-                      <p>El Impuesto de Transmisiones Patrimoniales (ITP) es un tributo que se paga cuando compras una vivienda de segunda mano. Se aplica sobre el valor de la vivienda en el momento de la compra y el porcentaje varía según la comunidad autónoma donde esté ubicada.</p>
-                      <p><strong>¿Cuándo se paga?</strong></p>
-                      <p>Este impuesto se paga una única vez, al formalizar la compraventa de la vivienda de segunda mano. No afecta a viviendas de nueva construcción, donde se paga el IVA (Impuesto sobre el Valor Añadido) en su lugar.</p>
-                      <p><strong>Impuesto de Transmisiones Patrimoniales (ITP) por Comunidad Autónoma</strong></p>
-                      <p>Los valores del ITP indicados a continuación han sido extraídos del informe <strong><em>Panorama de la Fiscalidad Autonómica y Foral 2024</em></strong>.</p>
-                      <p><a href="https://economistas.es/Contenido/REAF/Informes/Panorama2024.pdf" target="_blank">Descargar informe</a></p>
-                      <table class="tabla-itp">
-                          <thead>
-                              <tr>
-                                  <th>Comunidad Autónoma</th>
-                                  <th>ITP (%)</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td>Andalucía</td>
-                                  <td>7%</td>
-                              </tr>
-                              <tr>
-                                  <td>Aragon</td>
-                                  <td>8-10%</td>
-                              </tr>
-                              <tr>
-                                  <td>Asturias</td>
-                                  <td>8-10%</td>
-                              </tr>
-                              <tr>
-                                  <td>Baleares</td>
-                                  <td>8-13%</td>
-                              </tr>
-                              <tr>
-                                  <td>Canarias</td>
-                                  <td>6,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Cantabria</td>
-                                  <td>9%</td>
-                              </tr>
-                              <tr>
-                                  <td>Castilla-La Mancha</td>
-                                  <td>9%</td>
-                              </tr>
-                              <tr>
-                                  <td>Castilla y León</td>
-                                  <td>8-10%</td>
-                              </tr>
-                              <tr>
-                                  <td>Cataluña</td>
-                                  <td>10-11%</td>
-                              </tr>
-                              <tr>
-                                  <td>Ceuta</td>
-                                  <td>6%</td>
-                              </tr>
-                              <tr>
-                                  <td>Comunidad de Madrid</td>
-                                  <td>6%</td>
-                              </tr>
-                              <tr>
-                                  <td>Comunidad Valenciana</td>
-                                  <td>10-11%</td>
-                              </tr>
-                              <tr>
-                                  <td>Extremadura</td>
-                                  <td>8-11%</td>
-                              </tr>
-                              <tr>
-                                  <td>Galicia</td>
-                                  <td>8%</td>
-                              </tr>
-                              <tr>
-                                  <td>La Rioja</td>
-                                  <td>7%</td>
-                              </tr>
-                              <tr>
-                                  <td>Melilla</td>
-                                  <td>6%</td>
-                              </tr>
-                              <tr>
-                                  <td>Murcia</td>
-                                  <td>8%</td>
-                              </tr>
-                              <tr>
-                                  <td>Navarra</td>
-                                  <td>6%</td>
-                              </tr>
-                              <tr>
-                                  <td>País Vasco</td>
-                                  <td>7%</td>
-                              </tr>
-                              <!-- Añadir más filas según las comunidades autónomas -->
-                          </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Impuesto sobre Actos Jurídicos Documentados (AJD)</h3>
-                    <div class="recurso-content">
-                      <p>El Impuesto de Actos Jurídicos Documentados (AJD) es un impuesto que se aplica cuando se firma un documento notarial que formaliza una transacción, como la compra de una vivienda o la constitución de una hipoteca. Este impuesto cubre los gastos relacionados con la formalización y registro del documento.</p>
-                      <p><strong>¿Cuándo se paga?</strong></p>
-                      <p>Se paga al firmar la escritura pública de compraventa o al constituir una hipoteca. El porcentaje varía según la comunidad autónoma y se aplica sobre el valor del bien o la responsabilidad hipotecaria.</p>
-                      <p><strong>Impuesto sobre Actos Jurídicos Documentados (AJD) por Comunidad Autónoma</strong></p>
-                      <p>Los valores del AJD indicados a continuación han sido extraídos del informe <strong><em>Panorama de la Fiscalidad Autonómica y Foral 2024</em></strong>.</p>
-                      <p><a href="https://economistas.es/Contenido/REAF/Informes/Panorama2024.pdf" target="_blank">Descargar informe</a></p>
-                      <small>Para Ceuta y Melilla los valores han sido extraídos de <a href="https://sede.agenciatributaria.gob.es/Sede/declaraciones-informativas-otros-impuestos-tasas/impuesto-sobre-transmisiones-patrimoniales-actos-juridicos/itp-ajd-transmisiones-derechos-reales-fianzas/base-imponible-tipos-ceuta-melilla.html" target="_blank">agenciatributaria.gob.es</a></small></p>
-                      <table class="tabla-itp">
-                          <thead>
-                              <tr>
-                                  <th>Comunidad Autónoma</th>
-                                  <th>AJD (%)</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td>Andalucía</td>
-                                  <td>1,2%</td>
-                              </tr>
-                              <tr>
-                                  <td>Aragon</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Asturias</td>
-                                  <td>1,2%</td>
-                              </tr>
-                              <tr>
-                                  <td>Baleares</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Canarias</td>
-                                  <td>0,75%</td>
-                              </tr>
-                              <tr>
-                                  <td>Cantabria</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Castilla-La Mancha</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Castilla y León</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Cataluña</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Ceuta</td>
-                                  <td>0,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Comunidad de Madrid</td>
-                                  <td>0,75%</td>
-                              </tr>
-                              <tr>
-                                  <td>Comunidad Valenciana</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Extremadura</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Galicia</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>La Rioja</td>
-                                  <td>1%</td>
-                              </tr>
-                              <tr>
-                                  <td>Melilla</td>
-                                  <td>0,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Murcia</td>
-                                  <td>1,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>Navarra</td>
-                                  <td>0,5%</td>
-                              </tr>
-                              <tr>
-                                  <td>País Vasco</td>
-                                  <td>0,5%</td>
-                              </tr>
-                              <!-- Añadir más filas según las comunidades autónomas -->
-                          </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Tipo de interés de referencia</h3>
-                    <div class="recurso-content">
-                      <p>El tipo de interés de referencia es el porcentaje que el Banco Central Europeo (BCE) cobra a los bancos por prestarles dinero. Este indicador es clave en la economía, ya que influye directamente en el coste de los préstamos hipotecarios y otros productos financieros.</p>
-                      <p>Cuando este tipo de interés sube, los bancos suelen trasladar el incremento a los clientes en forma de un aumento en el <strong>TIN</strong> (Tipo de Interés Nominal) de las hipotecas. Esto también puede repercutir en la <strong>TAE</strong> (Tasa Anual Equivalente), que incluye tanto el TIN como otros gastos y comisiones asociados.</p>
-                      <p><strong>Impacto en las hipotecas:</strong></p>
-                      <ul>
-                        <li>Un aumento del tipo de interés de referencia implica cuotas más altas para las hipotecas a tipo variable.</li>
-                        <li>Los nuevos préstamos a tipo fijo pueden tener condiciones menos favorables si el tipo de interés de referencia es alto.</li>
-                      </ul>
-                      <p><strong>Tipo de interés de referencia actual:</strong> 3,40%<br>
-                        <small>Este valor ha sido extraído de <a href="https://datosmacro.expansion.com/tipo-interes/zona-euro" target="_blank">datosmacro.expansion.com</a></small>
-                      </p>
-                      <small>Última actualización: 23/10/2024</small>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">FEIN (Ficha Europea de Información Normalizada)</h3>
-                    <div class="recurso-content">
-                      <p>La <strong>FEIN</strong> o Ficha Europea de Información Normalizada es un documento obligatorio que las entidades financieras deben entregar al cliente antes de formalizar un préstamo hipotecario. Su objetivo es garantizar que el cliente reciba toda la información relevante de forma clara y comprensible, facilitando la comparación entre distintas ofertas de préstamos.</p>
-                      <p><strong>¿Cuándo se entrega?</strong></p>
-                      <p>Debe ser entregada al menos diez días antes de la firma del préstamo, para que el cliente disponga de tiempo suficiente para analizar las condiciones y tomar una decisión informada.</p>
-                      <p><strong>¿Qué información incluye?</strong></p>
-                      <ul>
-                        <li><strong>Tipo de interés:</strong> Detalle del interés aplicado, ya sea fijo, variable o mixto.</li>
-                        <li><strong>Importe total a pagar:</strong> Suma total que el cliente deberá devolver al finalizar el préstamo, incluyendo intereses y otros gastos.</li>
-                        <li><strong>Duración del préstamo:</strong> Plazo total para la devolución del préstamo.</li>
-                        <li><strong>Comisiones:</strong> Costes asociados, como los de apertura, amortización anticipada o cancelación.</li>
-                        <li><strong>TAE (Tasa Anual Equivalente):</strong> Indicador que refleja el coste total del préstamo, incluyendo intereses y comisiones.</li>
-                        <li><strong>Consecuencias en caso de impago:</strong> Detalles sobre posibles penalizaciones, intereses de demora o procedimientos legales en caso de incumplimiento.</li>
-                        <li><strong>Cláusulas relevantes:</strong> Información sobre productos vinculados, como seguros obligatorios, y condiciones específicas del préstamo.</li>
-                      </ul>
-                      <p><strong>¿Por qué es importante?</strong></p>
-                      <p>La FEIN asegura la transparencia en las condiciones del préstamo y protege al cliente, ayudándolo a entender todos los aspectos del acuerdo y a comparar distintas opciones antes de comprometerse.</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">FIAE (Ficha de Advertencias Estandarizadas)</h3>
-                    <div class="recurso-content">
-                      <p>La <strong>FIAE</strong> o Ficha de Advertencias Estandarizadas es un documento obligatorio en España que complementa el proceso de solicitud de una hipoteca. Está diseñado para informar de manera clara y comprensible sobre los riesgos, condiciones especiales y cláusulas financieras que podrían ser complejas o implicar algún riesgo para el cliente. Su objetivo principal es proteger al consumidor y garantizar la transparencia en los productos hipotecarios.</p>
-                      <p><strong>¿Qué términos incluye?</strong></p>
-                      <ul>
-                        <li>
-                          <strong>Cláusulas suelo:</strong>  
-                          Indica si el préstamo incluye un límite mínimo de interés, conocido como "suelo". Esto significa que, aunque los tipos de interés bajen en el mercado, el interés aplicable al préstamo no podrá reducirse por debajo de este límite.
-                        </li>
-                        <li>
-                          <strong>Cláusulas de vencimiento anticipado:</strong>  
-                          Explica las condiciones bajo las cuales el banco puede dar por vencido el préstamo antes del plazo acordado, generalmente por impagos del cliente. También detalla las consecuencias de este vencimiento anticipado.
-                        </li>
-                        <li>
-                          <strong>Costes adicionales por cambios en el tipo de interés:</strong>  
-                          Advierte sobre posibles variaciones en la cuota mensual en caso de préstamos con interés variable y describe cómo estos cambios pueden afectar la capacidad de pago del cliente.
-                        </li>
-                        <li>
-                          <strong>Consecuencias de impagos y embargos:</strong>  
-                          Describe los procedimientos que el banco puede iniciar en caso de incumplimientos, incluyendo el riesgo de embargo del inmueble hipotecado y otras posibles repercusiones legales y económicas.
-                        </li>
-                      </ul>
-                      <p><strong>¿Por qué es importante?</strong></p>
-                      <p>La FIAE es una herramienta clave para garantizar que el cliente comprenda todos los riesgos asociados a su hipoteca, evitando sorpresas en el futuro y promoviendo decisiones financieras informadas.</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">ITE (Inspección Técnica de Edificios)</h3>
-                    <div class="recurso-content">
-                      <p>La <strong>ITE</strong>, o Inspección Técnica de Edificios, es una evaluación obligatoria en España que deben pasar determinados edificios para garantizar su estado de conservación, seguridad y habitabilidad. Su objetivo principal es prevenir riesgos para los habitantes y para el entorno urbano, asegurando que los edificios cumplan con unos estándares mínimos de mantenimiento.</p>
-                      <p><strong>Aspectos clave de la ITE:</strong></p>
-                      <ul>
-                        <li>
-                          <strong>Periodicidad de la inspección:</strong>  
-                          Los edificios con más de 30 años suelen estar obligados a pasar esta inspección cada 10 años, aunque la normativa puede variar según la comunidad autónoma o el municipio.
-                        </li>
-                        <li>
-                          <strong>Aspectos evaluados:</strong>  
-                          La ITE revisa diversos elementos del edificio, como:  
-                          <ul>
-                            <li>Fachadas y elementos estructurales (muros, pilares, vigas).</li>
-                            <li>Estado de la cubierta y los tejados.</li>
-                            <li>Instalaciones de fontanería, saneamiento y electricidad.</li>
-                            <li>Sistemas de evacuación de aguas y posibles humedades.</li>
-                          </ul>
-                        </li>
-                        <li>
-                          <strong>Resultado de la ITE:</strong>  
-                          Tras la inspección, el edificio obtiene un informe técnico que clasifica su estado. Si se detectan deficiencias graves, los propietarios están obligados a realizar las reparaciones necesarias en un plazo determinado.
-                        </li>
-                        <li>
-                          <strong>Certificado de aptitud:</strong>  
-                          Este documento se emite si la inspección es favorable, garantizando que el edificio cumple con los requisitos de seguridad y habitabilidad. Es recomendable solicitar este certificado antes de adquirir una vivienda en el edificio.
-                        </li>
-                      </ul>
-                      <p><strong>¿Por qué es importante la ITE?</strong></p>
-                      <p>La ITE asegura la seguridad de los edificios y ayuda a mantener el valor de las propiedades. Además, evita posibles sanciones por incumplimiento de la normativa y promueve un entorno urbano más seguro y cuidado.</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Incremento de Valor de los Terrenos de Naturaleza Urbana (Plusvalía)</h3>
-                    <div class="recurso-content">
-                      <p>El <strong>Incremento de Valor de los Terrenos de Naturaleza Urbana</strong>, conocido comúnmente como <strong>Plusvalía</strong>, es un impuesto municipal que se aplica cuando se vende, hereda o dona un inmueble urbano. Este impuesto grava el aumento de valor que ha experimentado el terreno donde se encuentra la propiedad durante el periodo en que ha sido propiedad del vendedor o transmisor.</p>
-                      <p><strong>¿Cómo se calcula?</strong></p>
-                      <ul>
-                        <li><strong>Base imponible:</strong> Se calcula sobre el valor catastral del terreno y no incluye el valor de la construcción.</li>
-                        <li><strong>Periodo de tenencia:</strong> El tiempo durante el cual el vendedor ha sido propietario del terreno es clave para determinar el incremento del valor. Generalmente, se considera un periodo máximo de 20 años.</li>
-                        <li><strong>Coeficientes y tipos impositivos:</strong> Los coeficientes de revalorización y el tipo impositivo aplicable son establecidos por cada ayuntamiento dentro de los límites legales.</li>
-                      </ul>
-                      <p><strong>¿Quién está obligado a pagarlo?</strong></p>
-                      <ul>
-                        <li><strong>En ventas:</strong> El vendedor es quien paga el impuesto, salvo que se pacte lo contrario en el contrato de compraventa.</li>
-                        <li><strong>En herencias o donaciones:</strong> El receptor (heredero o donatario) es quien debe asumir el pago.</li>
-                      </ul>
-                      <p><strong>Aspectos importantes:</strong></p>
-                      <ul>
-                        <li>El impuesto puede ser significativo si el terreno ha experimentado una gran revalorización.</li>
-                        <li>Es importante consultar con el ayuntamiento correspondiente, ya que las normativas y coeficientes pueden variar entre municipios.</li>
-                      </ul>
-                      <p><strong>Recomendación:</strong> Antes de vender, heredar o donar un inmueble, consulta con un asesor fiscal o jurídico para entender el impacto del impuesto en tu caso concreto y planificar el trámite de manera óptima.</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Provisión de fondos</h3>
-                    <div class="recurso-content">
-                        <p>La <strong>provisión de fondos</strong> es el importe que el cliente debe adelantar a su entidad financiera o gestoría para cubrir los gastos asociados a la formalización de una hipoteca o la compraventa de un inmueble. Este importe se utiliza para pagar conceptos como impuestos, notaría, registro y otros costes administrativos.</p>
-                        <p><strong>¿Qué incluye la provisión de fondos?</strong></p>
-                        <ul>
-                            <li><strong>Impuestos:</strong> como el Impuesto de Actos Jurídicos Documentados (IAJD) en el caso de hipotecas, o el Impuesto de Transmisiones Patrimoniales (ITP) en compraventas de segunda mano.</li>
-                            <li><strong>Gastos notariales:</strong> los honorarios del notario por la firma de la escritura pública.</li>
-                            <li><strong>Gastos registrales:</strong> el coste de inscribir la escritura en el Registro de la Propiedad.</li>
-                            <li><strong>Gastos de gestoría:</strong> si la entidad financiera utiliza una gestoría para realizar los trámites, sus honorarios se incluyen en esta provisión.</li>
-                            <li><strong>Otros gastos:</strong> como las copias de escrituras o posibles certificaciones requeridas.</li>
-                        </ul>
-                        <p><strong>¿Cómo funciona la provisión de fondos?</strong></p>
-                        <p>El cliente debe transferir el importe estimado a la cuenta indicada por la entidad financiera o la gestoría antes de la firma del préstamo o la compraventa. Una vez abonados todos los gastos, la gestoría entrega un detalle de los pagos realizados y, en caso de haber un sobrante, este se devuelve al cliente.</p>
-                        <p><strong>Importante:</strong></p>
-                        <p>Es fundamental solicitar un desglose detallado de la provisión de fondos para entender qué conceptos se están pagando y asegurarse de que el importe solicitado es razonable.</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Euríbor (Euro Interbank Offered Rate)</h3>
-                    <div class="recurso-content">
-                        <p>En desarrollo</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Cláusula suelo</h3>
-                    <div class="recurso-content">
-                        <p>En desarrollo</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Aval</h3>
-                    <div class="recurso-content">
-                        <p>En desarrollo</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Dación en pago</h3>
-                    <div class="recurso-content">
-                        <p>En desarrollo</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Scoring bancario</h3>
-                    <div class="recurso-content">
-                        <p>En desarrollo</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Ratio Loan to Value (LTV)</h3>
-                    <div class="recurso-content">
-                        <p>En desarrollo</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Impuesto sobre Bienes Inmuebles (IBI)</h3>
-                    <div class="recurso-content">
-                        <p>En desarrollo</p>
-                    </div>
-                  </div>
-                  <div class="recurso-item">
-                    <h3 class="recurso-title">Certificado energético</h3>
-                    <div class="recurso-content">
-                        <p>En desarrollo</p>
-                    </div>
-                  </div>
                 </div>
-              </div>
+
+                <!-- Categoría: Operaciones hipotecarias -->
+                <h3 class="categoria-title">Operaciones hipotecarias</h3>
+                <div class="recursos-list">
+                    <!-- Recurso-item para Novación -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Novación</h3>
+                        <div class="recurso-content">
+                            <p>La novación es una operación que permite modificar las condiciones de un préstamo hipotecario ya existente. Este cambio se realiza sin necesidad de cancelar el préstamo actual ni cambiar de entidad financiera. Es una herramienta útil para adaptar el préstamo a nuevas necesidades o a cambios en las circunstancias del titular.</p>
+                            <p><strong>¿Qué condiciones se pueden modificar con una novación?</strong></p>
+                            <ul>
+                                <li><strong>Tipo de interés:</strong> cambiar de interés fijo a variable o viceversa, o ajustar el porcentaje aplicado.</li>
+                                <li><strong>Plazo del préstamo:</strong> ampliar o reducir la duración del préstamo para ajustar la cuota mensual.</li>
+                                <li><strong>Importe del préstamo:</strong> incrementar el capital pendiente en caso de necesitar financiación adicional.</li>
+                                <li><strong>Otras condiciones:</strong> como eliminar productos vinculados (seguros, tarjetas) o renegociar comisiones.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Subrogación -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Subrogación</h3>
+                        <div class="recurso-content">
+                            <p>La subrogación es un proceso que permite realizar cambios significativos en un préstamo hipotecario existente. Puede implicar un cambio de banco o un cambio de titular del préstamo, dependiendo de las necesidades y circunstancias. Es una herramienta útil para ajustar las condiciones del préstamo o facilitar la compraventa de una vivienda.</p>
+                            <p><strong>Tipos de subrogación</strong></p>
+                            <ul>
+                                <li><strong>Subrogación del acreedor:</strong> consiste en trasladar la hipoteca a otro banco con el objetivo de obtener mejores condiciones, como un interés más bajo o una reducción en las comisiones.</li>
+                                <li><strong>Subrogación del deudor:</strong> implica cambiar el titular del préstamo hipotecario, como ocurre cuando una vivienda con hipoteca se vende a un nuevo propietario.</li>
+                            </ul>
+                            <p><strong>¿Por qué se hace?</strong></p>
+                            <p>Cambiar de banco puede resultar en un ahorro significativo si las tasas de interés han bajado o si otro banco ofrece mejores condiciones.</p>
+                            <p><strong>Importante</strong></p>
+                            <ul>
+                                <li>La subrogación puede conllevar gastos notariales, de registro y posibles comisiones, aunque suelen ser menores que cancelar y abrir un nuevo préstamo.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Amortización -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Amortización</h3>
+                        <div class="recurso-content">
+                            <p>La amortización es el proceso de devolución progresiva de un préstamo mediante pagos periódicos, generalmente cuotas mensuales. Cada cuota incluye una parte del capital prestado y una parte de los intereses generados, según el sistema de amortización pactado.</p>
+                            <p><strong>Tipos de amortización:</strong></p>
+                            <ul>
+                                <li><strong>Amortización parcial:</strong> Se realiza un pago adicional para reducir el capital pendiente. Esto puede traducirse en una disminución de la cuota mensual o en un acortamiento del plazo total del préstamo, dependiendo de la opción elegida.</li>
+                                <li><strong>Amortización total:</strong> Cancelación completa del préstamo antes de la fecha acordada. Este proceso libera al titular de cualquier obligación pendiente con el banco.</li>
+                            </ul>
+                            <p><strong>Importante:</strong></p>
+                            <p>En ambas modalidades, el banco puede cobrar comisiones, como la <em>comisión por amortización anticipada</em>. Estas están diseñadas para compensar la pérdida de intereses por parte de la entidad. Por ello, es fundamental revisar y negociar estos costos antes de formalizar el préstamo.</p>
+                            <p><strong>Sistemas de amortización:</strong></p>
+                            <ul>
+                                <li><strong>Francesa:</strong> La más común en préstamos hipotecarios. Las cuotas son constantes, pero la proporción de intereses y capital varía a lo largo del tiempo (más intereses al inicio y más capital hacia el final).</li>
+                                <li><strong>Alemana:</strong> Las cuotas varían porque se paga una cantidad fija de capital en cada periodo y los intereses disminuyen progresivamente.</li>
+                                <li><strong>Americana:</strong> Durante el plazo del préstamo se pagan solo intereses, dejando el capital para ser devuelto en un único pago final.</li>
+                            </ul>
+                            <p><strong>¿Cuándo no es interesante amortizar?</strong></p>
+                            <p>En escenarios de tipos de interés bajos, amortizar el préstamo puede no ser la mejor estrategia. Esto se debe a que el ahorro en intereses será reducido, y podrías obtener mayor rentabilidad invirtiendo ese dinero en productos financieros con bajo riesgo, como fondos de inversión conservadores o depósitos a plazo fijo.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Carencia -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Carencia</h3>
+                        <div class="recurso-content">
+                            <p>La carencia es un período en el que la persona que pidió un préstamo no paga el capital prestado, sino solo los intereses generados. Durante este tiempo, las cuotas mensuales son más bajas porque no se está amortizando la deuda principal.</p>
+                            <p><strong>¿Cuándo se aplica?</strong></p>
+                            <p>La carencia se aplica en situaciones específicas, como:</p>
+                            <ul>
+                                <li>Al inicio de una hipoteca, para facilitar los pagos en los primeros meses o años.</li>
+                                <li>En momentos de dificultad económica, como pérdida de empleo o reducción de ingresos, para aliviar temporalmente la carga financiera.</li>
+                            </ul>
+                            <p>Un ejemplo reciente ocurrió durante la crisis del Covid-19, cuando muchas personas pudieron solicitar periodos de carencia para reducir temporalmente sus pagos mientras enfrentaban la pérdida de ingresos.</p>
+                            <p><strong>Tipos de carencia:</strong></p>
+                            <ul>
+                                <li>
+                                    <strong>Carencia total:</strong> Durante el periodo pactado, no se paga ni el capital ni los intereses. Sin embargo, los intereses se acumulan y se añaden a la deuda pendiente, incrementando el importe total a devolver al final del préstamo.
+                                </li>
+                                <li>
+                                    <strong>Carencia parcial:</strong> Durante este tiempo, se pagan únicamente los intereses, pero no se amortiza la deuda principal. Esto mantiene las cuotas mensuales más bajas, aunque la deuda principal permanece igual.
+                                </li>
+                            </ul>
+                            <p><strong>Importante:</strong></p>
+                            <p>Los periodos de carencia pueden ser útiles para aliviar la carga financiera en el corto plazo, pero suelen incrementar el costo total del préstamo debido al aumento de los intereses acumulados.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Dación en pago -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Dación en pago</h3>
+                        <div class="recurso-content">
+                            <p>La <strong>dación en pago</strong> es un mecanismo legal mediante el cual un deudor puede saldar su deuda hipotecaria entregando la propiedad del inmueble hipotecado al acreedor (generalmente una entidad financiera). Este procedimiento permite extinguir la deuda por completo, incluso si el valor del inmueble es inferior al importe pendiente del préstamo.</p>
+                            <p><strong>¿Cómo funciona la dación en pago?</strong></p>
+                            <p>En casos de dificultad económica, el deudor puede negociar con el banco para entregar el inmueble como forma de pago. Si el banco acepta, la deuda hipotecaria queda cancelada en su totalidad, liberando al deudor de cualquier responsabilidad futura.</p>
+                            <p><strong>Requisitos habituales para la dación en pago:</strong></p>
+                            <ul>
+                                <li>Que la vivienda sea la residencia habitual del deudor.</li>
+                                <li>Que el deudor demuestre que no tiene otros bienes o ingresos suficientes para hacer frente a la deuda.</li>
+                                <li>Que la entidad financiera acepte la dación en pago como solución para saldar la deuda.</li>
+                            </ul>
+                            <p><strong>Ventajas de la dación en pago:</strong></p>
+                            <ul>
+                                <li>Elimina la deuda pendiente por completo.</li>
+                                <li>Evita procedimientos judiciales prolongados, como la ejecución hipotecaria.</li>
+                                <li>Proporciona una solución definitiva para personas en situación de insolvencia.</li>
+                            </ul>
+                            <p><strong>Limitaciones y consideraciones:</strong></p>
+                            <ul>
+                                <li>La aceptación de la dación en pago no es obligatoria para el banco; depende de su política y de la negociación con el cliente.</li>
+                                <li>En algunos casos, el banco puede exigir condiciones adicionales, como el pago de ciertos gastos o impuestos asociados.</li>
+                                <li>El deudor pierde la propiedad de la vivienda, lo que puede tener un impacto emocional y práctico significativo.</li>
+                            </ul>
+                            <p><strong>¿Qué dice la legislación sobre la dación en pago?</strong></p>
+                            <p>En España, la dación en pago está regulada en el artículo 140 de la Ley Hipotecaria. Aunque no es una práctica estándar, la Ley de Medidas Urgentes para reforzar la protección a los deudores hipotecarios en riesgo de exclusión social (Real Decreto-Ley 6/2012) establece un marco para facilitar este procedimiento en casos específicos.</p>
+                            <p><strong>Importante:</strong></p>
+                            <p>Es fundamental analizar todas las implicaciones legales y financieras antes de solicitar una dación en pago. En muchos casos, contar con asesoramiento legal puede ser clave para negociar adecuadamente con la entidad financiera.</p>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para conocer más sobre la dación en pago, puedes consultar la <a href="https://www.boe.es/" target="_blank">Ley Hipotecaria</a> o contactar con asociaciones de consumidores y usuarios como <a href="https://www.adicae.net/" target="_blank">ADICAE</a>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoría: Documentación e información precontractual -->
+                <h3 class="categoria-title">Documentación e información precontractual</h3>
+                <div class="recursos-list">
+                    <!-- Recurso-item para FIPTE -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">FIPTE (Ficha de Información Precontractual de Préstamos Hipotecarios)</h3>
+                        <div class="recurso-content">
+                            <p>El FIPTE es un documento obligatorio que el banco debe entregar antes de formalizar un préstamo hipotecario. Contiene información detallada y clara sobre las condiciones del préstamo, asegurando que el cliente pueda tomar decisiones informadas y responsables.</p>
+                            <p><strong>¿Qué información incluye?</strong></p>
+                            <ul>
+                                <li><strong>Tipo de interés:</strong> fijo, variable o mixto, y cómo se calcula.</li>
+                                <li><strong>Gastos y comisiones:</strong> costes asociados, como los de apertura, gestión o cancelación, y posibles seguros obligatorios.</li>
+                                <li><strong>Condiciones de amortización:</strong> plazos, cuotas, y posibilidad de amortización anticipada, con detalle de posibles penalizaciones.</li>
+                                <li><strong>Ejemplo representativo:</strong> incluye el coste total del préstamo al finalizar el plazo.</li>
+                                <li><strong>Información sobre riesgos:</strong> especialmente en préstamos con interés variable.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para FIPER -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">FIPER (Ficha de Información Personalizada de Préstamos Hipotecarios)</h3>
+                        <div class="recurso-content">
+                            <p>El FIPER es un documento que el banco entrega cuando el cliente ha mostrado interés en un préstamo hipotecario específico. A diferencia del FIPTE, este documento está adaptado a las características personales y financieras del cliente, ofreciendo información detallada y personalizada sobre el préstamo.</p>
+                            <p><strong>¿Qué información incluye?</strong></p>
+                            <ul>
+                                <li><strong>Condiciones específicas:</strong> términos particulares que aplican al cliente según su perfil y la operación solicitada.</li>
+                                <li><strong>Cuotas y gastos ajustados:</strong> cálculo detallado de las cuotas mensuales, intereses y comisiones, adaptados a la capacidad financiera del cliente.</li>
+                                <li><strong>Garantías y amortización:</strong> detalles sobre las garantías requeridas y el sistema de amortización aplicado al préstamo.</li>
+                                <li><strong>Riesgos asociados:</strong> información personalizada sobre posibles riesgos, como variaciones de tipo de interés en préstamos variables.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para FEIN -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">FEIN (Ficha Europea de Información Normalizada)</h3>
+                        <div class="recurso-content">
+                            <p>La <strong>FEIN</strong> o Ficha Europea de Información Normalizada es un documento obligatorio que las entidades financieras deben entregar al cliente antes de formalizar un préstamo hipotecario. Su objetivo es garantizar que el cliente reciba toda la información relevante de forma clara y comprensible, facilitando la comparación entre distintas ofertas de préstamos.</p>
+                            <p><strong>¿Cuándo se entrega?</strong></p>
+                            <p>Debe ser entregada al menos diez días antes de la firma del préstamo, para que el cliente disponga de tiempo suficiente para analizar las condiciones y tomar una decisión informada.</p>
+                            <p><strong>¿Qué información incluye?</strong></p>
+                            <ul>
+                                <li><strong>Tipo de interés:</strong> Detalle del interés aplicado, ya sea fijo, variable o mixto.</li>
+                                <li><strong>Importe total a pagar:</strong> Suma total que el cliente deberá devolver al finalizar el préstamo, incluyendo intereses y otros gastos.</li>
+                                <li><strong>Duración del préstamo:</strong> Plazo total para la devolución del préstamo.</li>
+                                <li><strong>Comisiones:</strong> Costes asociados, como los de apertura, amortización anticipada o cancelación.</li>
+                                <li><strong>TAE (Tasa Anual Equivalente):</strong> Indicador que refleja el coste total del préstamo, incluyendo intereses y comisiones.</li>
+                                <li><strong>Consecuencias en caso de impago:</strong> Detalles sobre posibles penalizaciones, intereses de demora o procedimientos legales en caso de incumplimiento.</li>
+                                <li><strong>Cláusulas relevantes:</strong> Información sobre productos vinculados, como seguros obligatorios, y condiciones específicas del préstamo.</li>
+                            </ul>
+                            <p><strong>¿Por qué es importante?</strong></p>
+                            <p>La FEIN asegura la transparencia en las condiciones del préstamo y protege al cliente, ayudándolo a entender todos los aspectos del acuerdo y a comparar distintas opciones antes de comprometerse.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para FIAE -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">FIAE (Ficha de Advertencias Estandarizadas)</h3>
+                        <div class="recurso-content">
+                            <p>La <strong>FIAE</strong> o Ficha de Advertencias Estandarizadas es un documento obligatorio en España que complementa el proceso de solicitud de una hipoteca. Está diseñado para informar de manera clara y comprensible sobre los riesgos, condiciones especiales y cláusulas financieras que podrían ser complejas o implicar algún riesgo para el cliente. Su objetivo principal es proteger al consumidor y garantizar la transparencia en los productos hipotecarios.</p>
+                            <p><strong>¿Qué términos incluye?</strong></p>
+                            <ul>
+                                <li>
+                                    <strong>Cláusulas suelo:</strong>
+                                    Indica si el préstamo incluye un límite mínimo de interés, conocido como "suelo". Esto significa que, aunque los tipos de interés bajen en el mercado, el interés aplicable al préstamo no podrá reducirse por debajo de este límite.
+                                </li>
+                                <li>
+                                    <strong>Cláusulas de vencimiento anticipado:</strong>
+                                    Explica las condiciones bajo las cuales el banco puede dar por vencido el préstamo antes del plazo acordado, generalmente por impagos del cliente. También detalla las consecuencias de este vencimiento anticipado.
+                                </li>
+                                <li>
+                                    <strong>Costes adicionales por cambios en el tipo de interés:</strong>
+                                    Advierte sobre posibles variaciones en la cuota mensual en caso de préstamos con interés variable y describe cómo estos cambios pueden afectar la capacidad de pago del cliente.
+                                </li>
+                                <li>
+                                    <strong>Consecuencias de impagos y embargos:</strong>
+                                    Describe los procedimientos que el banco puede iniciar en caso de incumplimientos, incluyendo el riesgo de embargo del inmueble hipotecado y otras posibles repercusiones legales y económicas.
+                                </li>
+                            </ul>
+                            <p><strong>¿Por qué es importante?</strong></p>
+                            <p>La FIAE es una herramienta clave para garantizar que el cliente comprenda todos los riesgos asociados a su hipoteca, evitando sorpresas en el futuro y promoviendo decisiones financieras informadas.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Nota simple -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Nota simple</h3>
+                        <div class="recurso-content">
+                            <p>La nota simple es un documento informativo emitido por el Registro de la Propiedad que recoge los datos esenciales de un inmueble. Es una herramienta para conocer la situación jurídica de una propiedad y garantizar la seguridad en operaciones como la compraventa o la solicitud de hipotecas.</p>
+                            <p><strong>¿Qué información incluye?</strong></p>
+                            <ul>
+                                <li><strong>Descripción del inmueble:</strong> datos básicos como la ubicación, superficie, uso (vivienda, local, terreno) y otros detalles relevantes.</li>
+                                <li><strong>Propietarios actuales:</strong> identidad de las personas o entidades que figuran como titulares del inmueble.</li>
+                                <li><strong>Cargas y gravámenes:</strong> hipotecas, embargos, usufructos u otras limitaciones que puedan afectar a la propiedad.</li>
+                                <li><strong>Anotaciones adicionales:</strong> información relevante sobre posibles litigios, resoluciones judiciales u otras situaciones legales.</li>
+                            </ul>
+                            <p><strong>¿Por qué es importante?</strong></p>
+                            <ul>
+                                <li><strong>Garantía de seguridad:</strong> permite comprobar que la propiedad está libre de problemas legales o cargas ocultas que puedan afectar la transacción.</li>
+                                <li><strong>Transparencia:</strong> ayuda al comprador a tomar decisiones informadas antes de cerrar la compraventa.</li>
+                                <li><strong>Requisito para hipotecas:</strong> los bancos suelen exigir este documento antes de conceder un préstamo hipotecario.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoría: Impuestos y gastos asociados a la compraventa -->
+                <h3 class="categoria-title">Impuestos y gastos asociados a la compraventa</h3>
+                <div class="recursos-list">
+                    <!-- Recurso-item para Impuesto de Transmisiones Patrimoniales (ITP) -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Impuesto de Transmisiones Patrimoniales (ITP)</h3>
+                        <div class="recurso-content">
+                            <p>El Impuesto de Transmisiones Patrimoniales (ITP) es un tributo que se paga cuando compras una vivienda de segunda mano. Se aplica sobre el valor de la vivienda en el momento de la compra y el porcentaje varía según la comunidad autónoma donde esté ubicada.</p>
+                            <p><strong>¿Cuándo se paga?</strong></p>
+                            <p>Este impuesto se paga una única vez, al formalizar la compraventa de la vivienda de segunda mano. No afecta a viviendas de nueva construcción, donde se paga el IVA (Impuesto sobre el Valor Añadido) en su lugar.</p>
+                            <p><strong>Impuesto de Transmisiones Patrimoniales (ITP) por Comunidad Autónoma</strong></p>
+                            <p>Los valores del ITP indicados a continuación han sido extraídos del informe <strong><em>Panorama de la Fiscalidad Autonómica y Foral 2024</em></strong>.</p>
+                            <p><a href="https://economistas.es/Contenido/REAF/Informes/Panorama2024.pdf" target="_blank">Descargar informe</a></p>
+                            <table class="tabla-itp">
+                                <thead>
+                                    <tr>
+                                        <th>Comunidad Autónoma</th>
+                                        <th>ITP (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Andalucía</td>
+                                        <td>7%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aragón</td>
+                                        <td>8-10%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Asturias</td>
+                                        <td>8-10%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Baleares</td>
+                                        <td>8-13%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Canarias</td>
+                                        <td>6,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cantabria</td>
+                                        <td>9%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Castilla-La Mancha</td>
+                                        <td>9%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Castilla y León</td>
+                                        <td>8-10%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cataluña</td>
+                                        <td>10-11%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ceuta</td>
+                                        <td>6%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comunidad de Madrid</td>
+                                        <td>6%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comunidad Valenciana</td>
+                                        <td>10-11%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Extremadura</td>
+                                        <td>8-11%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Galicia</td>
+                                        <td>8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>La Rioja</td>
+                                        <td>7%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Melilla</td>
+                                        <td>6%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Murcia</td>
+                                        <td>8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Navarra</td>
+                                        <td>6%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>País Vasco</td>
+                                        <td>7%</td>
+                                    </tr>
+                                    <!-- Añadir más filas según las comunidades autónomas -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Impuesto sobre Actos Jurídicos Documentados (AJD) -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Impuesto sobre Actos Jurídicos Documentados (AJD)</h3>
+                        <div class="recurso-content">
+                            <p>El Impuesto de Actos Jurídicos Documentados (AJD) es un impuesto que se aplica cuando se firma un documento notarial que formaliza una transacción, como la compra de una vivienda o la constitución de una hipoteca. Este impuesto cubre los gastos relacionados con la formalización y registro del documento.</p>
+                            <p><strong>¿Cuándo se paga?</strong></p>
+                            <p>Se paga al firmar la escritura pública de compraventa o al constituir una hipoteca. El porcentaje varía según la comunidad autónoma y se aplica sobre el valor del bien o la responsabilidad hipotecaria.</p>
+                            <p><strong>Impuesto sobre Actos Jurídicos Documentados (AJD) por Comunidad Autónoma</strong></p>
+                            <p>Los valores del AJD indicados a continuación han sido extraídos del informe <strong><em>Panorama de la Fiscalidad Autonómica y Foral 2024</em></strong>.</p>
+                            <p><a href="https://economistas.es/Contenido/REAF/Informes/Panorama2024.pdf" target="_blank">Descargar informe</a></p>
+                            <small>Para Ceuta y Melilla los valores han sido extraídos de <a href="https://sede.agenciatributaria.gob.es/Sede/declaraciones-informativas-otros-impuestos-tasas/impuesto-sobre-transmisiones-patrimoniales-actos-juridicos/itp-ajd-transmisiones-derechos-reales-fianzas/base-imponible-tipos-ceuta-melilla.html" target="_blank">agenciatributaria.gob.es</a></small>
+                            <table class="tabla-itp">
+                                <thead>
+                                    <tr>
+                                        <th>Comunidad Autónoma</th>
+                                        <th>AJD (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Andalucía</td>
+                                        <td>1,2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aragón</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Asturias</td>
+                                        <td>1,2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Baleares</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Canarias</td>
+                                        <td>0,75%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cantabria</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Castilla-La Mancha</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Castilla y León</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cataluña</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ceuta</td>
+                                        <td>0,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comunidad de Madrid</td>
+                                        <td>0,75%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comunidad Valenciana</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Extremadura</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Galicia</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>La Rioja</td>
+                                        <td>1%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Melilla</td>
+                                        <td>0,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Murcia</td>
+                                        <td>1,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Navarra</td>
+                                        <td>0,5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>País Vasco</td>
+                                        <td>0,5%</td>
+                                    </tr>
+                                    <!-- Añadir más filas según las comunidades autónomas -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Impuesto sobre Bienes Inmuebles (IBI) -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Impuesto sobre Bienes Inmuebles (IBI)</h3>
+                        <div class="recurso-content">
+                            <p>El <strong>Impuesto sobre Bienes Inmuebles (IBI)</strong> es un tributo de carácter municipal que grava la propiedad, usufructo o posesión de bienes inmuebles, ya sean urbanos, rústicos o de características especiales. Es una de las principales fuentes de ingresos para los ayuntamientos en España.</p>
+                            <p><strong>¿Quién debe pagar el IBI?</strong></p>
+                            <p>El IBI debe ser abonado anualmente por la persona o entidad que figure como propietaria del inmueble el día 1 de enero del año en curso. En caso de venta de la propiedad, el vendedor es responsable del pago correspondiente a ese año, salvo que se pacte lo contrario en el contrato de compraventa.</p>
+                            <p><strong>¿Cómo se calcula el IBI?</strong></p>
+                            <p>El importe del IBI se calcula aplicando un tipo impositivo, fijado por cada ayuntamiento, sobre el valor catastral del inmueble. El valor catastral es una estimación administrativa que considera las características físicas y económicas del bien, y suele ser inferior al valor de mercado.</p>
+                            <p><strong>Fórmula:</strong></p>
+                            <p><strong>IBI = Valor catastral x Tipo impositivo</strong></p>
+                            <p><strong>Características del valor catastral:</strong></p>
+                            <ul>
+                                <li>Es revisado periódicamente por la Dirección General del Catastro.</li>
+                                <li>Incluye el valor del suelo y de las construcciones existentes.</li>
+                                <li>Varía según la ubicación, tamaño y uso del inmueble.</li>
+                            </ul>
+                            <p><strong>¿Cuándo se paga el IBI?</strong></p>
+                            <p>El calendario de pago lo determina cada ayuntamiento, y normalmente se divide en uno o varios plazos a lo largo del año. En caso de no pagar el IBI dentro del plazo establecido, pueden aplicarse recargos e intereses de demora.</p>
+                            <p><strong>¿Por qué es importante el IBI?</strong></p>
+                            <p>El IBI es obligatorio y no pagarlo puede dar lugar a sanciones administrativas, embargos o dificultades al realizar trámites relacionados con el inmueble, como su venta o hipoteca.</p>
+                            <p><strong>Importante:</strong></p>
+                            <p>Es recomendable comprobar el valor catastral del inmueble y verificar que el recibo del IBI esté al día, especialmente en operaciones de compraventa.</p>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para más detalles sobre el IBI, puedes consultar la web de tu ayuntamiento o acceder al <a href="https://www.sedecatastro.gob.es/" target="_blank">portal del Catastro</a>.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Plusvalía -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Incremento de Valor de los Terrenos de Naturaleza Urbana (Plusvalía)</h3>
+                        <div class="recurso-content">
+                            <p>El <strong>Incremento de Valor de los Terrenos de Naturaleza Urbana</strong>, conocido comúnmente como <strong>Plusvalía</strong>, es un impuesto municipal que se aplica cuando se vende, hereda o dona un inmueble urbano. Este impuesto grava el aumento de valor que ha experimentado el terreno donde se encuentra la propiedad durante el periodo en que ha sido propiedad del vendedor o transmisor.</p>
+                            <p><strong>¿Cómo se calcula?</strong></p>
+                            <ul>
+                                <li><strong>Base imponible:</strong> Se calcula sobre el valor catastral del terreno y no incluye el valor de la construcción.</li>
+                                <li><strong>Periodo de tenencia:</strong> El tiempo durante el cual el vendedor ha sido propietario del terreno es clave para determinar el incremento del valor. Generalmente, se considera un periodo máximo de 20 años.</li>
+                                <li><strong>Coeficientes y tipos impositivos:</strong> Los coeficientes de revalorización y el tipo impositivo aplicable son establecidos por cada ayuntamiento dentro de los límites legales.</li>
+                            </ul>
+                            <p><strong>¿Quién está obligado a pagarlo?</strong></p>
+                            <ul>
+                                <li><strong>En ventas:</strong> El vendedor es quien paga el impuesto, salvo que se pacte lo contrario en el contrato de compraventa.</li>
+                                <li><strong>En herencias o donaciones:</strong> El receptor (heredero o donatario) es quien debe asumir el pago.</li>
+                            </ul>
+                            <p><strong>Aspectos importantes:</strong></p>
+                            <ul>
+                                <li>El impuesto puede ser significativo si el terreno ha experimentado una gran revalorización.</li>
+                                <li>Es importante consultar con el ayuntamiento correspondiente, ya que las normativas y coeficientes pueden variar entre municipios.</li>
+                            </ul>
+                            <p><strong>Recomendación:</strong> Antes de vender, heredar o donar un inmueble, consulta con un asesor fiscal o jurídico para entender el impacto del impuesto en tu caso concreto y planificar el trámite de manera óptima.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoría: Conceptos relacionados con la vivienda y su valoración -->
+                <h3 class="categoria-title">Conceptos relacionados con la vivienda y su valoración</h3>
+                <div class="recursos-list">
+                    <!-- Recurso-item para ITE -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">ITE (Inspección Técnica de Edificios)</h3>
+                        <div class="recurso-content">
+                            <p>La <strong>ITE</strong>, o Inspección Técnica de Edificios, es una evaluación obligatoria en España que deben pasar determinados edificios para garantizar su estado de conservación, seguridad y habitabilidad. Su objetivo principal es prevenir riesgos para los habitantes y para el entorno urbano, asegurando que los edificios cumplan con unos estándares mínimos de mantenimiento.</p>
+                            <p><strong>Aspectos clave de la ITE:</strong></p>
+                            <ul>
+                                <li>
+                                    <strong>Periodicidad de la inspección:</strong>
+                                    Los edificios con más de 30 años suelen estar obligados a pasar esta inspección cada 10 años, aunque la normativa puede variar según la comunidad autónoma o el municipio.
+                                </li>
+                                <li>
+                                    <strong>Aspectos evaluados:</strong>
+                                    La ITE revisa diversos elementos del edificio, como:
+                                    <ul>
+                                        <li>Fachadas y elementos estructurales (muros, pilares, vigas).</li>
+                                        <li>Estado de la cubierta y los tejados.</li>
+                                        <li>Instalaciones de fontanería, saneamiento y electricidad.</li>
+                                        <li>Sistemas de evacuación de aguas y posibles humedades.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Resultado de la ITE:</strong>
+                                    Tras la inspección, el edificio obtiene un informe técnico que clasifica su estado. Si se detectan deficiencias graves, los propietarios están obligados a realizar las reparaciones necesarias en un plazo determinado.
+                                </li>
+                                <li>
+                                    <strong>Certificado de aptitud:</strong>
+                                    Este documento se emite si la inspección es favorable, garantizando que el edificio cumple con los requisitos de seguridad y habitabilidad. Es recomendable solicitar este certificado antes de adquirir una vivienda en el edificio.
+                                </li>
+                            </ul>
+                            <p><strong>¿Por qué es importante la ITE?</strong></p>
+                            <p>La ITE asegura la seguridad de los edificios y ayuda a mantener el valor de las propiedades. Además, evita posibles sanciones por incumplimiento de la normativa y promueve un entorno urbano más seguro y cuidado.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Certificado energético -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Certificado energético</h3>
+                        <div class="recurso-content">
+                            <p>El <strong>Certificado Energético</strong> es un documento oficial que evalúa y califica la eficiencia energética de un inmueble, indicando el consumo de energía y las emisiones de CO₂ asociadas. Este certificado es obligatorio en España para cualquier edificio o vivienda que se desee vender o alquilar, según lo establece el Real Decreto 235/2013.</p>
+                            <p><strong>¿Qué información contiene el Certificado Energético?</strong></p>
+                            <ul>
+                                <li><strong>Etiqueta energética:</strong> Una calificación que va desde la letra A (más eficiente) hasta la G (menos eficiente).</li>
+                                <li><strong>Consumo de energía:</strong> Estimación del consumo anual en condiciones de uso y clima normales.</li>
+                                <li><strong>Emisiones de CO₂:</strong> Cantidad estimada de emisiones asociadas al consumo energético del inmueble.</li>
+                                <li><strong>Recomendaciones:</strong> Propuestas de mejora para aumentar la eficiencia energética del inmueble.</li>
+                            </ul>
+                            <p><strong>¿Cómo se obtiene el Certificado Energético?</strong></p>
+                            <p>Para obtener el Certificado Energético, es necesario contratar a un técnico habilitado, como un arquitecto, ingeniero o técnico especializado. Este profesional realizará una inspección del inmueble para evaluar aspectos como:</p>
+                            <ul>
+                                <li>El aislamiento térmico de paredes, ventanas y techos.</li>
+                                <li>Los sistemas de calefacción, refrigeración y agua caliente sanitaria.</li>
+                                <li>El tipo de iluminación instalada.</li>
+                            </ul>
+                            <p>Una vez realizada la inspección, el técnico emitirá el certificado, que debe ser registrado en el organismo correspondiente de la comunidad autónoma donde se ubique el inmueble.</p>
+                            <p><strong>¿Cuánto tiempo es válido?</strong></p>
+                            <p>El Certificado Energético tiene una validez de 10 años. Transcurrido este plazo, debe renovarse si el inmueble se pone nuevamente en venta o alquiler.</p>
+                            <p><strong>¿Quién debe obtenerlo y cuándo es obligatorio?</strong></p>
+                            <ul>
+                                <li><strong>Propietarios:</strong> Son responsables de obtener el certificado antes de vender o alquilar el inmueble.</li>
+                                <li><strong>Inmuebles nuevos:</strong> También deben contar con un Certificado Energético para la primera ocupación.</li>
+                            </ul>
+                            <p><strong>Excepciones:</strong> Algunos inmuebles, como los destinados a uso industrial, agrícola o religioso, pueden estar exentos de esta obligación.</p>
+                            <p><strong>Importante:</strong></p>
+                            <p>El incumplimiento de esta normativa puede dar lugar a sanciones económicas. Además, es recomendable incluir la calificación energética del inmueble en los anuncios de venta o alquiler.</p>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para más detalles, puedes consultar la normativa vigente en el <a href="https://www.boe.es/" target="_blank">Boletín Oficial del Estado</a> o la web de la <a href="https://energia.gob.es/" target="_blank">Secretaría de Estado de Energía</a>.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Nuda propiedad -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Nuda propiedad</h3>
+                        <div class="recurso-content">
+                            <p>La <strong>nuda propiedad</strong> es un derecho real que otorga al titular la propiedad de un bien, pero sin la posibilidad de disfrutarlo o usarlo directamente, ya que este derecho de uso (usufructo) corresponde a otra persona. Es un concepto frecuente en operaciones inmobiliarias, especialmente en compraventas que buscan optimizar la transmisión de bienes.</p>
+                            <p><strong>¿En qué consiste la nuda propiedad?</strong></p>
+                            <p>La nuda propiedad representa la titularidad del bien, mientras que el derecho a su uso y disfrute, conocido como <strong>usufructo</strong>, pertenece a otra persona. Esta división de derechos puede ser temporal o vitalicia, dependiendo del acuerdo entre las partes.</p>
+                            <p><strong>Ejemplo práctico:</strong></p>
+                            <p>Un propietario puede vender la nuda propiedad de su vivienda, manteniendo el usufructo vitalicio. Esto significa que el nuevo titular no podrá habitar ni alquilar el inmueble hasta que se extinga el usufructo (generalmente tras el fallecimiento del usufructuario).</p>
+                            <p><strong>Ventajas de la nuda propiedad:</strong></p>
+                            <ul>
+                                <li><strong>Para el nudo propietario:</strong> Puede adquirir un inmueble a un precio reducido, ya que no tendrá pleno acceso al bien hasta que se extinga el usufructo.</li>
+                                <li><strong>Para el usufructuario:</strong> Permite obtener liquidez inmediata sin renunciar al uso de la vivienda durante un periodo pactado o de por vida.</li>
+                            </ul>
+                            <p><strong>¿Cuándo se utiliza la nuda propiedad?</strong></p>
+                            <ul>
+                                <li>En operaciones de planificación patrimonial, como herencias o donaciones, para transmitir bienes con ciertas condiciones.</li>
+                                <li>En compraventas inmobiliarias donde el propietario busca liquidez inmediata pero desea seguir disfrutando del inmueble.</li>
+                                <li>Como estrategia de inversión, especialmente en mercados donde los inmuebles tienen alta revalorización.</li>
+                            </ul>
+                            <p><strong>¿Cómo se extingue la nuda propiedad?</strong></p>
+                            <p>La nuda propiedad se convierte en propiedad plena cuando el usufructo se extingue, lo que puede ocurrir por:</p>
+                            <ul>
+                                <li>El fallecimiento del usufructuario, si el usufructo es vitalicio.</li>
+                                <li>El vencimiento del plazo pactado en el contrato.</li>
+                                <li>La renuncia del usufructuario o la consolidación de derechos mediante acuerdo entre las partes.</li>
+                            </ul>
+                            <p><strong>Importante:</strong></p>
+                            <p>Es fundamental que tanto el nudo propietario como el usufructuario comprendan los derechos y obligaciones asociados a cada figura, incluyendo aspectos fiscales, como el pago de impuestos y los gastos asociados al bien.</p>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para conocer más detalles sobre la nuda propiedad, puedes consultar el <a href="https://www.boe.es/" target="_blank">Código Civil Español</a> o buscar asesoramiento legal especializado en derecho inmobiliario.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoría: Términos financieros y bancarios -->
+                <h3 class="categoria-title">Términos financieros y bancarios</h3>
+                <div class="recursos-list">
+                    <!-- Recurso-item para Préstamo y Crédito -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Préstamo y Crédito</h3>
+                        <div class="recurso-content">
+                            <p>Aunque los términos <strong>préstamo</strong> y <strong>crédito</strong> suelen utilizarse de manera indistinta, tienen diferencias clave que es importante conocer:</p>
+                            <ul>
+                                <li>
+                                    <strong>Préstamo:</strong>
+                                    Es una cantidad fija de dinero que una entidad financiera te otorga con un propósito específico, como la compra de una vivienda, un coche o financiar estudios. Algunas características principales son:
+                                    <ul>
+                                        <li>El importe se entrega en su totalidad al inicio de la operación.</li>
+                                        <li>Se devuelve en su totalidad, junto con los intereses pactados, mediante pagos periódicos en un plazo determinado.</li>
+                                        <li>Es una operación cerrada, lo que significa que una vez recibido el dinero, no podrás acceder a más fondos hasta que solicites un nuevo préstamo.</li>
+                                        <li>Ideal para objetivos con un costo definido y único, como inversiones puntuales.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Crédito:</strong>
+                                    Se refiere a una línea de financiación con un límite máximo de dinero del cual puedes disponer según tus necesidades. Sus características principales incluyen:
+                                    <ul>
+                                        <li>Flexibilidad para utilizar solo la cantidad que necesites dentro del límite pactado.</li>
+                                        <li>Pagas intereses únicamente sobre el monto utilizado, no sobre el total disponible.</li>
+                                        <li>A medida que devuelves el dinero, vuelves a tener disponible ese límite de crédito sin necesidad de solicitar un nuevo producto.</li>
+                                        <li>Es una herramienta financiera continua, ideal para cubrir necesidades recurrentes o gastos imprevistos.</li>
+                                        <li>Un ejemplo común es el uso de tarjetas de crédito o líneas de crédito personales.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Deuda productiva y no productiva -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Deuda productiva y no productiva</h3>
+                        <div class="recurso-content">
+                            <p>El endeudamiento, cuando se utiliza de forma estratégica, puede ser una herramienta eficaz para alcanzar metas financieras importantes. La clave está en gestionar la deuda de manera responsable, permitiendo acceder a recursos para inversiones que no serían posibles en el corto plazo, como la compra de una vivienda o la financiación de estudios. Sin embargo, no todas las deudas son iguales, y es fundamental distinguir entre deuda productiva y no productiva.</p>
+                            <ul>
+                                <li>
+                                    <strong>Deuda productiva:</strong> Este tipo de deuda está vinculada a inversiones que generan valor o ingresos a largo plazo. Algunos ejemplos incluyen:
+                                    <ul>
+                                        <li>Una hipoteca para la compra de una vivienda, que incrementa tu patrimonio.</li>
+                                        <li>Un préstamo para financiar estudios universitarios o formación profesional, que mejora tu capacidad de generar ingresos futuros.</li>
+                                    </ul>
+                                    <p>Las deudas productivas suelen tener condiciones más favorables, como tipos de interés más bajos y plazos de amortización más largos. Además, la TAE (Tasa Anual Equivalente) es menor, ya que estas inversiones reducen el riesgo para el prestamista al estar respaldadas por activos tangibles o por el aumento de tus ingresos a futuro.</p>
+                                </li>
+                                <li>
+                                    <strong>Deuda no productiva:</strong> Se refiere a deudas contraídas para financiar gastos que no generan valor ni aportan beneficios económicos a largo plazo. Algunos ejemplos son:
+                                    <ul>
+                                        <li>El uso de tarjetas de crédito para compras impulsivas o no esenciales.</li>
+                                        <li>Préstamos personales para adquirir bienes que se deprecian rápidamente, como un coche o aparatos electrónicos.</li>
+                                    </ul>
+                                    <p>Las deudas no productivas suelen tener condiciones menos ventajosas, con tipos de interés más altos y plazos de amortización más cortos. Como resultado, la TAE tiende a ser significativamente mayor, ya que el prestamista asume un mayor riesgo debido a la naturaleza del gasto, que no mejora tu situación financiera futura.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Scoring bancario -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Scoring bancario</h3>
+                        <div class="recurso-content">
+                            <p>El <strong>scoring bancario</strong> es una herramienta utilizada por las entidades financieras para evaluar la solvencia y el riesgo de impago de un solicitante de crédito o préstamo. Este sistema asigna una puntuación basada en diversos factores, ayudando al banco a determinar si aprueba o rechaza la solicitud y en qué condiciones.</p>
+                            <p><strong>¿Cómo funciona el scoring bancario?</strong></p>
+                            <p>El scoring bancario utiliza modelos matemáticos y estadísticos que analizan información relevante del solicitante, como su historial financiero, ingresos, deudas actuales y comportamiento crediticio pasado. Esta información se traduce en una puntuación que refleja el nivel de riesgo asociado a concederle un préstamo.</p>
+                            <p><strong>Factores que influyen en el scoring bancario:</strong></p>
+                            <ul>
+                                <li><strong>Historial crediticio:</strong> Cómo ha gestionado el solicitante créditos anteriores, incluyendo retrasos en pagos o deudas impagadas.</li>
+                                <li><strong>Ingresos y estabilidad laboral:</strong> La cantidad y regularidad de los ingresos del solicitante, así como su antigüedad en el empleo actual.</li>
+                                <li><strong>Ratio de endeudamiento:</strong> El porcentaje de los ingresos destinados a pagar deudas existentes.</li>
+                                <li><strong>Patrimonio:</strong> Bienes que pueda tener el solicitante, como propiedades o ahorros.</li>
+                                <li><strong>Relación con el banco:</strong> Historial del cliente con la entidad, como tiempo de antigüedad y productos contratados.</li>
+                            </ul>
+                            <p><strong>¿Para qué sirve el scoring bancario?</strong></p>
+                            <p>El scoring bancario permite a las entidades financieras:</p>
+                            <ul>
+                                <li>Tomar decisiones rápidas y fundamentadas sobre la concesión de créditos.</li>
+                                <li>Reducir el riesgo de impagos al identificar clientes con mayor probabilidad de cumplir con sus obligaciones financieras.</li>
+                                <li>Personalizar las condiciones del préstamo, como el tipo de interés o los plazos de pago, según el perfil del cliente.</li>
+                            </ul>
+                            <p><strong>Importante:</strong></p>
+                            <p>Un scoring bajo no implica necesariamente que el crédito será denegado, pero puede resultar en condiciones menos favorables, como intereses más altos o una solicitud de garantías adicionales.</p>
+                            <p><strong>¿Cómo mejorar tu scoring bancario?</strong></p>
+                            <ul>
+                                <li>Paga puntualmente tus créditos y facturas para mantener un historial crediticio positivo.</li>
+                                <li>Reduce tu nivel de endeudamiento antes de solicitar un nuevo préstamo.</li>
+                                <li>Incrementa tus ingresos o demuestra estabilidad laboral.</li>
+                                <li>Evita solicitar múltiples créditos en un corto período, ya que esto puede interpretarse como un signo de riesgo.</li>
+                            </ul>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para conocer más sobre cómo funciona el scoring bancario y cómo afecta a tus solicitudes de crédito, puedes consultar la web de instituciones como el <a href="https://www.bde.es/" target="_blank">Banco de España</a> o contactar con tu entidad financiera.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Ratio Loan to Value (LTV) -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Ratio Loan to Value (LTV)</h3>
+                        <div class="recurso-content">
+                            <p>El <strong>Ratio Loan to Value (LTV)</strong> es una medida financiera que compara el importe de un préstamo hipotecario con el valor de la propiedad que se adquiere. Este ratio se expresa en porcentaje y es utilizado por las entidades financieras para evaluar el nivel de riesgo asociado a la concesión de una hipoteca.</p>
+                            <p><strong>¿Cómo se calcula el Ratio Loan to Value?</strong></p>
+                            <p>El LTV se calcula dividiendo el importe del préstamo solicitado entre el valor del inmueble y multiplicando el resultado por 100:</p>
+                            <p><strong>LTV = (Importe del préstamo / Valor del inmueble) x 100</strong></p>
+                            <p>Por ejemplo, si solicitas un préstamo de 150.000 € para comprar una vivienda valorada en 200.000 €, el LTV será del 75%.</p>
+                            <p><strong>Importancia del LTV en una hipoteca:</strong></p>
+                            <ul>
+                                <li><strong>Evaluación del riesgo:</strong> Un LTV más alto indica un mayor nivel de riesgo para la entidad financiera, ya que el préstamo representa una mayor proporción del valor del inmueble.</li>
+                                <li><strong>Condiciones del préstamo:</strong> Un LTV más bajo suele estar asociado a mejores condiciones de la hipoteca, como tipos de interés más bajos o menores exigencias de garantías.</li>
+                                <li><strong>Financiación máxima:</strong> Muchas entidades financieras establecen un LTV máximo, generalmente del 80% para una vivienda habitual, aunque este límite puede variar.</li>
+                            </ul>
+                            <p><strong>¿Qué significa un LTV alto o bajo?</strong></p>
+                            <ul>
+                                <li><strong>LTV alto:</strong> Indica que el importe del préstamo es elevado en comparación con el valor del inmueble, lo que puede aumentar el riesgo de impago y las dificultades para acceder a la financiación.</li>
+                                <li><strong>LTV bajo:</strong> Refleja que el prestatario aporta una mayor cantidad de recursos propios, lo que reduce el riesgo para la entidad y puede facilitar la aprobación del préstamo.</li>
+                            </ul>
+                            <p><strong>¿Cómo afecta el LTV a los solicitantes?</strong></p>
+                            <p>El LTV puede influir en varios aspectos clave para los prestatarios:</p>
+                            <ul>
+                                <li>El importe que deben aportar como entrada para la compra del inmueble.</li>
+                                <li>Las condiciones financieras del préstamo, como el tipo de interés.</li>
+                                <li>La necesidad de contratar seguros adicionales, como el seguro de protección de pagos.</li>
+                            </ul>
+                            <p><strong>Importante:</strong></p>
+                            <p>Conocer tu Ratio Loan to Value antes de solicitar una hipoteca te ayudará a entender las expectativas del banco y a preparar la cantidad necesaria para la entrada y otros gastos asociados.</p>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para calcular tu LTV y explorar cómo afecta a tus opciones hipotecarias, puedes utilizar herramientas en línea o consultar directamente con tu entidad financiera. También puedes encontrar información adicional en el <a href="https://www.bde.es/" target="_blank">Banco de España</a>.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recurso-item para Aval -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Aval</h3>
+                        <div class="recurso-content">
+                            <p>El <strong>aval</strong> es una garantía adicional que se incluye en ciertos contratos de préstamo o financiación, mediante la cual una persona o entidad (el avalista) se compromete a cumplir con las obligaciones económicas del titular del préstamo (el avalado) en caso de que este no pueda hacerlo.</p>
+                            <p><strong>¿Cómo funciona el aval?</strong></p>
+                            <p>Cuando un cliente solicita un préstamo hipotecario o de otro tipo, el banco puede exigir un aval como medida de seguridad para asegurarse de que recibirá el reembolso del dinero prestado. Si el titular del préstamo no paga, el avalista está obligado a asumir el pago de las cuotas o del total adeudado.</p>
+                            <p><strong>Tipos de aval:</strong></p>
+                            <ul>
+                                <li><strong>Aval personal:</strong> Una persona física (por ejemplo, un familiar o amigo) garantiza el pago del préstamo con su patrimonio personal.</li>
+                                <li><strong>Aval bancario:</strong> Una entidad financiera actúa como avalista, ofreciendo una garantía de pago a cambio de una comisión.</li>
+                            </ul>
+                            <p><strong>¿Cuándo se requiere un aval?</strong></p>
+                            <p>El aval se solicita generalmente en situaciones donde el solicitante del préstamo no cumple con los requisitos estándar de solvencia, como:</p>
+                            <ul>
+                                <li>Ingresos insuficientes o inestables.</li>
+                                <li>Falta de historial crediticio.</li>
+                                <li>Préstamos de elevado importe en relación con los ingresos del titular.</li>
+                            </ul>
+                            <p><strong>Responsabilidades del avalista:</strong></p>
+                            <p>El avalista debe ser consciente de que al firmar como aval está asumiendo una responsabilidad financiera significativa. Si el titular del préstamo no paga, el avalista puede verse obligado a cubrir la deuda, lo que podría afectar su situación financiera y su capacidad para acceder a otros préstamos.</p>
+                            <p><strong>Importante:</strong></p>
+                            <p>Antes de aceptar ser avalista, es fundamental entender los términos del contrato, evaluar los riesgos y, si es necesario, buscar asesoramiento legal.</p>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para obtener más detalles sobre los derechos y obligaciones de los avalistas, puedes consultar la normativa vigente en el <a href="https://www.boe.es/" target="_blank">Boletín Oficial del Estado</a> o contactar con un abogado especializado en derecho financiero.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoría: Riesgos y protecciones para el consumidor -->
+                <h3 class="categoria-title">Riesgos y protecciones para el consumidor</h3>
+                <div class="recursos-list">
+                    <!-- Recurso-item para Cláusula suelo -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Cláusula suelo</h3>
+                        <div class="recurso-content">
+                            <p>La <strong>cláusula suelo</strong> es una condición incluida en algunos contratos de préstamo hipotecario a tipo variable que establece un límite mínimo al tipo de interés aplicable, independientemente de cómo evolucione el índice de referencia (por ejemplo, el Euríbor). Esto significa que, aunque el índice baje, el interés que paga el cliente nunca será inferior al mínimo estipulado en la cláusula.</p>
+                            <p><strong>¿Cómo funciona la cláusula suelo?</strong></p>
+                            <p>En una hipoteca a tipo variable, el interés se calcula sumando un diferencial pactado al índice de referencia (como el Euríbor). Sin embargo, si el contrato incluye una cláusula suelo, el cliente no se beneficia de reducciones significativas del índice cuando este baja por debajo del límite fijado.</p>
+                            <p><strong>Ejemplo:</strong></p>
+                            <p>Si una hipoteca tiene un diferencial del 1% sobre el Euríbor y el Euríbor está en -0,5%, el interés resultante debería ser 0,5%. Sin embargo, si hay una cláusula suelo que establece un mínimo del 2%, el cliente seguirá pagando un interés del 2% en lugar del 0,5%.</p>
+                            <p><strong>¿Por qué es controvertida?</strong></p>
+                            <ul>
+                                <li><strong>Falta de transparencia:</strong> Muchas cláusulas suelo se incorporaron a los contratos sin informar claramente a los clientes, lo que llevó a acusaciones de abuso.</li>
+                                <li><strong>Impacto económico:</strong> Los clientes afectados no pudieron beneficiarse de las bajadas del Euríbor, resultando en cuotas mensuales más altas de lo esperado.</li>
+                                <li><strong>Resoluciones judiciales:</strong> En 2013, el Tribunal Supremo de España declaró nulas las cláusulas suelo que no se hubieran negociado de forma transparente, obligando a los bancos a devolver los intereses cobrados de más en algunos casos.</li>
+                            </ul>
+                            <p><strong>¿Cómo saber si tu hipoteca tiene una cláusula suelo?</strong></p>
+                            <p>Revisa tu escritura de hipoteca o consulta con tu entidad financiera para identificar si existe un límite mínimo al tipo de interés aplicable.</p>
+                            <p><strong>Importante:</strong></p>
+                            <p>Si tu hipoteca tiene una cláusula suelo y consideras que no te informaron adecuadamente, puedes buscar asesoramiento legal para valorar la posibilidad de reclamar.</p>
+                            <p><strong>Más información:</strong></p>
+                            <p>Para más detalles sobre este tema, puedes consultar las resoluciones del <a href="https://www.poderjudicial.es/" target="_blank">Tribunal Supremo de España</a> o contactar con la <a href="https://www.consumo.gob.es/" target="_blank">Agencia Española de Consumo</a>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoría: Otros conceptos -->
+                <h3 class="categoria-title">Otros conceptos</h3>
+                <div class="recursos-list">
+                    <!-- Recurso-item para Arras -->
+                    <div class="recurso-item">
+                        <h3 class="recurso-title">Arras</h3>
+                        <div class="recurso-content">
+                            <p>Las arras son un pago adelantado que el comprador entrega al vendedor al acordar la compra de un inmueble. Este pago sirve como garantía del compromiso de compra y se descuenta del precio total al formalizar la operación.</p>
+                            <ul>
+                                <li><strong>Garantía y parte del precio:</strong> al cerrar la compra, el importe de las arras se descuenta del precio total.</li>
+                                <li><strong>Si el comprador cancela:</strong> puede perder el dinero como compensación para el vendedor.</li>
+                                <li><strong>Si el vendedor cancela:</strong> normalmente, debe devolver el doble del importe recibido al comprador como penalización.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Sección: Calculadora de Capacidad de Endeudamiento -->
@@ -1023,28 +1302,28 @@
                     <!-- Ingresos Netos Mensuales -->
                     <div class="form-group">
                         <label for="ingresos-netos">Ingresos netos mensuales (€)</label>
-                        <input type="number" id="ingresos-netos" placeholder="Ejemplo: 2500" min="0" step="0.01" required>
+                        <input type="text" id="ingresos-netos" placeholder="Ejemplo: 2500" min="0" step="0.01" required>
                         <small class="description">Ingresos totales después de impuestos.</small>
                     </div>
         
                     <!-- Tasa de Endeudamiento -->
                     <div class="form-group">
                         <label for="tasa-endeudamiento">Tasa de endeudamiento (%)</label>
-                        <input type="number" id="tasa-endeudamiento" placeholder="Ejemplo: 30" min="0" max="100" step="0.01" required>
+                        <input type="text" id="tasa-endeudamiento" placeholder="Ejemplo: 30" min="0" max="100" step="0.01" required>
                         <small class="description">Porcentaje máximo de tus ingresos destinado al pago del préstamo hipotecario. Se recomienda un valor por debajo del 30%.</small>
                     </div>
         
                     <!-- TIN -->
                     <div class="form-group">
                         <label for="tin-endeudamiento">Tipo de Interés Nominal (TIN) (%)</label>
-                        <input type="number" id="tin-endeudamiento" placeholder="Ejemplo: 1.5" min="0" step="0.01" required>
+                        <input type="text" id="tin-endeudamiento" placeholder="Ejemplo: 1.5" min="0" step="0.01" required>
                         <small class="description">El interés anual que aplicará el banco.</small>
                     </div>
         
                     <!-- Plazo del Préstamo -->
                     <div class="form-group">
                         <label for="plazo-endeudamiento">Plazo del préstamo (años)</label>
-                        <input type="number" id="plazo-endeudamiento" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
+                        <input type="text" id="plazo-endeudamiento" placeholder="Ejemplo: 30" min="1" max="40" step="1" required>
                         <small class="description">Duración del préstamo en años.</small>
                     </div>
         
@@ -1059,9 +1338,15 @@
                 <section class="subsection" id="resultados-endeudamiento">
                     <div class="section-container">
                         <h2>Resultados</h2>
-                        <div class="resultados-content">
-                            <p><strong>Cuota mensual máxima (€):</strong> €<span id="cuota-mensual-maxima">0.00</span></p>
-                            <p><strong>Importe máximo financiable (€):</strong> €<span id="importe-maximo-financiable">0.00</span></p>
+                        <div class="resumen-content">
+                            <div class="resumen-card">
+                                <i class="fas fa-wallet resumen-icon"></i>
+                                <p><strong>Cuota mensual máxima (€):</strong> <span id="cuota-mensual-maxima">0.00</span></p>
+                            </div>
+                            <div class="resumen-card">
+                                <i class="fas fa-money-check resumen-icon"></i>
+                                <p><strong>Importe máximo financiable (€):</strong> <span id="importe-maximo-financiable">0.00</span></p>
+                            </div>
                         </div>
                     </div>
                 </section>
