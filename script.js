@@ -90,15 +90,6 @@ function buildUserDropdown() {
       mostrarFormularioIniciarSesion();
     });
 
-    const registerOption = document.createElement('a');
-    registerOption.href = '#';
-    registerOption.textContent = 'Crear cuenta';
-    registerOption.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      mostrarFormularioRegistro();
-    });
-
     userDropdown.appendChild(loginOption);
     userDropdown.appendChild(registerOption);
   }
@@ -344,6 +335,32 @@ function initializeApp() {
   setupPreguntasFrecuentes();
 }
 
+// Función auxiliar para formatear números
+function formatNumber(number) {
+  return number.toLocaleString('es-ES', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+// Función para formatear porcentajes
+function formatPercentage(number) {
+  return number.toLocaleString('es-ES', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }) + '%';
+}
+
+function parseFormattedNumber(str) {
+  // Elimina los puntos de separadores de miles y reemplaza la coma decimal por un punto
+  return parseUserInput(str.replace(/\./g, '').replace(',', '.'));
+}
+
+function parseUserInput(str) {
+  // Elimina los puntos de separadores de miles y reemplaza la coma decimal por un punto
+  return parseFloat(str.replace(/\./g, '').replace(',', '.'));
+}
+
 // Función para configurar la navegación principal
 function setupMainNavigation() {
   const mainNav = document.getElementById('main-nav');
@@ -520,28 +537,28 @@ function setupDatosSimulacion() {
   let impuestoEuros = 0;
 
   function actualizarValores() {
-    const precioPropiedad = parseFloat(precioPropiedadInput.value) || 0;
-    entradaEuros = parseFloat(entradaInput.value) || 0;
-    entradaCalculadoSpan.textContent = `€${entradaEuros.toFixed(2)}`;
-    impuestoEuros = (parseFloat(impuestoInput.value) || 0) / 100 * precioPropiedad;
-    impuestoCalculadoSpan.textContent = `€${impuestoEuros.toFixed(2)}`;
+    const precioPropiedad = parseUserInput(precioPropiedadInput.value) || 0;
+    entradaEuros = parseUserInput(entradaInput.value) || 0;
+    entradaCalculadoSpan.textContent = `€${formatNumber(entradaEuros)}`;
+    impuestoEuros = (parseUserInput(impuestoInput.value) || 0) / 100 * precioPropiedad;
+    impuestoCalculadoSpan.textContent = `€${formatNumber(impuestoEuros)}`;
 
     calcularTotalInicial();
     actualizarResumenFinanciero(); // Llamada adicional para actualizar el resumen
   }
 
   function calcularTotalInicial() {
-    const totalInicial = (parseFloat(precioPropiedadInput.value) || 0) + impuestoEuros +
-      (parseFloat(tasacionInput.value) || 0) + (parseFloat(notariaInput.value) || 0) +
-      (parseFloat(gestorInput.value) || 0) + (parseFloat(registroInput.value) || 0);
-    totalInicialSpan.textContent = totalInicial.toFixed(2);
+    const totalInicial = (parseUserInput(precioPropiedadInput.value) || 0) + impuestoEuros +
+      (parseUserInput(tasacionInput.value) || 0) + (parseUserInput(notariaInput.value) || 0) +
+      (parseUserInput(gestorInput.value) || 0) + (parseUserInput(registroInput.value) || 0);
+    totalInicialSpan.textContent = formatNumber(totalInicial);
     actualizarFinanciacionSolicitada(totalInicial);
   }
 
   function actualizarFinanciacionSolicitada(totalInicial) {
     const financiacionSolicitadaElement = document.getElementById('monto-prestamo');
     const montoPrestamo = totalInicial - entradaEuros;
-    financiacionSolicitadaElement.textContent = montoPrestamo >= 0 ? montoPrestamo.toFixed(2) : '0.00';
+    financiacionSolicitadaElement.textContent = montoPrestamo >= 0 ? formatNumber(montoPrestamo) : '0,00';
   }
 
   precioPropiedadInput.addEventListener('input', actualizarValores);
@@ -578,19 +595,19 @@ function actualizarCuotaMensual() {
   const cuotaEstimadaSpan = document.getElementById('cuota-estimada');
   const cuotaTotalSpan = document.getElementById('cuota-total');
 
-  const totalInicial = parseFloat(document.getElementById('total-inicial').textContent) || 0;
-  const entradaEuros = parseFloat(document.getElementById('entrada').value) || 0;
+  const totalInicial = parseUserInput(document.getElementById('total-inicial').textContent) || 0;
+  const entradaEuros = parseUserInput(document.getElementById('entrada').value) || 0;
 
   const montoPrestamo = totalInicial - entradaEuros;
-  montoPrestamoSpan.textContent = montoPrestamo.toFixed(2);
+  montoPrestamoSpan.textContent = formatNumber(montoPrestamo);
 
-  const tin = parseFloat(document.getElementById('tin').value) || 0;
+  const tin = parseUserInput(document.getElementById('tin').value) || 0;
   const plazo = parseInt(document.getElementById('plazo').value) || 0;
-  const segurosProductos = parseFloat(document.getElementById('seguros-productos').value) || 0;
+  const segurosProductos = parseUserInput(document.getElementById('seguros-productos').value) || 0;
 
   if (montoPrestamo <= 0 || plazo === 0 || tin === 0) {
-    cuotaEstimadaSpan.textContent = '0.00';
-    cuotaTotalSpan.textContent = '0.00';
+    cuotaEstimadaSpan.textContent = '0,00';
+    cuotaTotalSpan.textContent = '0,00';
     actualizarResumenFinanciero();
     limpiarCalendarioPagos();
     return;
@@ -599,10 +616,10 @@ function actualizarCuotaMensual() {
   const numeroCuotas = plazo * 12;
   const interesMensual = (tin / 100) / 12;
   const cuotaMensual = (montoPrestamo * interesMensual) / (1 - Math.pow(1 + interesMensual, -numeroCuotas));
-  cuotaEstimadaSpan.textContent = cuotaMensual.toFixed(2);
+  cuotaEstimadaSpan.textContent = formatNumber(cuotaMensual);
 
   const cuotaMensualTotal = cuotaMensual + segurosProductos;
-  cuotaTotalSpan.textContent = cuotaMensualTotal.toFixed(2);
+  cuotaTotalSpan.textContent = formatNumber(cuotaMensualTotal);
 
   // Llamar a generar el calendario de pagos después de actualizar la cuota
   generarCalendarioPagos();
@@ -624,8 +641,8 @@ function generarCalendarioPagos() {
   const tablaBody = document.getElementById('tabla-amortizacion-body');
   tablaBody.innerHTML = ''; // Limpiar contenido previo
 
-  const montoPrestamo = parseFloat(document.getElementById('monto-prestamo').textContent) || 0;
-  const tin = parseFloat(document.getElementById('tin').value) || 0;
+  const montoPrestamo = parseUserInput(document.getElementById('monto-prestamo').textContent) || 0;
+  const tin = parseUserInput(document.getElementById('tin').value) || 0;
   const plazo = parseInt(document.getElementById('plazo').value) || 0;
 
   if (montoPrestamo === 0 || plazo === 0 || tin === 0) {
@@ -667,22 +684,22 @@ function generarCalendarioPagos() {
 
     // Columna Cuota
     const columnaCuota = document.createElement('td');
-    columnaCuota.textContent = '€' + cuotaMensual.toFixed(2);
+    columnaCuota.textContent = '€' + formatNumber(cuotaMensual);
     fila.appendChild(columnaCuota);
 
     // Columna Interés
     const columnaInteres = document.createElement('td');
-    columnaInteres.textContent = '€' + interes.toFixed(2);
+    columnaInteres.textContent = '€' + formatNumber(interes);
     fila.appendChild(columnaInteres);
 
     // Columna Capital
     const columnaCapital = document.createElement('td');
-    columnaCapital.textContent = '€' + capital.toFixed(2);
+    columnaCapital.textContent = '€' + formatNumber(capital);
     fila.appendChild(columnaCapital);
 
     // Columna Capital Pendiente
     const columnaSaldo = document.createElement('td');
-    columnaSaldo.textContent = '€' + saldoPendiente.toFixed(2);
+    columnaSaldo.textContent = '€' + formatNumber(saldoPendiente);
     fila.appendChild(columnaSaldo);
 
     // Verificar si Capital > Interés y si aún no se ha encontrado la cuota
@@ -705,11 +722,11 @@ function generarCalendarioPagos() {
   filaTotales.appendChild(columnaTotales);
 
   const columnaTotalIntereses = document.createElement('td');
-  columnaTotalIntereses.textContent = '€' + totalIntereses.toFixed(2);
+  columnaTotalIntereses.textContent = '€' + formatNumber(totalIntereses);
   filaTotales.appendChild(columnaTotalIntereses);
 
   const columnaTotalCapital = document.createElement('td');
-  columnaTotalCapital.textContent = '€' + totalCapital.toFixed(2);
+  columnaTotalCapital.textContent = '€' + formatNumber(totalCapital);
   filaTotales.appendChild(columnaTotalCapital);
 
   const columnaVacia = document.createElement('td');
@@ -745,35 +762,35 @@ function actualizarResumenFinanciero() {
   const porcentajeFinanciadoSpan = document.getElementById('porcentaje-financiado');
   const entradaResumenSpan = document.getElementById('entrada-resumen');
 
-  const totalInicial = parseFloat(document.getElementById('total-inicial').textContent) || 0;
-  const montoPrestamo = parseFloat(document.getElementById('monto-prestamo').textContent) || 0;
-  const precioPropiedad = parseFloat(document.getElementById('precio-propiedad').value) || 0;
+  const totalInicial = parseUserInput(document.getElementById('total-inicial').textContent) || 0;
+  const montoPrestamo = parseUserInput(document.getElementById('monto-prestamo').textContent) || 0;
+  const precioPropiedad = parseUserInput(document.getElementById('precio-propiedad').value) || 0;
 
   // Mostrar el valor calculado de la aportación inicial
-  const aportacionInicial = parseFloat(document.getElementById('entrada').value) || 0;
-  entradaResumenSpan.textContent = aportacionInicial.toFixed(2);
+  const aportacionInicial = parseUserInput(document.getElementById('entrada').value) || 0;
+  entradaResumenSpan.textContent = formatNumber(aportacionInicial);
 
-  ahorroNecesarioSpan.textContent = totalInicial.toFixed(2);
-  financiacionSolicitadaSpan.textContent = montoPrestamo.toFixed(2);
-  precioInmuebleSpan.textContent = precioPropiedad.toFixed(2);
+  ahorroNecesarioSpan.textContent = formatNumber(totalInicial);
+  financiacionSolicitadaSpan.textContent = formatNumber(montoPrestamo);
+  precioInmuebleSpan.textContent = formatNumber(precioPropiedad);
 
   let porcentajeFinanciado = 0;
   if (precioPropiedad > 0) {
     porcentajeFinanciado = (montoPrestamo / precioPropiedad) * 100;
   }
-  porcentajeFinanciadoSpan.textContent = porcentajeFinanciado.toFixed(2);
+  porcentajeFinanciadoSpan.textContent = formatPercentage(porcentajeFinanciado); // Porcentaje con coma decimal
 
-  const cuotaSinSeguros = parseFloat(document.getElementById('cuota-estimada').textContent) || 0;
-  const cuotaConSeguros = parseFloat(document.getElementById('cuota-total').textContent) || 0;
+  const cuotaSinSeguros = parseUserInput(document.getElementById('cuota-estimada').textContent) || 0;
+  const cuotaConSeguros = parseUserInput(document.getElementById('cuota-total').textContent) || 0;
 
-  cuotaSinSegurosSpan.textContent = cuotaSinSeguros.toFixed(2);
-  cuotaConSegurosSpan.textContent = cuotaConSeguros.toFixed(2);
+  cuotaSinSegurosSpan.textContent = formatNumber(cuotaSinSeguros);
+  cuotaConSegurosSpan.textContent = formatNumber(cuotaConSeguros);
 
   const plazo = parseInt(document.getElementById('plazo').value) || 0;
   const numeroCuotas = plazo * 12;
-  const cuotaMensualTotal = parseFloat(document.getElementById('cuota-total').textContent) || 0;
+  const cuotaMensualTotal = parseUserInput(document.getElementById('cuota-total').textContent) || 0;
   const costeTotalHipoteca = cuotaMensualTotal * numeroCuotas;
-  costeTotalHipotecaSpan.textContent = costeTotalHipoteca.toFixed(2);
+  costeTotalHipotecaSpan.textContent = formatNumber(costeTotalHipoteca);
 }
 
 // Función para guardar la simulación en Firestore
@@ -787,20 +804,22 @@ function guardarSimulacion() {
   }
 
   // Obtener los datos de la simulación actual
-  const totalInicial = parseFloat(document.getElementById('total-inicial').textContent) || 0;
-  const financiacionSolicitada = parseFloat(document.getElementById('financiacion-solicitada').textContent) || 0;
-  const aportacionInicial = parseFloat(document.getElementById('entrada-resumen').textContent) || 0;
+  const totalInicial = parseFormattedNumber(document.getElementById('total-inicial').textContent) || 0;
+  const financiacionSolicitada = parseFormattedNumber(document.getElementById('financiacion-solicitada').textContent) || 0;
+  const aportacionInicial = parseFormattedNumber(document.getElementById('entrada-resumen').textContent) || 0;
+  const porcentajeFinanciadoText = document.getElementById('porcentaje-financiado').textContent.replace('%', '');
+  const porcentajeFinanciado = parseFormattedNumber(porcentajeFinanciadoText) || 0;
 
   const simulacion = {
     nombre: nombreSimulacion,
     totalInicial: totalInicial,
     financiacionSolicitada: financiacionSolicitada,
-    costeTotalHipoteca: parseFloat(document.getElementById('coste-total-hipoteca').textContent) || 0,
-    cuotaEstimada: parseFloat(document.getElementById('cuota-estimada').textContent) || 0,
-    cuotaTotal: parseFloat(document.getElementById('cuota-total').textContent) || 0,
+    costeTotalHipoteca: parseUserInput(document.getElementById('coste-total-hipoteca').textContent) || 0,
+    cuotaEstimada: parseUserInput(document.getElementById('cuota-estimada').textContent) || 0,
+    cuotaTotal: parseUserInput(document.getElementById('cuota-total').textContent) || 0,
     cuotaCapitalSuperaInteres: cuotaCapitalSuperaInteres || 'N/A',
-    precioInmueble: parseFloat(document.getElementById('precio-propiedad').value) || 0,
-    porcentajeFinanciado: parseFloat(document.getElementById('porcentaje-financiado').textContent) || 0,
+    precioInmueble: parseUserInput(document.getElementById('precio-propiedad').value) || 0,
+    porcentajeFinanciado: porcentajeFinanciado,
     aportacionInicial: aportacionInicial,
     fecha: new Date().toLocaleString()
   };
@@ -833,9 +852,9 @@ function setupCalculadoraEndeudamiento() {
 
 // Función para calcular la capacidad de endeudamiento
 function calcularEndeudamiento() {
-  const ingresosNetos = parseFloat(document.getElementById('ingresos-netos').value) || 0;
-  const tasaEndeudamiento = parseFloat(document.getElementById('tasa-endeudamiento').value) || 0;
-  const tin = parseFloat(document.getElementById('tin-endeudamiento').value) || 0;
+  const ingresosNetos = parseUserInput(document.getElementById('ingresos-netos').value) || 0;
+  const tasaEndeudamiento = parseUserInput(document.getElementById('tasa-endeudamiento').value) || 0;
+  const tin = parseUserInput(document.getElementById('tin-endeudamiento').value) || 0;
   const plazo = parseInt(document.getElementById('plazo-endeudamiento').value) || 0;
 
   if (ingresosNetos === 0 || tasaEndeudamiento === 0 || tin === 0 || plazo === 0) {
@@ -852,8 +871,8 @@ function calcularEndeudamiento() {
   const importeMaximoFinanciable = cuotaMensualMaxima * (1 - Math.pow(1 + interesMensual, -numeroCuotas)) / interesMensual;
 
   // Mostrar los resultados
-  document.getElementById('cuota-mensual-maxima').textContent = cuotaMensualMaxima.toFixed(2);
-  document.getElementById('importe-maximo-financiable').textContent = importeMaximoFinanciable.toFixed(2);
+  document.getElementById('cuota-mensual-maxima').textContent = formatNumber(cuotaMensualMaxima);
+  document.getElementById('importe-maximo-financiable').textContent = formatNumber(importeMaximoFinanciable);
 
   // Mostrar la sección de resultados
   document.getElementById('resultados-endeudamiento').classList.add('active');
@@ -867,12 +886,12 @@ function guardarSimulacionCapacidadEndeudamiento() {
     return;
   }
 
-  const ingresosNetos = parseFloat(document.getElementById('ingresos-netos').value) || 0;
-  const tasaEndeudamiento = parseFloat(document.getElementById('tasa-endeudamiento').value) || 0;
-  const tin = parseFloat(document.getElementById('tin-endeudamiento').value) || 0;
+  const ingresosNetos = parseUserInput(document.getElementById('ingresos-netos').value) || 0;
+  const tasaEndeudamiento = parseUserInput(document.getElementById('tasa-endeudamiento').value) || 0;
+  const tin = parseUserInput(document.getElementById('tin-endeudamiento').value) || 0;
   const plazo = parseInt(document.getElementById('plazo-endeudamiento').value) || 0;
-  const cuotaMensualMaxima = parseFloat(document.getElementById('cuota-mensual-maxima').textContent) || 0;
-  const capacidadDeEndeudamiento = parseFloat(document.getElementById('importe-maximo-financiable').textContent) || 0;
+  const cuotaMensualMaxima = parseFormattedNumber(document.getElementById('cuota-mensual-maxima').textContent) || 0;
+  const capacidadDeEndeudamiento = parseFormattedNumber(document.getElementById('importe-maximo-financiable').textContent) || 0;
 
   const simulacion = {
     nombre: nombreSimulacion,
@@ -940,35 +959,35 @@ function listarSimulacionesGuardadas() {
             detallesDiv.appendChild(tipoHipoteca);
 
             const pPrecioInmueble = document.createElement('p');
-            pPrecioInmueble.innerHTML = `<strong>Precio del inmueble (€):</strong> €${simulacion.precioInmueble ? simulacion.precioInmueble.toFixed(2) : '0.00'}`;
+            pPrecioInmueble.innerHTML = `<strong>Precio del inmueble (€):</strong> €${simulacion.precioInmueble ? formatNumber(simulacion.precioInmueble) : '0,00'}`;
             detallesDiv.appendChild(pPrecioInmueble);
 
             const pTotalInicial = document.createElement('p');
-            pTotalInicial.innerHTML = `<strong>Coste total sujeto a financiación (€):</strong> €${simulacion.totalInicial.toFixed(2)}`;
+            pTotalInicial.innerHTML = `<strong>Coste total sujeto a financiación (€):</strong> €${simulacion.totalInicial ? formatNumber(simulacion.totalInicial) : '0,00'}`;
             detallesDiv.appendChild(pTotalInicial);
 
             const pEntrada = document.createElement('p');
-            pEntrada.innerHTML = `<strong>Aportación inicial (€):</strong> €${simulacion.aportacionInicial.toFixed(2)}`;
+            pEntrada.innerHTML = `<strong>Aportación inicial (€):</strong> €${simulacion.aportacionInicial ? formatNumber(simulacion.aportacionInicial) : '0,00'}`;
             detallesDiv.appendChild(pEntrada);
 
             const pFinanciacionSolicitada = document.createElement('p');
-            pFinanciacionSolicitada.innerHTML = `<strong>Financiación solicitada (€):</strong> €${simulacion.financiacionSolicitada.toFixed(2)}`;
+            pFinanciacionSolicitada.innerHTML = `<strong>Financiación solicitada (€):</strong> €${simulacion.financiacionSolicitada ? formatNumber(simulacion.financiacionSolicitada) : '0,00'}`;
             detallesDiv.appendChild(pFinanciacionSolicitada);
 
             const pPorcentajeFinanciado = document.createElement('p');
-            pPorcentajeFinanciado.innerHTML = `<strong>Porcentaje del coste total de la inversión financiado (%):</strong> ${simulacion.porcentajeFinanciado ? simulacion.porcentajeFinanciado.toFixed(2) : '0.00'}%`;
+            pPorcentajeFinanciado.innerHTML =  `<strong>Porcentaje del coste total de la inversión financiado (%):</strong> ${simulacion.porcentajeFinanciado ? formatPercentage(simulacion.porcentajeFinanciado) : '0,00'}`;
             detallesDiv.appendChild(pPorcentajeFinanciado);
 
             const pCuotaEstimada = document.createElement('p');
-            pCuotaEstimada.innerHTML = `<strong>Cuota mensual sin seguros ni productos vinculados (€):</strong> €${simulacion.cuotaEstimada.toFixed(2)}`;
+            pCuotaEstimada.innerHTML = `<strong>Cuota mensual sin seguros ni productos vinculados (€):</strong> €${simulacion.cuotaEstimada ? formatNumber(simulacion.cuotaEstimada) : '0,00'}`;
             detallesDiv.appendChild(pCuotaEstimada);
 
             const pCuotaTotal = document.createElement('p');
-            pCuotaTotal.innerHTML = `<strong>Cuota mensual con seguros y productos vinculados (€):</strong> €${simulacion.cuotaTotal.toFixed(2)}`;
+            pCuotaTotal.innerHTML = `<strong>Cuota mensual con seguros y productos vinculados (€):</strong> €${simulacion.cuotaTotal ? formatNumber(simulacion.cuotaTotal) : '0,00'}`;
             detallesDiv.appendChild(pCuotaTotal);
 
             const pCosteTotalHipoteca = document.createElement('p');
-            pCosteTotalHipoteca.innerHTML = `<strong>Coste total de la hipoteca (€):</strong> €${simulacion.costeTotalHipoteca.toFixed(2)}`;
+            pCosteTotalHipoteca.innerHTML = `<strong>Coste total de la hipoteca (€):</strong> €${simulacion.costeTotalHipoteca ? formatNumber(simulacion.costeTotalHipoteca) : '0,00'}`;
             detallesDiv.appendChild(pCosteTotalHipoteca);
 
             const pCuotaCapital = document.createElement('p');
@@ -984,23 +1003,23 @@ function listarSimulacionesGuardadas() {
             detallesDiv.appendChild(tipoEndeudamiento);
 
             const pCapacidadEndeudamiento = document.createElement('p');
-            pCapacidadEndeudamiento.innerHTML = `<strong>Financiación máxima (€):</strong> €${simulacion.capacidadDeEndeudamiento.toFixed(2)}`;
+            pCapacidadEndeudamiento.innerHTML = `<strong>Financiación máxima (€):</strong> €${simulacion.capacidadDeEndeudamiento ? formatNumber(simulacion.capacidadDeEndeudamiento) : '0,00'}`;
             detallesDiv.appendChild(pCapacidadEndeudamiento);
 
             const pCuotaMensualMaxima = document.createElement('p');
-            pCuotaMensualMaxima.innerHTML = `<strong>Cuota mensual máxima (€):</strong> €${simulacion.cuotaMensualMaxima.toFixed(2)}`;
+            pCuotaMensualMaxima.innerHTML = `<strong>Cuota mensual máxima (€):</strong> €${simulacion.cuotaMensualMaxima ? formatNumber(simulacion.cuotaMensualMaxima) : '0,00'}`;
             detallesDiv.appendChild(pCuotaMensualMaxima);
 
             const pIngresosNetos = document.createElement('p');
-            pIngresosNetos.innerHTML = `<strong>Ingresos netos mensuales (€):</strong> €${simulacion.ingresosNetos.toFixed(2)}`;
+            pIngresosNetos.innerHTML = `<strong>Ingresos netos mensuales (€):</strong> €${simulacion.ingresosNetos ? formatNumber(simulacion.ingresosNetos) : '0,00'}`;
             detallesDiv.appendChild(pIngresosNetos);
 
             const pTasaEndeudamiento = document.createElement('p');
-            pTasaEndeudamiento.innerHTML = `<strong>Tasa de endeudamiento (%):</strong> ${simulacion.tasaEndeudamiento.toFixed(2)}%`;
+            pTasaEndeudamiento.innerHTML = `<strong>Tasa de endeudamiento (%):</strong> ${simulacion.tasaEndeudamiento ? formatPercentage(simulacion.tasaEndeudamiento) : '0,00%'}`;
             detallesDiv.appendChild(pTasaEndeudamiento);
 
             const pTipoInteres = document.createElement('p');
-            pTipoInteres.innerHTML = `<strong>Tipo de interés (TIN) (%):</strong> ${simulacion.tipoInteres.toFixed(2)}%`;
+            pTipoInteres.innerHTML = `<strong>Tipo de interés (TIN) (%):</strong> ${simulacion.tipoInteres ? formatPercentage(simulacion.tipoInteres) : '0,00%'}`;
             detallesDiv.appendChild(pTipoInteres);
 
             const pPlazo = document.createElement('p');
@@ -1216,7 +1235,7 @@ function mostrarComparacion(simulaciones) {
             celdaValor.textContent = valor !== 'N/A' ? `Mes ${valor}` : 'N/A';
           } else if (typeof valor === 'number') {
             // Agregar unidades de euros para campos numéricos excepto 'cuotaCapitalSuperaInteres'
-            celdaValor.textContent = `€${valor.toFixed(2)}`;
+            celdaValor.textContent = `€${formatNumber(valor)}`;
           } else {
             celdaValor.textContent = valor;
           }
@@ -1252,9 +1271,9 @@ function mostrarComparacion(simulaciones) {
 
         if (valor !== undefined && valor !== null) {
           if (prop.esEuro) {
-            celdaValor.textContent = `€${valor.toFixed(2)}`;
+            celdaValor.textContent = `€${formatNumber(valor)}`
           } else if (prop.esPorcentaje) {
-            celdaValor.textContent = `${valor.toFixed(2)}%`;
+            celdaValor.textContent = formatPercentage(valor);
           } else if (prop.esAnios) {
             celdaValor.textContent = `${valor} años`;
           } else {
@@ -1380,4 +1399,3 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
-
