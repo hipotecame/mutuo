@@ -1,7 +1,7 @@
-/* Importar Montserrat */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+/* Importar Montserrat y Lato */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap');
 
-/* Variables de Colores */
+/* Variables de Colores y Fuentes */
 :root {
     --color-fondo: #000000;
     --color-barra: #1C1C1E;
@@ -15,7 +15,8 @@
     --color-acento-texto: transparent;
     --color-acento-fill: #FFFFFF;
     --color-shadow: rgba(0, 0, 0, 0.3);
-    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-family-titulo: 'Montserrat', sans-serif;
+    --font-family-texto: 'Lato', sans-serif;
 }
 
 /* Reset básico */
@@ -27,13 +28,18 @@
 
 /* Tipografía y colores */
 body {
-    font-family: var(--font-family);
+    font-family: var(--font-family-texto);
     background-color: var(--color-fondo);
     color: var(--color-texto);
     line-height: 1.5;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+/* Títulos y encabezados */
+h1, h2, h3, h4, h5, h6, .titulo, .guia-title, .categoria-title {
+    font-family: var(--font-family-titulo);
 }
 
 /* Barra Superior */
@@ -46,28 +52,28 @@ body {
     border-bottom: 2px solid var(--color-borde);
     position: sticky;
     top: 0;
-    z-index: 1000; /* Asegura que la barra superior esté por encima de otros elementos */
+    z-index: 1000;
 }
 
 .top-bar-content {
     display: flex;
     align-items: center;
-    /* Ocupa el espacio necesario sin afectar el centrado */ 
 }
 
 .top-bar .app-name {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-family-titulo);
     font-size: 2.2em;
     font-weight: 700;
     margin: 0;
-    color: #FFA500; /* Naranja atractivo */
-    text-transform: uppercase; /* Para un estilo moderno */
-    letter-spacing: 1px; /* Espaciado entre letras */
+    color: #FFA500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
+
 .experiment-label {
     display: inline-flex;
     align-items: center;
-    font-family: 'Lato', sans-serif;
+    font-family: var(--font-family-texto);
     padding: 3px 9px;
     font-size: 1rem;
     font-weight: 400;
@@ -80,8 +86,8 @@ body {
 /* Contenedor para centrar la barra de navegación */
 .navbar-container {
     display: flex;
-    justify-content: center; /* Centra la barra de navegación */
-    padding: 0 320px; /* Ajusta los espacios laterales si es necesario */
+    justify-content: center;
+    padding: 0 320px;
 }
 
 .navbar {
@@ -99,21 +105,22 @@ body {
 
 .nav-tab {
     display: flex;
-    flex-direction: column; /* Apilar icono y texto verticalmente */
-    align-items: center;    /* Centrar horizontalmente */
-    justify-content: center; /* Centrar verticalmente */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 15px 20px;
     cursor: pointer;
     font-size: 12px;
     color: var(--color-texto);
     transition: all 0.3s ease;
     border-bottom: 2px solid transparent;
+    font-family: var(--font-family-texto);
 }
 
 .nav-tab i {
-    font-size: 20px;      /* Tamaño del icono */
-    margin-bottom: 5px;   /* Espacio entre el icono y el texto */
-    margin-right: 0;      /* Eliminar margen derecho */
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-right: 0;
 }
 
 .nav-tab.active {
@@ -123,12 +130,13 @@ body {
 
 /* Estilo para el mensaje de bienvenida */
 .welcome-message {
-    font-size: 1.3rem; /* Tamaño un poco mayor */
+    font-size: 1.3rem;
     text-align: center;
     margin-bottom: 25px;
-    color: #8A8A8D; /* Un gris ligeramente más elegante */
-    line-height: 1.6; /* Mejor separación entre líneas */
-    letter-spacing: 0.5px; /* Espaciado más claro */
+    color: #8A8A8D;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+    font-family: var(--font-family-texto);
 }
 
 .highlight-letter {
@@ -156,6 +164,7 @@ body {
     margin-bottom: 25px;
     color: var(--color-texto-secundario);
     line-height: 1.5;
+    font-family: var(--font-family-texto);
 }
 
 /* Estilo para la nota de advertencia */
@@ -165,6 +174,7 @@ body {
     text-align: center;
     margin-top: 20px;
     line-height: 1.4;
+    font-family: var(--font-family-texto);
 }
 
 /* Barra de navegación secundaria */
@@ -172,18 +182,19 @@ body {
     background-color: #242427;
     display: flex;
     justify-content: center;
-    padding: 5px 0; /* Aumentamos el padding para aumentar el tamaño */
-    gap: 10px; /* Aumentamos el espacio entre pestañas */
+    padding: 5px 0;
+    gap: 10px;
     position: fixed;
     width: 100%;
-    top: calc(80px); /* Ajustamos la posición para que quede debajo de la barra superior */
-    z-index: 999; /* Asegura que esté debajo de la barra superior pero encima del contenido */
+    top: calc(80px);
+    z-index: 999;
 }
 
 #secondary-nav .nav-tab {
     padding: 10px 20px;
-    font-size: 14px; /* Aumentamos el tamaño de la fuente */
+    font-size: 14px;
     border-bottom: 2px solid transparent;
+    font-family: var(--font-family-texto);
 }
 
 #secondary-nav .nav-tab.active {
@@ -191,7 +202,7 @@ body {
     border-bottom: 2px solid #005AFF;
 }
 
-/* Main content */
+/* Contenido principal */
 main {
     flex: 1;
     padding: 40px 20px;
@@ -234,6 +245,7 @@ main {
     color: var(--color-texto);
     border-bottom: 1px solid var(--color-borde);
     padding-bottom: 15px;
+    font-family: var(--font-family-titulo);
 }
 
 .section-container h3 {
@@ -242,6 +254,7 @@ main {
     margin-top: 15px;
     margin-bottom: 15px;
     color: var(--color-texto);
+    font-family: var(--font-family-titulo);
 }
 
 /* Formulario */
@@ -273,6 +286,7 @@ form {
     font-weight: 600;
     margin-bottom: 8px;
     color: var(--color-texto-secundario);
+    font-family: var(--font-family-texto);
 }
 
 .form-group input,
@@ -285,6 +299,7 @@ form {
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--color-texto);
     appearance: none;
+    font-family: var(--font-family-texto);
 }
 
 .form-group input:focus,
@@ -306,37 +321,40 @@ form {
 .mensaje {
     margin-top: 10px;
     font-size: 0.9rem;
+    font-family: var(--font-family-texto);
 }
 
 .btn-recuperar {
-    background-color: #FFA500; /* Puedes ajustar este color según tu diseño */
+    background-color: #FFA500;
     color: white;
     padding: 12px;
     border: none;
     cursor: pointer;
     border-radius: 10px;
     transition: background-color 0.3s;
+    font-family: var(--font-family-texto);
 }
 
 .btn-recuperar:hover {
-    background-color: #FF8C00; /* Un tono más oscuro */
+    background-color: #FF8C00;
 }
 
 /* Estilo para bajar ligeramente el texto de "Olvidé mi contraseña" */
 .olvido-contrasena {
-    margin-top: 10px; /* Ajusta el valor según el espacio que desees */
-    text-align: center; /* Opcional, si quieres que esté centrado */
+    margin-top: 10px;
+    text-align: center;
 }
 
 .olvido-contrasena a {
-    color: #FFA500; /* El color que prefieras */
+    color: #FFA500;
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s ease;
+    font-family: var(--font-family-texto);
 }
 
 .olvido-contrasena a:hover {
-    color: #FF8C00; /* Color al pasar el ratón por encima */
+    color: #FF8C00;
 }
 
 .auth-container {
@@ -353,7 +371,7 @@ form {
 
 .auth-container h2 {
     font-size: 2rem;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-family-titulo);
     color: #FFFFFF;
     margin-bottom: 25px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -368,11 +386,29 @@ form {
     border-radius: 25px;
     padding: 15px 20px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     color: #444;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-family-texto);
+}
+
+.btn-continuar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #005AFF;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-family-texto);
 }
 
 .btn-google:hover {
@@ -398,7 +434,6 @@ form {
     }
 }
 
-
 /* Estilos para Entrada, Arras e IVA/ITP */
 .input-group {
     display: flex;
@@ -415,6 +450,7 @@ form {
     background-color: #2C2C2C;
     color: var(--color-texto);
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    font-family: var(--font-family-texto);
 }
 
 .input-group input:focus {
@@ -437,6 +473,7 @@ form {
     background-size: 12px;
     cursor: pointer;
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    font-family: var(--font-family-texto);
 }
 
 .input-group select:focus {
@@ -452,6 +489,7 @@ form {
     min-width: 80px;
     text-align: right;
     transition: color 0.3s ease;
+    font-family: var(--font-family-texto);
 }
 
 .input-group:hover .calculated-value {
@@ -480,14 +518,9 @@ form {
     margin-top: 5px;
     font-size: 0.85rem;
     color: var(--color-texto-secundario);
-    opacity: 0;
-    transform: translateY(-5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.form-group:hover .description {
     opacity: 1;
     transform: translateY(0);
+    font-family: var(--font-family-texto);
 }
 
 /* Total inicial */
@@ -499,6 +532,7 @@ form {
     padding-top: 25px;
     border-top: 1px solid var(--color-borde);
     transition: color 0.3s ease;
+    font-family: var(--font-family-texto);
 }
 
 .total-inicial:hover {
@@ -522,8 +556,8 @@ form {
 
 .resumen-icon {
     font-size: 1.8rem;
-    color: #FFA500; /* Ajusta el color del icono */
-    flex-shrink: 0; /* Evita que el icono cambie de tamaño */
+    color: #FFA500;
+    flex-shrink: 0;
 }
 
 .resumen-card:hover {
@@ -535,16 +569,17 @@ form {
     font-size: 1.1rem;
     color: var(--color-texto);
     margin: 0;
+    font-family: var(--font-family-texto);
 }
 
 .resumen-card strong {
     font-weight: bold;
     color: #FFFFFF;
+    font-family: var(--font-family-texto);
 }
 
 /* Estilos para la Calculadora de Capacidad de Endeudamiento */
 #calculadora-endeudamiento .section-container h2 {
-    font-size: 1.75rem;
     margin-bottom: 20px;
 }
 
@@ -552,6 +587,7 @@ form {
     font-size: 1.25rem;
     margin-bottom: 15px;
     color: var(--color-texto);
+    font-family: var(--font-family-texto);
 }
 
 #calculadora-endeudamiento .resultados-content p strong {
@@ -574,6 +610,7 @@ form {
     text-align: left;
     color: var(--color-texto);
     border-bottom: 1px solid var(--color-borde);
+    font-family: var(--font-family-texto);
 }
 
 .tabla-amortizacion th {
@@ -618,6 +655,7 @@ form {
 .leyenda-texto {
     color: var(--color-texto);
     font-size: 1rem;
+    font-family: var(--font-family-texto);
 }
 
 /* Simulaciones Guardadas */
@@ -647,11 +685,13 @@ form {
     margin-bottom: 12px;
     color: var(--color-texto);
     font-weight: 600;
+    font-family: var(--font-family-titulo);
 }
 
 .simulacion-details p {
     margin-bottom: 8px;
     color: var(--color-texto-secundario);
+    font-family: var(--font-family-texto);
 }
 
 /* Acciones en Simulaciones */
@@ -672,6 +712,7 @@ form {
     border-radius: 30px;
     color: #FFFFFF;
     background-color: var(--color-boton);
+    font-family: var(--font-family-texto);
 }
 
 .simulacion-actions button:hover {
@@ -711,12 +752,12 @@ button, .btn, .btn-login {
     cursor: pointer;
     font-size: 1rem;
     font-weight: 500;
-    font-size: 15px;
     border-radius: 30px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     color: #FFFFFF;
     background-color: black;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-family-texto);
 }
 
 button:hover, .btn:hover, .btn-login:hover {
@@ -738,7 +779,7 @@ button:active, .btn:active, .btn-login:hover {
     color: #FFFFFF;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem; /* Tamaño del ícono */
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -750,13 +791,13 @@ button:active, .btn:active, .btn-login:hover {
 }
 
 #user-button i {
-    font-size: 1.5rem; /* Asegúrate de que el ícono tenga el tamaño adecuado */
+    font-size: 1.5rem;
 }
 
 /* Estilos para el menú desplegable */
 #user-dropdown {
     position: absolute;
-    top: 50px; /* Ajusta según la altura de tu barra superior */
+    top: 50px;
     right: 18px;
     background-color: var(--color-barra);
     border: 1px solid var(--color-borde);
@@ -778,6 +819,7 @@ button:active, .btn:active, .btn-login:hover {
     text-decoration: none;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+    font-family: var(--font-family-texto);
 }
 
 #user-dropdown a:hover {
@@ -785,13 +827,13 @@ button:active, .btn:active, .btn-login:hover {
 }
 
 .navigation-buttons {
-    margin-top: 20px; /* Añade un margen superior */
+    margin-top: 20px;
     display: flex;
-    justify-content: space-between; /* Coloca los botones a los extremos */
+    justify-content: space-between;
 }
 
 .navigation-buttons .btn {
-    margin: 0 10px; /* Espaciado lateral entre los botones */
+    margin: 0 10px;
 }
 
 /* Estilos para la sección de Recursos */
@@ -800,92 +842,137 @@ button:active, .btn:active, .btn-login:hover {
     margin: 0 auto;
 }
 
+/* Lista de recursos */
 .recursos-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
+/* Estilo de los recursos */
 .recurso-item {
-    background-color: var(--color-seccion);
+    background-color: var(--color-barra);
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    margin-bottom: 30px;
 }
 
 .recurso-item:hover {
-    box-shadow: 0 4px 15px var(--color-shadow);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--color-shadow);
 }
 
 .recurso-title {
-    background-color: var(--color-barra);
-    color: var(--color-texto);
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.recurso-title:hover {
-    background-color: var(--color-boton-hover);
-    transform: translateY(-2px);
-}
-
-.recurso-title:active {
-    background-color: var(--color-boton-activo);
-    transform: translateY(0);
+    cursor: pointer;
+    padding: 25px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    margin: 0;
+    font-family: var(--font-family-titulo);
+    position: relative;
 }
 
 .recurso-title::after {
-    content: '\25BC';
-    font-size: 0.8em;
+    content: '+';
+    font-size: 1.8rem;
+    color: var(--color-texto-secundario);
+    margin-left: auto;
     transition: transform 0.3s ease;
 }
 
 .recurso-item.active .recurso-title::after {
-    transform: rotate(-180deg);
+    content: '-';
 }
 
 .recurso-content {
-    padding: 0 20px;
+    background-color: var(--color-seccion);
+    font-size: 1.1rem;
+    color: var(--color-texto-secundario);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease, padding 0.5s ease;
+    padding: 0 25px;
+    font-family: var(--font-family-texto);
 }
 
 .recurso-item.active .recurso-content {
-    padding: 20px;
-    max-height: None; /* Ajusta este valor según sea necesario */
+    max-height: 5000px;
+    padding: 25px;
 }
 
-.recurso-content p, .recurso-content ul {
-    margin-bottom: 15px;
+.recurso-content p,
+.recurso-content ul,
+.recurso-content li {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: var(--color-texto-secundario);
+    margin-bottom: 20px;
 }
 
 .recurso-content ul {
-    list-style-type: disc;
-    padding-left: 20px;
+    padding-left: 30px;
+    margin-bottom: 20px;
 }
 
 .recurso-content li {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
-/* Estilo para el contenido cuando está expandido */
-.recurso-item.active .recurso-content {
-    background-color: var(--color-seccion);
-    border-top: 1px solid var(--color-borde);
+.recurso-content a {
+    color: var(--color-boton);
+    text-decoration: underline;
+}
+
+.recurso-content a:hover {
+    color: var(--color-boton-hover);
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+    .recurso-title {
+        padding: 20px;
+        font-size: 1.4rem;
+    }
+
+    .recurso-content {
+        font-size: 1rem;
+        padding: 20px;
+    }
+
+    .recurso-content p,
+    .recurso-content ul,
+    .recurso-content li {
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+}
+
+/* Título de categoría */
+.categoria-title {
+    font-family: var(--font-family-titulo);
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--color-texto);
+    background-color: #005AFF;
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px var(--color-shadow);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Contenedor principal de las tarjetas */
 #guia .guia-content {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 25px;
 }
 
 /* Estilo de las tarjetas */
@@ -903,18 +990,17 @@ button:active, .btn:active, .btn-login:hover {
     box-shadow: 0 8px 15px var(--color-shadow);
 }
 
-/* Encabezado de la tarjeta */
 .guia-card-header {
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 15px;
+    padding: 20px;
 }
 
 .step-number {
     background-color: #000000;
     color: #FFFFFF;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     width: 50px;
     height: 50px;
@@ -922,67 +1008,98 @@ button:active, .btn:active, .btn-login:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 15px;
+    margin-right: 20px;
     flex-shrink: 0;
 }
 
 .guia-title {
     flex-grow: 1;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
+    font-family: var(--font-family-titulo);
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-texto);
     margin: 0;
 }
 
-/* Icono de toggle */
 .guia-toggle-icon {
     font-size: 1.5rem;
     color: var(--color-texto-secundario);
     transition: transform 0.3s ease;
 }
 
-/* Rotar el icono cuando la tarjeta está activa */
 .guia-card.active .guia-toggle-icon {
     transform: rotate(45deg);
 }
 
-/* Detalles de la tarjeta */
 .guia-details {
     background-color: var(--color-seccion);
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--color-texto-secundario);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease;
+    font-family: var(--font-family-texto);
 }
 
 .guia-card.active .guia-details {
-    max-height: 3000px; /* Ajusta según el contenido */
-    padding: 15px;
+    max-height: 5000px;
+    padding: 20px;
 }
 
-/* Estilo de las subtarjetas */
 .subcards {
-    margin-top: 15px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
 
 .subcard {
-    background-color: #2C2C2E;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #333333;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--color-borde);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.subcard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .subcard h4 {
     margin-top: 0;
     color: var(--color-texto);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    font-family: var(--font-family-titulo);
 }
 
-.subcard p {
+.subcard p,
+.subcard ul,
+.subcard li {
     color: var(--color-texto-secundario);
+    line-height: 1.6;
+    font-size: 1rem;
+    font-family: var(--font-family-texto);
+}
+
+.subcard ul {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.subcard li {
+    margin-bottom: 8px;
+}
+
+.subcard a {
+    color: var(--color-boton);
+    text-decoration: underline;
+}
+
+.subcard a:hover {
+    color: var(--color-boton-hover);
 }
 
 /* Tarjetas deshabilitadas */
@@ -999,32 +1116,53 @@ button:active, .btn:active, .btn-login:hover {
     font-style: italic;
 }
 
-/* Evitar efecto hover en tarjetas deshabilitadas */
 .guia-card.coming-soon:hover {
     transform: none;
     box-shadow: none;
 }
 
-/* Estilos para los enlaces dentro de los detalles */
 .guia-details a {
     color: var(--color-boton);
     text-decoration: underline;
 }
 
+.guia-details a:hover {
+    color: var(--color-boton-hover);
+}
+
 /* Ajustes para dispositivos móviles */
 @media (max-width: 768px) {
-    .guia-card {
-        padding: 10px;
+    .guia-card-header {
+        padding: 15px;
     }
 
     .step-number {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         font-size: 1rem;
     }
 
     .guia-title {
-        font-size: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .guia-details {
+        font-size: 0.95rem;
+        padding: 15px;
+    }
+
+    .subcard {
+        padding: 15px;
+    }
+
+    .subcard h4 {
+        font-size: 1.1rem;
+    }
+
+    .subcard p,
+    .subcard ul,
+    .subcard li {
+        font-size: 0.95rem;
     }
 }
 
@@ -1383,7 +1521,7 @@ a:active {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: calc(7dvh); /* Altura relativa al viewport */
+        height: calc(8dvh); /* Altura relativa al viewport */
         z-index: 999;
         padding: 8px 15px;
         background-color: var(--color-barra);
@@ -1572,7 +1710,7 @@ a:active {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: calc(8dvh); /* Usando dvh para definir la altura */
+        height: calc(9dvh); /* Usando dvh para definir la altura */
         z-index: 999;
         padding: 10px;
         margin: 0;
